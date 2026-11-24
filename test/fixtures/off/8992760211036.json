@@ -1,0 +1,45 @@
+{
+ "brands": "Ritz",
+ "categories_tags": [
+  "en:snacks",
+  "en:salty-snacks",
+  "en:sweet-snacks",
+  "en:appetizers",
+  "en:biscuits-and-cakes",
+  "en:biscuits-and-crackers",
+  "en:biscuits",
+  "en:crackers-appetizers",
+  "en:plain-salty-snacks"
+ ],
+ "code": "8992760211036",
+ "image_front_small_url": "https://images.openfoodfacts.org/images/products/899/276/021/1036/front_en.27.200.jpg",
+ "packaging_materials_tags": [
+  "en:cardboard",
+  "en:composite-material"
+ ],
+ "packaging_recycling_tags": [],
+ "packaging_shapes_tags": [
+  "en:box",
+  "en:wrapper"
+ ],
+ "packagings": [
+  {
+   "material": "en:cardboard",
+   "number_of_units": 1,
+   "quantity_per_unit": "300g",
+   "quantity_per_unit_unit": "g",
+   "quantity_per_unit_value": 300,
+   "shape": "en:box"
+  },
+  {
+   "material": "en:composite-material",
+   "number_of_units": 3,
+   "quantity_per_unit": "100g",
+   "quantity_per_unit_unit": "g",
+   "quantity_per_unit_value": 100,
+   "shape": "en:wrapper"
+  }
+ ],
+ "packagings_complete": 1,
+ "product_name": "Ritz Crackers Box"
+}

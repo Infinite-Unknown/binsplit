@@ -1,0 +1,33 @@
+{
+ "brands": "Australia's own",
+ "categories_tags": [
+  "en:dairies",
+  "en:milks-liquid-and-powder",
+  "en:milks",
+  "en:skimmed-milks"
+ ],
+ "code": "9315090206968",
+ "image_front_small_url": "https://images.openfoodfacts.org/images/products/931/509/020/6968/front_en.28.200.jpg",
+ "packaging_materials_tags": [],
+ "packaging_recycling_tags": [
+  "en:check locally",
+  "en:leave attached"
+ ],
+ "packaging_shapes_tags": [
+  "en:bottle-cap",
+  "en:carton"
+ ],
+ "packagings": [
+  {
+   "number_of_units": 1,
+   "recycling": "en:check locally",
+   "shape": "en:carton"
+  },
+  {
+   "number_of_units": 1,
+   "recycling": "en:leave attached",
+   "shape": "en:bottle-cap"
+  }
+ ],
+ "product_name": "Skim Milk"
+}

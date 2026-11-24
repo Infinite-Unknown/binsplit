@@ -1,0 +1,52 @@
+{
+ "brands": "Ferrero, Nutella",
+ "categories_tags": [
+  "en:breakfasts",
+  "en:desserts",
+  "en:spreads",
+  "en:sweet-spreads",
+  "fr:pates-a-tartiner",
+  "en:chocolate-spreads",
+  "en:hazelnut-spreads",
+  "en:cocoa-and-hazelnuts-spreads",
+  "en:confectionary-based-spreads"
+ ],
+ "code": "3017620422003",
+ "image_front_small_url": "https://images.openfoodfacts.org/images/products/301/762/042/2003/front_en.879.200.jpg",
+ "packaging_materials_tags": [
+  "en:plastic"
+ ],
+ "packaging_recycling_tags": [
+  "en:recycle"
+ ],
+ "packaging_shapes_tags": [
+  "en:bottle",
+  "en:jar"
+ ],
+ "packaging_tags": [
+  "en:jar: clear glass (recycle)",
+  "en:lid: plastic (recycle in sorting bin)",
+  "en:pot: clear glass (recycle in glass bin)",
+  "en:seal: aluminium (recycle in sorting bin)"
+ ],
+ "packaging_text": "pot: clear glass (recycle in glass bin), lid: plastic (recycle in sorting bin), seal: aluminium (recycle in sorting bin), jar: clear glass (recycle)",
+ "packagings": [
+  {
+   "food_contact": 1,
+   "material": "en:plastic",
+   "number_of_units": 6,
+   "quantity_per_unit": "25 cl",
+   "quantity_per_unit_unit": "cl",
+   "quantity_per_unit_value": 25,
+   "recycling": "en:recycle",
+   "shape": "en:bottle",
+   "weight_measured": 10
+  },
+  {
+   "food_contact": 1,
+   "shape": "en:jar"
+  }
+ ],
+ "packagings_complete": 1,
+ "product_name": "Nutella"
+}

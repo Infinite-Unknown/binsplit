@@ -192,7 +192,8 @@ function needsAnswer(s: SortedPart): boolean {
 /** If every rule in the pack shares one preparation step, it is said once below the bins instead of on every piece. */
 function pieceLine(pk: RulePack, v: Extract<SortedPart['verdict'], { kind: 'rule' }>): string {
   const firsts = new Set(pk.rules.map((r) => r.prep[0]));
-  return firsts.size === 1 ? `Listed as: ${v.rule.sourceItem}` : (v.rule.prep[0] ?? '');
+  if (firsts.size > 1) return v.rule.prep[0] ?? '';
+  return v.rule.specificity === 'listed' ? `Named in the ${pk.region === 'Malaysia' ? 'SWCorp' : 'NEA'} list` : 'Matched by material, not named in the list';
 }
 
 function pieceHtml(s: SortedPart): string {
@@ -249,7 +250,7 @@ function binsHtml(sorted: SortedPart[], withPieces: boolean): string {
   return `
     <div class="bins-head">
       <h3>Where each part goes</h3>
-      <p>${esc(pk.name)}</p>
+      <p class="legend"><span><i class="conf conf--high"></i>Records agree</span><span><i class="conf conf--medium"></i>One record</span><span><i class="conf conf--low"></i>Check it</span></p>
     </div>
     <div class="bins" id="bins">
       ${cols
@@ -582,9 +583,11 @@ async function lookup(raw: string) {
     if (!validCheckDigit(code)) state.notes = ['The last digit does not match the rest, so the number may have a typo.'];
   } else {
     state.view = 'error';
-    state.message = navigator.onLine
-      ? 'Open Food Facts did not answer. Try again in a moment.'
-      : 'You are offline and this product has not been looked up on this device before.';
+    state.message = !navigator.onLine
+      ? 'You are offline and this product has not been looked up on this device before.'
+      : result.message.includes('429')
+        ? 'Open Food Facts is busy right now. Try again in a minute.'
+        : 'Open Food Facts did not answer. Try again in a moment.';
   }
   renderResultFrame(false);
   await splitIntoBins();

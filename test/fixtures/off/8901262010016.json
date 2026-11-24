@@ -1,0 +1,49 @@
+{
+ "brands": "Amul",
+ "categories_tags": [
+  "en:dairies",
+  "en:spreads",
+  "en:fats",
+  "en:spreadable-fats",
+  "en:animal-fats",
+  "en:dairy-spreads",
+  "en:milkfat",
+  "en:butters"
+ ],
+ "code": "8901262010016",
+ "image_front_small_url": "https://images.openfoodfacts.org/images/products/890/126/201/0016/front_en.53.200.jpg",
+ "packaging_materials_tags": [
+  "en:cardboard",
+  "en:paper",
+  "en:plastic"
+ ],
+ "packaging_recycling_tags": [
+  "en:recycle"
+ ],
+ "packaging_shapes_tags": [
+  "en:box",
+  "en:wrapper"
+ ],
+ "packaging_tags": [
+  "en:paper"
+ ],
+ "packaging_text": "1 cardboard box to recycle, 1 plastic wrapper to recycle",
+ "packagings": [
+  {
+   "material": "en:cardboard",
+   "number_of_units": "1",
+   "recycling": "en:recycle",
+   "shape": "en:box"
+  },
+  {
+   "material": "en:plastic",
+   "number_of_units": "1",
+   "recycling": "en:recycle",
+   "shape": "en:wrapper"
+  },
+  {
+   "material": "en:paper"
+  }
+ ],
+ "product_name": "Amul Pasteurized Butter"
+}

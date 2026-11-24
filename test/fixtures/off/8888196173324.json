@@ -1,0 +1,58 @@
+{
+ "brands": "Pokka",
+ "categories_tags": [
+  "en:beverages-and-beverages-preparations",
+  "en:plant-based-foods-and-beverages",
+  "en:beverages",
+  "en:hot-beverages",
+  "en:non-alcoholic-beverages",
+  "en:plant-based-beverages",
+  "en:soft-drinks",
+  "en:teas",
+  "en:green-or-white-teas",
+  "en:green-teas",
+  "en:still-soft-drinks",
+  "en:tea-based-beverages",
+  "en:still-soft-drink-with-tea-extract",
+  "en:still-soft-drink-with-tea-extract-flavoured-with-sugar"
+ ],
+ "code": "8888196173324",
+ "image_front_small_url": "https://images.openfoodfacts.org/images/products/888/819/617/3324/front_en.16.200.jpg",
+ "packaging_materials_tags": [
+  "en:pet-1-polyethylene-terephthalate",
+  "en:pp-5-polypropylene"
+ ],
+ "packaging_recycling_tags": [],
+ "packaging_shapes_tags": [
+  "en:bottle",
+  "en:bottle-cap"
+ ],
+ "packaging_tags": [
+  "en:pet-1-bottle",
+  "en:pp-5-cap"
+ ],
+ "packagings": [
+  {
+   "food_contact": 1,
+   "material": "en:pet-1-polyethylene-terephthalate",
+   "number_of_units": 1,
+   "quantity_per_unit": "500ml",
+   "quantity_per_unit_unit": "ml",
+   "quantity_per_unit_value": 500,
+   "shape": "en:bottle",
+   "weight_measured": 21.9
+  },
+  {
+   "food_contact": 1,
+   "material": "en:pp-5-polypropylene",
+   "number_of_units": 1,
+   "quantity_per_unit": "500ml",
+   "quantity_per_unit_unit": "ml",
+   "quantity_per_unit_value": 500,
+   "shape": "en:bottle-cap",
+   "weight_measured": 2
+  }
+ ],
+ "packagings_complete": 1,
+ "product_name": "Green Tea Jasmine"
+}

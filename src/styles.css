@@ -398,6 +398,11 @@ p {
   width: 100%;
   height: auto;
   position: relative;
+  /* soften the render's shadow-catcher edges into the sheet */
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 9%, #000 91%, transparent), linear-gradient(to bottom, #000 80%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(to right, transparent, #000 9%, #000 91%, transparent), linear-gradient(to bottom, #000 80%, transparent);
+  mask-composite: intersect;
 }
 .hero-art-caption {
   font-size: var(--t14);
@@ -558,7 +563,17 @@ p {
 }
 .bins-head p {
   font-size: var(--t14);
-  color: var(--ink-3);
+  color: var(--ink-2);
+}
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2) var(--s4);
+}
+.legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
 }
 .bins {
   margin-top: var(--s4);

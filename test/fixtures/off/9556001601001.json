@@ -1,0 +1,28 @@
+{
+ "brands": "Maggi",
+ "categories_tags": [
+  "en:condiments",
+  "en:sauces",
+  "en:hot-sauces",
+  "en:sweet-chili-sauces"
+ ],
+ "code": "9556001601001",
+ "image_front_small_url": "https://images.openfoodfacts.org/images/products/955/600/160/1001/front_en.45.200.jpg",
+ "packaging_materials_tags": [
+  "en:glass"
+ ],
+ "packaging_recycling_tags": [],
+ "packaging_shapes_tags": [],
+ "packaging_tags": [
+  "en:glass"
+ ],
+ "packaging_text": "",
+ "packagings": [
+  {
+   "food_contact": 1,
+   "material": "en:glass"
+  }
+ ],
+ "packagings_complete": 0,
+ "product_name": "Maggi chilli sauce 500g"
+}
