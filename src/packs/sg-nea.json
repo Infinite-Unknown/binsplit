@@ -504,7 +504,8 @@
       "materials": [
         "paper-composite"
       ],
-      "reason": "Apart from drink cartons and paper cups, the guide does not cover paper with plastic or foil layers."
+      "reason": "Apart from drink cartons and paper cups, the guide does not cover paper with plastic or foil layers.",
+      "source": "guide"
     },
     {
       "materials": [
@@ -514,20 +515,23 @@
         "sachet",
         "capsule"
       ],
-      "reason": "The guide does not say whether sachets, pouches or capsules can go in the blue bin."
+      "reason": "The guide does not say whether sachets, pouches or capsules can go in the blue bin.",
+      "source": "guide"
     },
     {
       "materials": [
         "biodegradable-plastic"
       ],
-      "reason": "The guide only covers biodegradable bags (S/N 43), not other biodegradable plastic items."
+      "reason": "The guide only covers biodegradable bags (S/N 43), not other biodegradable plastic items.",
+      "source": "guide"
     },
     {
       "materials": [
         "wood",
         "other"
       ],
-      "reason": "The guide does not cover this material as packaging."
+      "reason": "The guide does not cover this material as packaging.",
+      "source": "guide"
     }
   ]
 }

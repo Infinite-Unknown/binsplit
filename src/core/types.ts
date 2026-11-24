@@ -180,12 +180,12 @@ export interface RulePack {
   generalRules: Array<{ text: string; source: string; ref: string }>;
   rules: Rule[];
   /** Materials this pack's sources do not cover at all, with the reason. */
-  gaps: Array<{ materials: MaterialClass[]; shapes?: ShapeClass[]; reason: string }>;
+  gaps: Array<{ materials: MaterialClass[]; shapes?: ShapeClass[]; reason: string; /** The source that was checked and does not cover it. */ source?: string }>;
 }
 
 export type Verdict =
   | { kind: 'rule'; rule: Rule; bin: Bin }
-  | { kind: 'gap'; reason: string }
+  | { kind: 'gap'; reason: string; source?: string }
   | { kind: 'needs-input'; missing: Array<'shape' | 'material'> };
 
 export interface SortedPart {

@@ -34,9 +34,9 @@ function materialHits(pack: RulePack, material: MaterialClass, shape: ShapeClass
   for (const gap of pack.gaps) {
     if (!gap.materials.includes(material)) continue;
     if (gap.shapes) {
-      if (shape && gap.shapes.includes(shape)) hits.push({ level: 1, verdict: { kind: 'gap', reason: gap.reason } });
+      if (shape && gap.shapes.includes(shape)) hits.push({ level: 1, verdict: { kind: 'gap', reason: gap.reason, source: gap.source } });
     } else {
-      hits.push({ level: 2, verdict: { kind: 'gap', reason: gap.reason } });
+      hits.push({ level: 2, verdict: { kind: 'gap', reason: gap.reason, source: gap.source } });
     }
   }
   return hits;

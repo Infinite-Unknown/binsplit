@@ -31,6 +31,7 @@ describe('rule packs are well formed', () => {
         expect(r.prep.length, r.id).toBeGreaterThan(0);
       }
       for (const g of pack.generalRules) expect(pack.sources.some((s) => s.id === g.source)).toBe(true);
+      for (const g of pack.gaps) if (g.source) expect(pack.sources.some((s) => s.id === g.source), g.reason).toBe(true);
     });
     it(`${pack.id}: every source has an https URL and a fetch date`, () => {
       for (const s of pack.sources) {

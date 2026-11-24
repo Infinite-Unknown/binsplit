@@ -360,25 +360,29 @@
       "materials": [
         "plastic-foam"
       ],
-      "reason": "The SWCorp leaflet does not list polystyrene foam in any recyclable category."
+      "reason": "The SWCorp leaflet does not list polystyrene foam in any recyclable category.",
+      "source": "leaflet"
     },
     {
       "materials": [
         "plastic-metal-laminate"
       ],
-      "reason": "The SWCorp leaflet does not mention plastic packaging with a foil layer (such as crisp packets)."
+      "reason": "The SWCorp leaflet does not mention plastic packaging with a foil layer (such as crisp packets).",
+      "source": "leaflet"
     },
     {
       "materials": [
         "paper-composite"
       ],
-      "reason": "Apart from drink cartons, the SWCorp leaflet does not mention paper with plastic or foil layers."
+      "reason": "Apart from drink cartons, the SWCorp leaflet does not mention paper with plastic or foil layers.",
+      "source": "leaflet"
     },
     {
       "materials": [
         "biodegradable-plastic"
       ],
-      "reason": "The SWCorp leaflet does not mention biodegradable plastics."
+      "reason": "The SWCorp leaflet does not mention biodegradable plastics.",
+      "source": "leaflet"
     },
     {
       "materials": [
@@ -391,14 +395,16 @@
         "cutlery",
         "capsule"
       ],
-      "reason": "The SWCorp leaflet lists plastic bags, bottles, buckets and food containers, but not this kind of plastic item."
+      "reason": "The SWCorp leaflet lists plastic bags, bottles, buckets and food containers, but not this kind of plastic item.",
+      "source": "leaflet"
     },
     {
       "materials": [
         "wood",
         "other"
       ],
-      "reason": "The SWCorp leaflet does not give a category for this material."
+      "reason": "The SWCorp leaflet does not give a category for this material.",
+      "source": "leaflet"
     }
   ]
 }

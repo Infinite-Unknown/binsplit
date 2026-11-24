@@ -563,7 +563,7 @@ function openSheet(partId: string) {
   } else {
     answer = `<div class="answer" style="--tone: var(--signal)"><span class="swatch"></span><h2 id="sheet-title">Needs your answer</h2></div>`;
   }
-  const src = v.kind === 'rule' ? pk.sources.find((x) => x.id === v.rule.source) : undefined;
+  const src = v.kind === 'rule' ? pk.sources.find((x) => x.id === v.rule.source) : v.kind === 'gap' && v.source ? pk.sources.find((x) => x.id === v.source) : undefined;
   const conflict = part.alternatives?.length && part.confidence === 'low';
   const evidence = part.evidence
     .map((e) => `<li><span class="muted">${esc(EVIDENCE_LABELS[e.source])}</span><code>${esc(e.raw)}</code></li>`)
@@ -583,7 +583,7 @@ function openSheet(partId: string) {
              <p class="source">${v.rule.specificity === 'listed' ? 'Named in the source.' : 'Matched by material: the source lists this material category, not this exact item.'}
              <a href="${esc(src!.url)}" target="_blank" rel="noopener">${esc(src!.publisher)} ${ICON_LINK}</a>, ${esc(v.rule.ref)}. Fetched ${esc(src!.fetched)}.</p></section>`
           : v.kind === 'gap'
-            ? `<section><h4>Why there is no answer</h4><p>${esc(v.reason)}</p><p class="source">BinSplit only gives bins that an official source states. Ask your waste collector about this part.</p></section>`
+            ? `<section><h4>Why there is no answer</h4><p>${esc(v.reason)}</p><p class="source">BinSplit only gives bins that an official source states. Ask your waste collector about this part.</p>${src ? `<p class="source">Checked against <a href="${esc(src.url)}" target="_blank" rel="noopener">${esc(src.publisher)} ${ICON_LINK}</a>, ${esc(src.title)}. Fetched ${esc(src.fetched)}.</p>` : ''}</section>`
             : `<section><h4>What we need</h4><p>The record does not say the ${esc(v.missing.join(' or '))} of this part. Set it below and it is sorted at once.</p></section>`
       }
       ${conflict ? `<section><h4>The records disagree</h4><div class="chips">${[...new Set(part.alternatives!.map((a) => a.material))].map((m) => `<button type="button" class="chip" data-resolve="${part.id}" data-material="${m}">It is ${esc(MATERIAL_LABELS[m].toLowerCase())}</button>`).join('')}</div></section>` : ''}
