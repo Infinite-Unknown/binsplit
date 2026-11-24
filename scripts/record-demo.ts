@@ -14,8 +14,8 @@ import { dirname, join } from 'node:path';
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const base = process.argv[2] ?? 'http://127.0.0.1:5181/';
 const work = join(root, '.cache/demo');
-const W = 1280;
-const H = 720;
+const W = 1600;
+const H = 900;
 rmSync(work, { recursive: true, force: true });
 mkdirSync(work, { recursive: true });
 
@@ -64,6 +64,21 @@ async function lookup(page: Page, code: string) {
   throw new Error(`lookup ${code} kept failing`);
 }
 
+/** Open the app on a product, retrying while Open Food Facts is busy. */
+async function openCode(page: Page, code: string) {
+  for (let attempt = 0; attempt < 8; attempt++) {
+    await page.goto(`${base}?area=my-act672&code=${code}`);
+    const ok = await page
+      .locator('#stage-body .bin .piece')
+      .first()
+      .waitFor({ timeout: 25000 })
+      .then(() => true, () => false);
+    if (ok) return;
+    await wait(page, 20000);
+  }
+  throw new Error(`could not open ${code}`);
+}
+
 const scenes: Scene[] = [
   {
     id: '00-title',
@@ -72,7 +87,7 @@ const scenes: Scene[] = [
   },
   {
     id: '01-cold-open',
-    caption: 'A real jar of Nutella, looked up live in Open Food Facts',
+    caption: 'A real jar of Nutella, with its product data from Open Food Facts',
     vo:
       'This is a jar of Nutella. BinSplit looks up its packaging, splits it into parts, and sorts each part under the Malaysian rules from S W Corp. ' +
       'Here the records disagree: one lists six plastic bottles, the packaging text does not. So BinSplit asks, instead of guessing.',
@@ -104,8 +119,7 @@ const scenes: Scene[] = [
       'A bottle of green tea: the bottle and the cap both go to Plastics. Butter: the box goes to Papers, the film wrapper to Plastics. ' +
       'Instant noodles: the foil-lined wrapper is not in S W Corp\'s list, and BinSplit says so rather than guess.',
     run: async (page) => {
-      await page.goto(base + '?area=my-act672&code=8888196173324');
-      await page.locator('#stage-body .bin .piece').first().waitFor({ timeout: 30000 });
+      await openCode(page, '8888196173324');
       await caption(page, 'Green tea: bottle and cap go to Plastics (Plastik)');
       await wait(page, 5500);
       await lookup(page, '8901262010016');
@@ -123,8 +137,7 @@ const scenes: Scene[] = [
       "Switch to Singapore, and the same parts re-sort under NEA's rules: the foil-lined wrapper is general waste there. " +
       'Tap any part to see the rule, and the official source it comes from.',
     run: async (page) => {
-      await page.goto(base + '?area=my-act672&code=8801073113312');
-      await page.locator('#stage-body .bin .piece').first().waitFor({ timeout: 30000 });
+      await openCode(page, '8801073113312');
       await wait(page, 2600);
       await page.getByRole('button', { name: /Singapore/ }).click();
       await wait(page, 3200);
@@ -166,12 +179,27 @@ const scenes: Scene[] = [
       'Many products have no packaging data yet, which is why the two-tap path exists.',
   },
   {
+    id: '06b-about',
+    caption: 'The About screen: measured coverage and every source',
+    vo:
+      'Of the products that do have packaging data, about three in four get a bin for at least one part, and half get every part sorted. ' +
+      'The About screen shows these numbers and lists every official source.',
+    run: async (page) => {
+      await openCode(page, '8888196173324');
+      await wait(page, 1500);
+      await page.getByRole('button', { name: 'About' }).click();
+      await page.locator('.big-figure').waitFor();
+      await wait(page, 5000);
+      await page.locator('#sheet .sheet').evaluate((el) => el.scrollBy({ top: 520, behavior: 'smooth' }));
+      await wait(page, 4000);
+    },
+  },
+  {
     id: '07-offline',
     caption: 'Offline: products you have looked up still work',
     vo: 'No account, no server, no key. It is a static site, and products you have already looked up keep working offline.',
     run: async (page) => {
-      await page.goto(base + '?area=my-act672&code=3017620422003');
-      await page.locator('#stage-body .bin .piece').first().waitFor({ timeout: 30000 });
+      await openCode(page, '3017620422003');
       await wait(page, 1500);
       await page.context().setOffline(true);
       await page.locator('[data-home]').click();
@@ -203,6 +231,32 @@ const duration = (file: string) =>
 
 const browser: Browser = await chromium.launch({ args: ['--use-mock-keychain', '--password-store=basic'] });
 let storage: Awaited<ReturnType<BrowserContext['storageState']>> | undefined;
+
+// Warm-up (not recorded): look every demo product up once through the app, so a busy
+// Open Food Facts API (HTTP 429) cannot stall the recording. The app keeps each
+// lookup on the device, exactly as it does for a user; the recorded scenes then read it.
+{
+  const ctx = await browser.newContext();
+  const page = await ctx.newPage();
+  for (const code of ['3017620422003', '8888196173324', '8901262010016', '8801073113312', '5449000000996', '9556231110045']) {
+    for (let attempt = 0; ; attempt++) {
+      await page.goto(`${base}?area=my-act672&code=${code}`);
+      const ok = await page
+        .locator('#stage-body .bin, #stage-body .panel')
+        .first()
+        .waitFor({ timeout: 25000 })
+        .then(() => true, () => false);
+      const busy = await page.locator('.panel h3', { hasText: /busy|did not answer/ }).count();
+      if (ok && !busy) break;
+      if (attempt >= 10) throw new Error(`warm-up: ${code} kept failing`);
+      console.log(`warm-up: ${code} busy, waiting`);
+      await wait(page, 30000);
+    }
+  }
+  storage = await ctx.storageState();
+  await ctx.close();
+  console.log('warm-up done');
+}
 const segments: string[] = [];
 
 for (const scene of scenes) {
@@ -220,14 +274,14 @@ for (const scene of scenes) {
     await page.goto(`${base}scripts/video/card.html?card=${scene.card}`);
     await page.locator('#card > *').first().waitFor();
     start = (Date.now() - t0) / 1000;
-    await wait(page, Math.ceil(voLen * 1000) + 900);
+    await wait(page, Math.ceil(voLen * 1000) + 1500);
   } else {
     start = (Date.now() - t0) / 1000;
     const sceneStart = Date.now();
     await scene.run!(page);
     if (scene.caption && !(await page.locator('#demo-caption').count())) await caption(page, scene.caption);
     const spent = (Date.now() - sceneStart) / 1000;
-    if (spent < voLen + 0.8) await wait(page, Math.ceil((voLen + 0.8 - spent) * 1000));
+    if (spent < voLen + 2.2) await wait(page, Math.ceil((voLen + 2.2 - spent) * 1000));
   }
   storage = await ctx.storageState();
   await ctx.close();

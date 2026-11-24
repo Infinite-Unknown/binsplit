@@ -77,7 +77,9 @@ Other scripts:
 ```sh
 npm run taxonomy                 # rebuild src/data/taxonomy.json from data/off-taxonomy/
 npm run eval                     # coverage evaluation (live, resumable; --offline to reuse the snapshot)
-node scripts/smoke.ts URL        # browser smoke test with screenshots (needs Playwright's Chromium)
+node scripts/smoke.ts URL        # browser smoke test with screenshots (needs Playwright's Chromium and ffmpeg)
+node scripts/offline-check.mjs URL   # the built site reloads offline (run against npm run preview)
+node scripts/record-demo.ts URL  # records assets/demo.mp4 from the running app (macOS `say` + ffmpeg)
 ```
 
 ### Deploy to GitHub Pages
@@ -99,7 +101,7 @@ The build uses relative paths, so it works from any sub-path. `.github/workflows
 - Two rule packs only. Selangor (where many Klang Valley residents live) runs its own scheme, and no official item list was found for it, so it is not included.
 - Open Food Facts data is crowd-sourced. BinSplit shows confidence and asks when records conflict, but a record that is wrong in every field will give a wrong part list. You can correct any part in its detail sheet.
 - The rule packs follow the published guidance as of the fetch date (2026-11-24). Local collectors may accept more or less.
-- The camera scanner needs a browser with camera access over HTTPS (GitHub Pages is fine).
+- The camera scanner needs a browser with camera access over HTTPS (GitHub Pages is fine). It was tested with Chromium's fake camera, not yet on a real phone.
 
 ## Data and licences
 
