@@ -6,8 +6,10 @@
     <title>BinSplit video renderer</title>
     <!--
       One output frame at a time, driven by scripts/video/render.ts: the 2x footage is
-      cropped and scaled for the camera move, the cursor and click ripple are drawn on
-      top, captions fade in and out, and the title cards play from their own animations.
+      cropped and scaled for the camera move; the element the narrator is naming gets a
+      spotlight, a ring that draws on, and (for small things) an arrow and label; numbers
+      get an underline or pulse; then the cursor and click ripple, the captions, and the
+      title cards, which play from their own animations.
     -->
     <style>
       :root {
@@ -19,6 +21,7 @@
       * { box-sizing: border-box; }
       html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: var(--board); }
       canvas, iframe { position: absolute; inset: 0; width: 1920px; height: 1080px; border: 0; opacity: 0; }
+      #fx { opacity: 1; z-index: 40; }
       #cap {
         position: absolute;
         left: 50%;
@@ -40,13 +43,13 @@
         z-index: 50;
       }
       #cap svg { flex: none; width: 22px; height: 22px; }
-      #cap b { font-family: 'Bricolage Grotesque Variable', sans-serif; font-weight: 750; letter-spacing: -0.02em; }
     </style>
   </head>
   <body>
     <canvas id="c0" width="1920" height="1080"></canvas>
     <canvas id="c1" width="1920" height="1080"></canvas>
     <div id="cards"></div>
+    <canvas id="fx" width="1920" height="1080"></canvas>
     <div id="cap"><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="4" fill="none" stroke="#d2462a" stroke-width="1.4"/><path d="M8 0v16M0 8h16" stroke="#d2462a" stroke-width="1.4"/></svg><span></span></div>
     <script type="module">
       import '@fontsource-variable/bricolage-grotesque';
@@ -54,8 +57,13 @@
 
       const OW = 1920;
       const OH = 1080;
+      const ACCENT = '#d2462a';
       let E; // edit decision list from render.ts
       const canvases = [document.getElementById('c0'), document.getElementById('c1')];
+      const fx = document.getElementById('fx');
+      const fxc = fx.getContext('2d');
+      const dimLayer = new OffscreenCanvas(OW, OH);
+      const dimc = dimLayer.getContext('2d');
       const cards = {};
       const cap = document.getElementById('cap');
       const capText = cap.querySelector('span');
@@ -65,16 +73,30 @@
         cubic: (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2),
         quint: (t) => (t < 0.5 ? 16 * t ** 5 : 1 - Math.pow(-2 * t + 2, 5) / 2),
       };
-      const easeOut = (t) => 1 - Math.pow(1 - t, 3);
+      const easeOut = (t) => 1 - Math.pow(1 - clamp(t, 0, 1), 3);
+      const lerp = (a, b, t) => a + (b - a) * t;
+      const lerpRect = (a, b, t) => ({ x: lerp(a.x, b.x, t), y: lerp(a.y, b.y, t), w: lerp(a.w, b.w, t), h: lerp(a.h, b.h, t) });
+      const inflate = (r, d) => ({ x: r.x - d, y: r.y - d, w: r.w + 2 * d, h: r.h + 2 * d });
 
-      // ---------- Camera: eased moves between states; a new move starts from wherever the last one is ----------
+      // ---------- Edit time -> recording time (the edit can hold a real frame) ----------
+      function recTime(e) {
+        let acc = 0;
+        for (const ins of E.inserts) {
+          const start = ins.t + acc;
+          if (e < start) return e - acc;
+          if (e < start + ins.d) return ins.t;
+          acc += ins.d;
+        }
+        return e - acc;
+      }
+
+      // ---------- Camera: eased moves; a new move starts from wherever the last one is ----------
       let camKeys = [];
       function prepCamera() {
         const keys = E.cams.map((c) => ({ ...c, t0: c.t + c.at })).sort((a, b) => a.t0 - b.t0);
-        let prev = { cx: E.view.w / 2, cy: E.view.h / 2, z: 1 };
         let prevKey = null;
         for (const k of keys) {
-          k.from = prevKey ? camAtKey(prevKey, k.t0) : prev;
+          k.from = prevKey ? camAtKey(prevKey, k.t0) : { cx: E.view.w / 2, cy: E.view.h / 2, z: 1 };
           prevKey = k;
         }
         camKeys = keys;
@@ -82,18 +104,26 @@
       function camAtKey(k, t) {
         const p = k.dur <= 0 ? 1 : clamp((t - k.t0) / k.dur, 0, 1);
         const e = (EASE[k.ease] ?? EASE.cubic)(p);
-        // Zoom moves in log space so it feels even; the centre follows linearly.
         const z = Math.exp(Math.log(k.from.z) + (Math.log(k.z) - Math.log(k.from.z)) * e);
         return { cx: k.from.cx + (k.cx - k.from.cx) * e, cy: k.from.cy + (k.cy - k.from.cy) * e, z };
       }
-      function camAt(t) {
+      function view(t) {
         let k = null;
         for (const c of camKeys) {
           if (c.t0 <= t) k = c;
           else break;
         }
-        return k ? camAtKey(k, t) : { cx: E.view.w / 2, cy: E.view.h / 2, z: 1 };
+        const c = k ? camAtKey(k, t) : { cx: E.view.w / 2, cy: E.view.h / 2, z: 1 };
+        const { w: W, h: H } = E.view;
+        const vw = W / c.z;
+        const vh = H / c.z;
+        // When zoomed in, the focus sits a little above centre, clear of the caption bar.
+        const lift = vh * 0.06 * clamp((c.z - 1) / 0.3, 0, 1);
+        const x0 = clamp(c.cx - vw / 2, 0, W - vw);
+        const y0 = clamp(c.cy - vh / 2 + lift, 0, H - vh);
+        return { x0, y0, vw, vh, z: c.z, s: OW / vw };
       }
+      const toOut = (r, v) => ({ x: (r.x - v.x0) * v.s, y: (r.y - v.y0) * v.s, w: r.w * v.s, h: r.h * v.s });
 
       // ---------- Footage frames ----------
       const bitmaps = new Map();
@@ -113,9 +143,9 @@
       }
       function frameAt(t) {
         const fr = E.frames;
+        if (t <= fr[0].t) return fr[0].f;
         let lo = 0;
         let hi = fr.length - 1;
-        if (t <= fr[0].t) return fr[0].f;
         while (lo < hi) {
           const mid = (lo + hi + 1) >> 1;
           if (fr[mid].t <= t) lo = mid;
@@ -145,70 +175,201 @@
           x = a.x + (b.x - a.x) * p;
           y = a.y + (b.y - a.y) * p;
         }
-        // Rest a while, then fade out until the next move.
         const idle = t - a.t;
         const alpha = idle < 4 ? 1 : clamp(1 - (idle - 4) / 0.5, 0, 1);
         return { x, y, alpha };
       }
+      function drawCursor(ctx, t, v, itemAlpha) {
+        const cur = cursorAt(t);
+        if (!cur || cur.alpha <= 0) return;
+        let press = 1;
+        for (const cl of E.clicks) {
+          const d = t - cl.t;
+          if (d < 0 || d > 0.6) continue;
+          const p = d / 0.6;
+          const c = toOut({ x: cl.x, y: cl.y, w: 0, h: 0 }, v);
+          ctx.save();
+          ctx.globalAlpha = itemAlpha * cur.alpha * 0.6 * (1 - p);
+          ctx.fillStyle = 'rgba(210, 70, 42, 0.18)';
+          ctx.strokeStyle = ACCENT;
+          ctx.lineWidth = 3;
+          ctx.beginPath();
+          ctx.arc(c.x, c.y, (10 + 34 * easeOut(p)) * (0.8 + 0.2 * v.z), 0, Math.PI * 2);
+          ctx.fill();
+          ctx.stroke();
+          ctx.restore();
+          if (d < 0.18) press = 1 - 0.14 * Math.sin((d / 0.18) * Math.PI);
+        }
+        const o = toOut({ x: cur.x, y: cur.y, w: 0, h: 0 }, v);
+        const size = 1.5 * (0.82 + 0.18 * v.z) * press;
+        ctx.save();
+        ctx.globalAlpha = itemAlpha * cur.alpha;
+        ctx.translate(o.x, o.y);
+        ctx.scale(size, size);
+        ctx.shadowColor = 'rgba(23, 32, 28, 0.35)';
+        ctx.shadowBlur = 6;
+        ctx.shadowOffsetY = 2;
+        ctx.lineJoin = 'round';
+        ctx.fillStyle = '#17201c';
+        ctx.fill(ARROW);
+        ctx.shadowColor = 'transparent';
+        ctx.strokeStyle = '#fbf9f4';
+        ctx.lineWidth = 1.5;
+        ctx.stroke(ARROW);
+        ctx.restore();
+      }
 
-      function drawFootage(canvas, tr) {
-        const ctx = canvas.getContext('2d');
-        return bitmap(frameAt(tr)).then((bmp) => {
-          const { w: W, h: H } = E.view;
-          const c = camAt(tr);
-          const vw = W / c.z;
-          const vh = H / c.z;
-          const x0 = clamp(c.cx - vw / 2, 0, W - vw);
-          // When zoomed in, the focus sits a little above centre, clear of the caption bar.
-          const lift = vh * 0.06 * clamp((c.z - 1) / 0.3, 0, 1);
-          const y0 = clamp(c.cy - vh / 2 + lift, 0, H - vh);
-          const k = bmp.width / W;
-          ctx.imageSmoothingEnabled = true;
-          ctx.imageSmoothingQuality = 'high';
-          ctx.drawImage(bmp, x0 * k, y0 * k, vw * k, vh * k, 0, 0, OW, OH);
+      // ---------- Callouts ----------
+      /** Which focus is on at time t, and how the spotlight moves from the last one. */
+      function calloutAt(list, t, resolve) {
+        let i = -1;
+        for (let k = 0; k < list.length; k++) if (list[k].t0 <= t) i = k;
+        if (i < 0) return null;
+        let f = list[i];
+        let fadingOut = false;
+        if (t >= f.t1) {
+          // Just ended with nothing after it: fade the spotlight out.
+          if (t - f.t1 > 0.2) return null;
+          fadingOut = true;
+        }
+        const prev = list[i - 1];
+        const next = list[i + 1];
+        const fromPrev = prev && Math.abs(prev.t1 - f.t0) < 0.06;
+        const toNext = next && Math.abs(next.t0 - f.t1) < 0.06;
+        const local = t - f.t0;
+        const R = resolve(f);
+        if (!R) return null;
+        let hole = R.rect;
+        let dim = 1;
+        if (fromPrev && local < 0.4) {
+          const P = resolve(prev);
+          if (P) hole = lerpRect(P.rect, R.rect, EASE.cubic(clamp(local / 0.4, 0, 1)));
+        } else if (!fromPrev) dim = easeOut(local / 0.3);
+        if (fadingOut) dim *= 1 - clamp((t - f.t1) / 0.2, 0, 1);
+        else if (!toNext) dim *= clamp((f.t1 - t) / 0.3, 0, 1);
+        const own = fadingOut ? 1 - clamp((t - f.t1) / 0.2, 0, 1) : toNext ? clamp((f.t1 - t) / 0.12, 0, 1) : clamp((f.t1 - t) / 0.25, 0, 1);
+        return { f, R, hole, dim, local, own };
+      }
 
-          const s = OW / vw; // page px -> output px
-          const cur = cursorAt(tr);
-          if (cur && cur.alpha > 0) {
-            const ox = (cur.x - x0) * s;
-            const oy = (cur.y - y0) * s;
-            const size = 1.5 * (0.82 + 0.18 * c.z);
-            // Click ripple and press.
-            let press = 1;
-            for (const cl of E.clicks) {
-              const d = tr - cl.t;
-              if (d < 0 || d > 0.6) continue;
-              const p = d / 0.6;
-              const r = (10 + 34 * easeOut(p)) * (0.8 + 0.2 * c.z);
-              ctx.save();
-              ctx.globalAlpha = cur.alpha * 0.6 * (1 - p);
-              ctx.fillStyle = 'rgba(210, 70, 42, 0.18)';
-              ctx.strokeStyle = '#d2462a';
-              ctx.lineWidth = 3;
-              ctx.beginPath();
-              ctx.arc((cl.x - x0) * s, (cl.y - y0) * s, r, 0, Math.PI * 2);
-              ctx.fill();
-              ctx.stroke();
-              ctx.restore();
-              if (d < 0.18) press = 1 - 0.14 * Math.sin((d / 0.18) * Math.PI);
-            }
+      function roundRect(ctx, r, rad) {
+        ctx.beginPath();
+        ctx.roundRect(r.x, r.y, r.w, r.h, Math.min(rad, r.h / 2, r.w / 2));
+      }
+
+      function drawCallout(ctx, c, alpha) {
+        if (!c) return;
+        const { f, R, hole, dim, local, own } = c;
+        // Spotlight: dim everything else ~60%, soft edge around the named element.
+        if (dim > 0.001) {
+          dimc.globalCompositeOperation = 'source-over';
+          dimc.clearRect(0, 0, OW, OH);
+          dimc.fillStyle = `rgba(23, 32, 28, ${0.6 * dim * alpha})`;
+          dimc.fillRect(0, 0, OW, OH);
+          dimc.globalCompositeOperation = 'destination-out';
+          dimc.filter = 'blur(12px)';
+          dimc.fillStyle = '#000';
+          const h = inflate(hole, 16);
+          dimc.beginPath();
+          dimc.roundRect(h.x, h.y, h.w, h.h, Math.min(22, h.h / 2));
+          dimc.fill();
+          dimc.filter = 'none';
+          ctx.drawImage(dimLayer, 0, 0);
+        }
+        const a = alpha * own;
+        if (a <= 0.001) return;
+        // Ring that draws on, in the accent colour.
+        const ring = inflate(R.rect, 9);
+        const per = 2 * (ring.w + ring.h);
+        const p = easeOut(local / 0.35);
+        ctx.save();
+        ctx.globalAlpha = a;
+        ctx.strokeStyle = ACCENT;
+        ctx.lineWidth = 4;
+        ctx.lineCap = 'round';
+        ctx.setLineDash([per * p, per]);
+        roundRect(ctx, ring, 16);
+        ctx.stroke();
+        ctx.restore();
+        const T = R.sub ?? R.rect;
+        // Numbers: an underline that draws left to right, or a pulse.
+        if (f.underline) {
+          const u = easeOut((local - 0.15) / 0.35);
+          if (u > 0) {
             ctx.save();
-            ctx.globalAlpha = cur.alpha;
-            ctx.translate(ox, oy);
-            ctx.scale(size * press, size * press);
-            ctx.shadowColor = 'rgba(23, 32, 28, 0.35)';
-            ctx.shadowBlur = 6;
-            ctx.shadowOffsetY = 2;
-            ctx.lineJoin = 'round';
-            ctx.fillStyle = '#17201c';
-            ctx.fill(ARROW);
-            ctx.shadowColor = 'transparent';
-            ctx.strokeStyle = '#fbf9f4';
-            ctx.lineWidth = 1.5;
-            ctx.stroke(ARROW);
+            ctx.globalAlpha = a;
+            ctx.strokeStyle = ACCENT;
+            ctx.lineWidth = 5;
+            ctx.lineCap = 'round';
+            ctx.beginPath();
+            ctx.moveTo(T.x, T.y + T.h + 5);
+            ctx.lineTo(T.x + T.w * u, T.y + T.h + 5);
+            ctx.stroke();
             ctx.restore();
           }
-        });
+        }
+        if (f.pulse) {
+          for (const start of [0.1, 0.55]) {
+            const q = (local - start) / 0.7;
+            if (q < 0 || q > 1) continue;
+            const g = inflate(T, 6 + 22 * easeOut(q));
+            ctx.save();
+            ctx.globalAlpha = a * 0.8 * (1 - q);
+            ctx.strokeStyle = ACCENT;
+            ctx.lineWidth = 3;
+            roundRect(ctx, g, 14 + 22 * q);
+            ctx.stroke();
+            ctx.restore();
+          }
+        }
+        // Small things: an arrow and a short label.
+        if (f.label) {
+          const la = a * easeOut((local - 0.1) / 0.25);
+          if (la > 0.001) {
+            ctx.save();
+            ctx.font = '600 26px "Instrument Sans Variable", sans-serif';
+            const tw = ctx.measureText(f.label).width;
+            const pw = tw + 40;
+            const ph = 50;
+            const cx = T.x + T.w / 2;
+            const above = !f.below && (T.y - 70 - ph > 24 || T.y + T.h + 70 + ph > 960);
+            const slide = (1 - easeOut((local - 0.1) / 0.3)) * 10;
+            const px = clamp(cx - pw / 2, 24, OW - 24 - pw);
+            const py = above ? T.y - 62 - ph - slide : T.y + T.h + 62 + slide;
+            ctx.globalAlpha = la;
+            // Arrow from the label to the element.
+            const ax = clamp(cx, px + 20, px + pw - 20);
+            const ay = above ? py + ph : py;
+            const bx = cx;
+            const by = above ? T.y - 12 : T.y + T.h + 12;
+            ctx.strokeStyle = ACCENT;
+            ctx.fillStyle = ACCENT;
+            ctx.lineWidth = 3.5;
+            ctx.lineCap = 'round';
+            ctx.beginPath();
+            ctx.moveTo(ax, ay);
+            ctx.lineTo(bx, by);
+            ctx.stroke();
+            const ang = Math.atan2(by - ay, bx - ax);
+            ctx.beginPath();
+            ctx.moveTo(bx, by);
+            ctx.lineTo(bx - 14 * Math.cos(ang - 0.45), by - 14 * Math.sin(ang - 0.45));
+            ctx.lineTo(bx - 14 * Math.cos(ang + 0.45), by - 14 * Math.sin(ang + 0.45));
+            ctx.closePath();
+            ctx.fill();
+            // The label pill.
+            ctx.shadowColor = 'rgba(23, 32, 28, 0.35)';
+            ctx.shadowBlur = 18;
+            ctx.shadowOffsetY = 6;
+            ctx.beginPath();
+            ctx.roundRect(px, py, pw, ph, 14);
+            ctx.fill();
+            ctx.shadowColor = 'transparent';
+            ctx.fillStyle = '#fbf9f4';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(f.label, px + 20, py + ph / 2 + 1);
+            ctx.restore();
+          }
+        }
       }
 
       // ---------- Cards ----------
@@ -222,19 +383,45 @@
         await new Promise((r) => setTimeout(r, 300));
         const anims = doc.getAnimations();
         anims.forEach((a) => a.pause());
-        cards[name] = { el: f, anims };
+        cards[name] = { el: f, doc, anims, rects: new Map() };
       }
       function showCard(name, local) {
         const c = cards[name];
         c.anims.forEach((a) => (a.currentTime = Math.max(0, local * 1000)));
       }
+      /** Where a card element (or a piece of its text) is, once the card has settled. */
+      function cardRect(name, sel, text) {
+        const c = cards[name];
+        const key = sel + '|' + (text ?? '');
+        if (c.rects.has(key)) return c.rects.get(key);
+        const saved = c.anims.map((a) => a.currentTime);
+        c.anims.forEach((a) => (a.currentTime = 60000));
+        const el = c.doc.querySelector(sel);
+        let r = null;
+        if (el && text) {
+          const walk = c.doc.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+          for (let n = walk.nextNode(); n; n = walk.nextNode()) {
+            const i = n.textContent.indexOf(text);
+            if (i < 0) continue;
+            const range = c.doc.createRange();
+            range.setStart(n, i);
+            range.setEnd(n, i + text.length);
+            r = range.getBoundingClientRect();
+            break;
+          }
+        } else if (el) r = el.getBoundingClientRect();
+        c.anims.forEach((a, i) => (a.currentTime = saved[i]));
+        const out = r ? { x: r.x, y: r.y, w: r.width, h: r.height } : null;
+        c.rects.set(key, out);
+        return out;
+      }
 
       // ---------- Captions ----------
-      function captionAt(item, tr) {
+      function captionAt(item, t) {
         for (const c of item.captions) {
-          if (tr >= c.t0 && tr < c.t1) {
-            const a = Math.min(1, (tr - c.t0) / 0.35, (c.t1 - tr) / 0.3);
-            const rise = (1 - easeOut(Math.min(1, (tr - c.t0) / 0.45))) * 10;
+          if (t >= c.t0 && t < c.t1) {
+            const a = Math.min(1, (t - c.t0) / 0.35, (c.t1 - t) / 0.3);
+            const rise = (1 - easeOut((t - c.t0) / 0.45)) * 10;
             return { text: c.text, alpha: clamp(a, 0, 1), rise };
           }
         }
@@ -255,12 +442,13 @@
         if (!active.length) active.push(E.items[E.items.length - 1]);
         Object.values(cards).forEach((c) => (c.el.style.opacity = '0'));
         canvases.forEach((c) => (c.style.opacity = '0'));
+        fxc.clearRect(0, 0, OW, OH);
         let canvasSlot = 0;
         let caption = null;
         const jobs = [];
+        const overlays = [];
         active.forEach((item, idx) => {
           const local = T - item.outStart;
-          // The later item fades in over the earlier one.
           const alpha = idx === 0 || active.length === 1 ? 1 : clamp(local / E.overlap, 0, 1);
           const z = 10 + idx;
           if (item.kind === 'card') {
@@ -268,17 +456,37 @@
             showCard(item.card, local);
             c.el.style.opacity = String(alpha);
             c.el.style.zIndex = String(z);
+            const co = calloutAt(item.focus, local, (f) => {
+              const r = cardRect(item.card, f.sel, f.text);
+              return r ? { rect: r } : null;
+            });
+            overlays.push(() => drawCallout(fxc, co, alpha));
           } else {
             const cv = canvases[canvasSlot++ % 2];
             cv.style.opacity = String(alpha);
             cv.style.zIndex = String(z);
-            const tr = item.recIn + local;
-            jobs.push(drawFootage(cv, tr));
-            const cp = captionAt(item, tr);
+            const e = item.eIn + local;
+            const v = view(e);
+            const ctx = cv.getContext('2d');
+            jobs.push(
+              bitmap(frameAt(recTime(e))).then((bmp) => {
+                const k = bmp.width / E.view.w;
+                ctx.imageSmoothingEnabled = true;
+                ctx.imageSmoothingQuality = 'high';
+                ctx.drawImage(bmp, v.x0 * k, v.y0 * k, v.vw * k, v.vh * k, 0, 0, OW, OH);
+              }),
+            );
+            const co = calloutAt(item.focus, e, (f) => ({ rect: toOut(f.rect, v), sub: f.sub ? toOut(f.sub, v) : undefined }));
+            overlays.push(() => {
+              drawCallout(fxc, co, alpha);
+              drawCursor(fxc, e, v, alpha);
+            });
+            const cp = captionAt(item, e);
             if (cp) caption = { ...cp, alpha: cp.alpha * alpha };
           }
         });
         await Promise.all(jobs);
+        overlays.forEach((o) => o());
         if (caption && caption.alpha > 0.001) {
           if (capText.textContent !== caption.text) capText.textContent = caption.text;
           cap.style.opacity = String(caption.alpha);

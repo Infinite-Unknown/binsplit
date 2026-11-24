@@ -1,17 +1,19 @@
 // Records the demo footage from the real running app, then hands it to the
-// renderer (scripts/video/render.ts), which adds the camera moves, cursor,
-// captions, title cards and voice-over and writes assets/demo.mp4.
+// renderer (scripts/video/render.ts), which adds the camera moves, callouts,
+// cursor, captions, title cards and voice-over and writes assets/demo.mp4.
 //
 // What this script does:
-//   1. Makes the voice-over lines with a local text-to-speech script (voice af_heart) and measures them.
+//   1. Makes the voice-over with a local text-to-speech script (voice af_heart), one
+//      short phrase at a time, so a callout can start exactly when its element is named.
 //   2. Drives the app in Chromium at 1600x900, device scale 2, and captures 3200x1800
 //      frames with their timestamps. A 2x screenshot takes ~50 ms, so the page runs in
 //      slow motion while it is filmed: the document timeline (every CSS and Web Animation)
 //      plays at 1/K speed and page timers wait K times longer. Every time logged here is
 //      in that slowed-down clock, so the finished video plays at the app's real speed.
-//   3. Logs, against the same clock: where the cursor moves and clicks, where the
-//      camera should look (rectangles read from the page with getBoundingClientRect),
-//      when each voice line starts and which caption is showing.
+//   3. Logs, against the same clock: cursor moves and clicks, camera targets, and for each
+//      phrase the element it names (its bounding box read from the page at that moment).
+//      While the parts are held over the product, their boxes are sampled every frame and
+//      the edit holds that real frame while each part is named.
 //
 //   npm run dev -- --port 5181 --host 127.0.0.1     (in another terminal)
 //   TTS_PYTHON=/path/to/python TTS_SCRIPT=/path/to/tts.py node scripts/record-demo.ts [baseUrl]
@@ -41,32 +43,77 @@ const W = 1600;
 const H = 900;
 const DSF = 2;
 const K = 4; // slow-motion factor while filming
-rmSync(framesDir, { recursive: true, force: true });
-for (const d of [framesDir, voDir, imgDir]) mkdirSync(d, { recursive: true });
+for (const d of [voDir, imgDir]) mkdirSync(d, { recursive: true });
 
-// ---------- Voice-over ----------
+// ---------- Voice-over, phrase by phrase ----------
 
 const VO: Record<string, string> = {
-  h1: 'This is BinSplit. Look up a product, and its packaging comes apart. Every part drops into the right bin, under official local rules.',
-  p1:
-    "The waste problem is contamination, and it's measured by what's in the bin. Clean and Green Singapore reports that forty percent of the items in recycling bins can't be recycled because of it. " +
-    'Packaging mixes materials, and the rules change from place to place.',
-  c1: 'Product records often disagree. One record for this jar lists six plastic bottles that the packaging text never mentions. So BinSplit doesn\'t guess. It asks.',
-  c2: 'One tap settles it. The glass jar and the aluminium seal go to Others, and the plastic lid goes to Plastics.',
-  s1: "Tap any part to see the rule behind it, quoted from S W Corp's leaflet, with a link to the official document.",
-  n1: "Now, instant noodles. The foil-lined wrapper isn't in S W Corp's list, so BinSplit won't invent a bin for it.",
-  n2: 'It marks the part as not covered here, says why, and links the official source it checked.',
-  w1: "Switch the area to Singapore, and the same parts re-sort live, under N E A's rules. There, the wrapper goes to general waste.",
-  t1: 'Plenty of products have no packaging data yet. Two taps, the shape and then the material, and the same official rules sort it.',
-  k1:
-    'Under the hood, Open Food Facts packaging fields are normalised with its multilingual taxonomy, reconciled into parts with a confidence level, ' +
-    'then matched to rule packs where every rule cites its official source.',
-  a1: 'We measured coverage on two hundred and forty of the most-scanned products sold in Malaysia and Singapore.',
-  a2: 'Ninety-five have packaging data in Open Food Facts. Of those, seventy-two get a bin for at least one part under the Malaysian rules, and forty-nine get every part sorted.',
-  m1:
-    'Coverage is the first way we measure impact. Next, a ten-item sorting quiz before and after using the app. ' +
-    "Then a pilot that weighs the contamination in one residence block's recycling bins, before and after four weeks.",
-  o1: "There's no account, no server, and no key. Products you've looked up are saved on this device, so they keep working offline.",
+  // hook
+  h1: 'Pick a product, like this jar of Nutella.',
+  h2: 'Its packaging comes apart, part by part:',
+  h3: 'six plastic bottles,',
+  h4: 'a plastic lid,',
+  h5: 'a glass jar,',
+  h6: 'and an aluminium seal.',
+  h7: "Each part drops into its bin, under Malaysia's official rules.",
+  h8: 'Plastics: one.',
+  h9: 'Others: two.',
+  h10: 'And one part waits for your answer.',
+  // problem card
+  p1: "The waste problem is contamination, and it's measured by what's in the bin.",
+  p2: 'Clean and Green Singapore reports',
+  p3: "that forty percent of the items in recycling bins can't be recycled, because of it.",
+  p4: 'Packaging mixes materials,',
+  p5: 'and the rules change from place to place.',
+  // conflict
+  c1: 'One record lists six plastic bottles that the packaging text never mentions.',
+  c2: 'So BinSplit asks:',
+  c3: 'yes, keep it,',
+  c4: 'or no, remove it.',
+  c5: 'One tap settles it.',
+  c6: 'The glass jar and the aluminium seal go to Others,',
+  c7: 'and the plastic lid goes to Plastics.',
+  s1: 'Tap a part to see why.',
+  s2: "The rule is quoted from S W Corp's leaflet,",
+  s3: 'with a link to the official document.',
+  // not covered + area switch
+  n1: 'Type any barcode into this field.',
+  n2: 'Instant noodles.',
+  n3: "The foil-lined wrapper has no rule in S W Corp's list,",
+  n4: 'so it goes to Not covered here, not a guessed bin.',
+  n5: 'The sheet says why,',
+  n6: 'and links the official source it checked.',
+  w1: 'Now switch the area to Singapore,',
+  w2: "and the same parts re-sort, under N E A's rules.",
+  w3: 'There, the wrapper is general waste.',
+  // two taps
+  t1: 'Another barcode.',
+  t2: 'This bread has no packaging data yet.',
+  t3: 'Describe a part in two taps:',
+  t4: 'its shape,',
+  t5: 'then its material,',
+  t6: 'and the same rules sort it.',
+  // how card
+  k1: 'Under the hood:',
+  k2: 'a barcode,',
+  k3: 'Open Food Facts data, normalised with its packaging taxonomy,',
+  k4: 'reconciled into parts with a confidence level,',
+  k5: 'and matched to rules that each cite an official source.',
+  // coverage
+  a1: 'The About screen shows what we measured.',
+  a2: 'Two hundred and forty of the most-scanned products in Malaysia and Singapore.',
+  a3: 'Ninety-five have packaging data.',
+  a4: 'Seventy-two of those get at least one part sorted,',
+  a5: 'and forty-nine get every part sorted.',
+  // measure card
+  m1: 'Coverage is our first measure of impact.',
+  m2: 'Next, a ten-item sorting quiz, before and after.',
+  m3: "Then a pilot that weighs the contamination in one residence block's bins, before and after four weeks.",
+  // offline
+  o1: 'With the network off, look up the jar again.',
+  o2: 'It still works,',
+  o3: 'because lookups are saved on this device.',
+  // end card
   e1: 'BinSplit. Open data, official rules, and every part in the right bin.',
 };
 
@@ -86,8 +133,8 @@ for (const [id, text] of Object.entries(VO)) {
     sh(py, ['-I', tts, text, file, '--voice', 'af_heart']);
   }
   voices[id] = { file, dur: duration(file), text };
-  console.log(`vo ${id}: ${voices[id].dur.toFixed(1)}s`);
 }
+console.log(`voice-over: ${Object.keys(VO).length} phrases, ${Object.values(voices).reduce((a, v) => a + v.dur, 0).toFixed(1)} s`);
 
 // ---------- Recording log ----------
 
@@ -105,6 +152,8 @@ const until = async (t: number) => {
   const ms = (t - now()) * 1000;
   if (ms > 0) await sleep(ms);
 };
+const GAP = 0.18; // between phrases of one sentence
+const STOP = 0.4; // after a full stop
 
 /** Start a voice line now; returns the time it ends. */
 function say(id: string): number {
@@ -124,31 +173,66 @@ function union(...rs: Rect[]): Rect {
   const y = Math.min(...rs.map((r) => r.y));
   return { x, y, w: Math.max(...rs.map((r) => r.x + r.w)) - x, h: Math.max(...rs.map((r) => r.y + r.h)) - y };
 }
+/** The box of a piece of text inside an element (for a number inside a sentence). */
+async function textRect(page: Page, sel: string, needle: string): Promise<Rect> {
+  const r = await page.evaluate(
+    ([sel, needle]) => {
+      const root = document.querySelector(sel);
+      if (!root) return null;
+      const walk = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+      for (let n = walk.nextNode(); n; n = walk.nextNode()) {
+        const i = n.textContent!.indexOf(needle);
+        if (i < 0) continue;
+        const range = document.createRange();
+        range.setStart(n, i);
+        range.setEnd(n, i + needle.length);
+        const b = range.getBoundingClientRect();
+        return { x: b.x, y: b.y, w: b.width, h: b.height };
+      }
+      return null;
+    },
+    [sel, needle] as const,
+  );
+  if (!r) throw new Error(`no text "${needle}" in ${sel}`);
+  return r;
+}
+
+type Focus = { rect: Rect; sub?: Rect; label?: string; underline?: boolean; pulse?: boolean; below?: boolean };
+/** The element being named: spotlight + ring (+ arrow and label, + underline or pulse for numbers). */
+function focus(f: Focus | null, at?: { t: number; off: number }) {
+  const data = f ? { ...f } : { clear: true };
+  if (at) events.push({ t: at.t, off: at.off, kind: 'focus', ...data });
+  else ev('focus', data);
+}
 
 /**
  * Point the camera at a rectangle of the page (CSS px). The zoom fits the rectangle
- * with some room around it, never more than maxZ. `at` shifts the start of the move
- * (seconds, may be negative: the edit can start a move just before the action).
+ * with some room around it, never more than maxZ. `at` shifts the start of the move.
  */
-function cam(target: Rect | 'wide', o: { dur?: number; at?: number; pad?: number; maxZ?: number; z?: number; ease?: string } = {}) {
+function cam(target: Rect | 'wide', o: { dur?: number; at?: number; pad?: number; maxZ?: number; z?: number; hold?: { t: number; off: number } } = {}) {
   const dur = o.dur ?? 1.0;
-  if (target === 'wide') return ev('cam', { at: o.at ?? 0, dur, cx: W / 2, cy: H / 2, z: 1, ease: o.ease ?? 'cubic' });
-  const pad = o.pad ?? 1.25;
-  const z = o.z ?? Math.max(1, Math.min(o.maxZ ?? 2.0, W / (target.w * pad), H / (target.h * pad)));
-  ev('cam', { at: o.at ?? 0, dur, cx: target.x + target.w / 2, cy: target.y + target.h / 2, z, ease: o.ease ?? 'cubic' });
+  let data: Record<string, unknown>;
+  if (target === 'wide') data = { at: o.at ?? 0, dur, cx: W / 2, cy: H / 2, z: 1, ease: 'cubic' };
+  else {
+    const pad = o.pad ?? 1.25;
+    const z = o.z ?? Math.max(1, Math.min(o.maxZ ?? 2.1, W / (target.w * pad), H / (target.h * pad)));
+    data = { at: o.at ?? 0, dur, cx: target.x + target.w / 2, cy: target.y + target.h / 2, z, ease: 'cubic' };
+  }
+  if (o.hold) events.push({ t: o.hold.t, off: o.hold.off, kind: 'cam', ...data });
+  else ev('cam', data);
 }
 
 // ---------- Cursor: eased paths with a slight arc; the real mouse follows the same path ----------
 
-let cursor = { x: 1240, y: 760 };
+let cursor = { x: 700, y: 760 };
 const easeInOut = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 
 async function moveTo(page: Page, x: number, y: number, ms?: number) {
   const from = { ...cursor };
   const dist = Math.hypot(x - from.x, y - from.y);
+  if (dist < 1) return;
   const total = ms ?? Math.min(1100, Math.max(450, 320 + dist * 0.55));
   const steps = Math.max(6, Math.round(total / 16));
-  // A gentle arc: offset the midpoint sideways by a few percent of the distance.
   const nx = -(y - from.y) / (dist || 1);
   const ny = (x - from.x) / (dist || 1);
   const bow = Math.min(60, dist * 0.08);
@@ -171,13 +255,17 @@ async function pointAt(page: Page, loc: Locator, ms?: number, fx = 0.5, fy = 0.5
   return r;
 }
 
-async function click(page: Page, loc: Locator, opts: { ms?: number; fx?: number; fy?: number } = {}) {
-  await pointAt(page, loc, opts.ms, opts.fx, opts.fy);
-  await sleep(140);
+async function press(page: Page) {
+  await sleep(120);
   ev('click', { x: cursor.x, y: cursor.y });
   await page.mouse.down();
   await sleep(70);
   await page.mouse.up();
+}
+
+async function click(page: Page, loc: Locator, opts: { ms?: number; fx?: number; fy?: number } = {}) {
+  await pointAt(page, loc, opts.ms, opts.fx, opts.fy);
+  await press(page);
 }
 
 async function typeInto(page: Page, input: Locator, text: string) {
@@ -271,6 +359,8 @@ await page.mouse.move(cursor.x, cursor.y);
 
 // ---------- Capture: 3200x1800 frames in a loop, identical frames stored once ----------
 
+rmSync(framesDir, { recursive: true, force: true });
+mkdirSync(framesDir, { recursive: true });
 const cdp = await ctx.newCDPSession(page);
 // Slow motion, part 2: every CSS transition, CSS animation and Web Animation plays at 1/K.
 await cdp.send('Animation.enable');
@@ -303,147 +393,286 @@ await sleep(500);
 const L = {
   chip: (code: string) => page.locator(`[data-sample="${code}"]`),
   product: page.locator('#product'),
-  stage: page.locator('#stage'),
   bins: page.locator('#bins'),
   search: page.locator('[data-lookup] input'),
   sheet: page.locator('#sheet .sheet'),
+  bin: (id: string) => page.locator(`.bin[data-bin="${id}"]`),
+};
+const binFocus = async (id: string, label?: string) => {
+  const bin = L.bin(id);
+  return { rect: await rectOf(bin), sub: await rectOf(bin.locator('.bin-count')), label, pulse: true } as Focus;
 };
 
-// ===== Clip: hook. The signature moment first: parts cut from the product, held, then into their bins. =====
+// ===== Clip: hook. Parts cut from the product, held (each one named), then into their bins. =====
 mark('hook', 'in');
 cam('wide', { dur: 0 });
 ev('cursor', { x: cursor.x, y: cursor.y });
 caption('BinSplit · Every part. The right bin.');
+const chip = L.chip('3017620422003');
+focus({ rect: await rectOf(chip), label: 'A real product' });
 let end = say('h1');
-await sleep(700);
-await click(page, L.chip('3017620422003'), { ms: 800 });
+await pointAt(page, chip, 900);
+await until(end - 0.15);
+// Log every piece's visible box on every frame of the split.
+await page.evaluate((k) => {
+  const w = window as any;
+  w.__split = [];
+  const stop = Date.now() + 4000 * k;
+  const tick = () => {
+    const mains = [...document.querySelectorAll('#bins [data-flip] .piece-main')] as HTMLElement[];
+    if (mains.length)
+      w.__split.push({
+        t: Date.now(),
+        r: mains.map((m) => {
+          const b = m.getBoundingClientRect();
+          return [b.x, b.y, b.width, b.height, Number(getComputedStyle(m.closest('[data-flip]')!).opacity)];
+        }),
+      });
+    if (Date.now() < stop) requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+}, K);
+await press(page);
+focus(null);
 await L.product.waitFor();
 await sleep(60);
+cam(await rectOf(L.product), { pad: 1.06, dur: 0.9, at: -0.1 });
+await sleep(3000); // the whole split, in filmed time
 {
-  const prod = await rectOf(L.product);
-  cam(prod, { pad: 1.06, dur: 0.9, at: -0.15 });
+  // The hold: the first run of frames where every piece is fully cut out and not moving.
+  const log = (await page.evaluate(() => (window as any).__split)) as Array<{ t: number; r: number[][] }>;
+  let best: { i: number; j: number } | null = null;
+  for (let i = 1, start = -1; i < log.length; i++) {
+    const still = log[i].r.length === log[i - 1].r.length &&
+      log[i].r.every((r, k) => r[4] > 0.99 && Math.abs(r[0] - log[i - 1].r[k][0]) < 0.3 && Math.abs(r[1] - log[i - 1].r[k][1]) < 0.3 && Math.abs(r[2] - log[i - 1].r[k][2]) < 0.3);
+    if (still && start < 0) start = i - 1;
+    if ((!still || i === log.length - 1) && start >= 0) {
+      if (i - start >= 3) { best = { i: start, j: i - 1 }; break; }
+      start = -1;
+    }
+  }
+  if (!best) throw new Error('could not find the hold in the split');
+  const s = log[Math.floor((best.i + best.j) / 2)];
+  const tHold = vclock(s.t);
+  const parts = s.r.map(([x, y, w, h]) => ({ x, y, w, h }));
+  console.log(`hold at +${(tHold - (events.find((e) => e.kind === 'click')!.t)).toFixed(2)} s, ${parts.length} parts`);
+  // The edit holds this real frame while the parts are named, then lets the split finish.
+  let off = 0.15;
+  const at = () => ({ t: tHold, off });
+  events.push({ t: tHold, off, kind: 'caption', text: 'Paused mid-split: the parts, cut from the product' });
+  cam(union(...parts), { pad: 1.12, dur: 1.0, hold: at() });
+  const named: Array<[string, Focus]> = [
+    ['h2', { rect: union(...parts) }],
+    ['h3', { rect: parts[0] }],
+    ['h4', { rect: parts[1] }],
+    ['h5', { rect: parts[2] }],
+    ['h6', { rect: parts[3] }],
+  ];
+  for (const [id, f] of named) {
+    focus(f, at());
+    events.push({ t: tHold, off, kind: 'vo', id });
+    off += voices[id].dur + (id === 'h2' ? GAP + 0.1 : GAP);
+  }
+  off += 0.2;
+  focus(null, at());
+  events.push({ t: tHold, off, kind: 'caption', text: null });
+  cam(union(await rectOf(L.product), await rectOf(L.bins)), { pad: 1.04, dur: 1.1, hold: at() });
+  events.push({ t: tHold, kind: 'insert', d: off });
 }
-// Cut + hold take about a second; then the parts arc down into the bins.
-await sleep(1050);
-await page.locator('.bin--needs').waitFor();
-cam(union(await rectOf(L.product), await rectOf(L.bins)), { pad: 1.04, dur: 1.1 });
-caption('Cut from the product, then sorted part by part');
-await until(end + 0.7);
+focus({ rect: await rectOf(L.bins) });
+end = say('h7');
+await until(end + GAP);
+focus(await binFocus('plastic', '1 part'));
+end = say('h8');
+await until(end + GAP);
+focus(await binFocus('others', '2 parts'));
+end = say('h9');
+await until(end + GAP);
+focus(await binFocus('needs'));
+end = say('h10');
+await until(end + STOP);
 mark('hook', 'out');
 
-// ===== Clip: conflict question, then a part's source. =====
+// ===== Clip: the conflict question, then a part's rule and source. =====
 await sleep(200);
 mark('conflict', 'in');
-caption('The records disagree on one part, so it asks');
-end = say('c1');
-await sleep(500);
 const needs = page.locator('.bin--needs');
-cam(await rectOf(needs), { pad: 1.12, dur: 1.1 });
-await pointAt(page, needs.locator('.piece-main'), 900, 0.6, 0.5);
-await until(end - 0.3);
-await click(page, needs.locator('[data-drop]'), { ms: 700 });
+cam(await rectOf(needs), { pad: 1.12, dur: 1.0 });
+focus({ rect: await rectOf(needs.locator('.piece-main')) });
+end = say('c1');
+await pointAt(page, needs.locator('.piece-main'), 900, 0.7, 0.5);
+await until(end + GAP);
+focus({ rect: await rectOf(needs.locator('.piece-ask p')) });
 end = say('c2');
-await sleep(500);
-caption('Glass jar and seal: Others (Lain-lain). Lid: Plastics (Plastik).');
-cam(union(await rectOf(page.locator('.bin[data-bin="plastic"]')), await rectOf(page.locator('.bin[data-bin="others"]'))), { pad: 1.2, dur: 1.1, at: -0.2 });
-await until(end + 0.4);
+await until(end + GAP);
+focus({ rect: await rectOf(needs.locator('[data-keep]')) });
+end = say('c3');
+await pointAt(page, needs.locator('[data-keep]'), 600);
+await until(end + GAP);
+focus({ rect: await rectOf(needs.locator('[data-drop]')) });
+end = say('c4');
+await pointAt(page, needs.locator('[data-drop]'), 500);
+await until(end + 0.1);
+await press(page);
+focus(null);
+await sleep(750); // the part fades and the others re-sort
+cam(union(await rectOf(L.bin('plastic')), await rectOf(L.bin('others'))), { pad: 1.2, dur: 1.0 });
+focus({ rect: await rectOf(L.bins) });
+end = say('c5');
+await until(end + STOP);
+focus({ rect: await rectOf(L.bin('others')) });
+end = say('c6');
+await until(end + GAP);
+focus({ rect: await rectOf(L.bin('plastic')) });
+end = say('c7');
+await until(end + STOP);
 
+const jar = L.bin('others').locator('.piece-main').first();
+focus({ rect: await rectOf(jar) });
 end = say('s1');
-caption('Every answer quotes its official source');
-await click(page, page.locator('.bin[data-bin="others"] .piece-main').first(), { ms: 750 });
+await pointAt(page, jar, 700);
+await until(end);
+await press(page);
+focus(null);
 await L.sheet.waitFor();
-await sleep(280);
-cam(await rectOf(L.sheet), { pad: 1.08, dur: 1.0, at: -0.1 });
-await sleep(1500);
-{
-  const rule = page.locator('#sheet .quote');
-  const src = page.locator('#sheet .source').first();
-  const r = union(await rectOf(rule), await rectOf(src));
-  cam(r, { pad: 1.3, maxZ: 2.0, dur: 1.1 });
-  await pointAt(page, page.locator('#sheet .source a').first(), 900, 0.35, 0.6);
-}
-await until(end + 0.6);
+await sleep(300);
+cam(await rectOf(L.sheet), { pad: 1.08, dur: 0.9 });
+await sleep(500);
+const quote = page.locator('#sheet .quote');
+const srcLink = page.locator('#sheet .source a').first();
+cam(union(await rectOf(quote), await rectOf(srcLink)), { pad: 1.35, dur: 1.0 });
+await sleep(300);
+focus({ rect: await rectOf(quote) });
+end = say('s2');
+await until(end + GAP);
+focus({ rect: await rectOf(srcLink), label: 'Official source' });
+end = say('s3');
+await pointAt(page, srcLink, 800, 0.4, 0.6);
+await until(end + STOP);
+focus(null);
 cam('wide', { dur: 0.9 });
-await click(page, page.locator('#sheet .sheet-close'), { ms: 650 });
-await sleep(700);
+await click(page, page.locator('#sheet .sheet-close'), { ms: 600 });
+await sleep(600);
 mark('conflict', 'out');
 
-// ===== Clip: Not covered here, then the area switch. =====
+// ===== Clip: a typed barcode, Not covered here, then the area switch. =====
 mark('noodles', 'in');
 cam(await rectOf(page.locator('.searchbar')), { pad: 1.5, dur: 0.9 });
+focus({ rect: await rectOf(L.search), label: 'Barcode' });
 end = say('n1');
 await typeInto(page, L.search, '8801073113312');
-await sleep(250);
+await until(end);
 await page.keyboard.press('Enter');
 await L.product.waitFor();
 await sleep(60);
-cam(union(await rectOf(L.product), await rectOf(L.bins)), { pad: 1.04, dur: 1.0, at: 0 });
-await sleep(2100);
+cam(union(await rectOf(L.product), await rectOf(L.bins)), { pad: 1.04, dur: 1.0 });
+focus({ rect: await rectOf(page.locator('#product-name')) });
+end = say('n2');
+await until(end + 0.2);
+await sleep(1400); // the split
 const gap = page.locator('.bin--gap');
 cam(await rectOf(gap), { pad: 1.25, dur: 1.0 });
-caption('Not covered here: no official rule, so no bin is guessed');
+focus({ rect: await rectOf(gap.locator('.piece-main')) });
+end = say('n3');
 await pointAt(page, gap.locator('.piece-main'), 800, 0.55, 0.45);
-await until(end + 0.2);
-end = say('n2');
+await until(end + GAP);
+focus({ rect: await rectOf(gap.locator('.bin-head')), label: 'Not covered here' });
+end = say('n4');
+await until(end + 0.1);
+focus(null);
 await click(page, gap.locator('.piece-main'), { ms: 300, fx: 0.55, fy: 0.45 });
 await L.sheet.waitFor();
-await sleep(280);
-cam(await rectOf(L.sheet), { pad: 1.08, dur: 0.9, at: -0.1 });
-await sleep(1200);
-{
-  const why = page.locator('#sheet section').first();
-  cam(await rectOf(why), { pad: 1.15, maxZ: 2.0, dur: 1.1 });
-  await sleep(500);
-  await pointAt(page, page.locator('#sheet section').first().locator('a').first(), 900, 0.4, 0.6);
-  caption('It links the official source it checked');
-}
-await until(end + 1.0);
+await sleep(300);
+const why = page.locator('#sheet section').first();
+cam(await rectOf(why), { pad: 1.15, dur: 1.0 });
+await sleep(400);
+focus({ rect: await rectOf(why.locator('p').first()) });
+end = say('n5');
+await until(end + GAP);
+const checked = why.locator('a').first();
+focus({ rect: await rectOf(checked), label: 'Checked against' });
+end = say('n6');
+await pointAt(page, checked, 800, 0.4, 0.6);
+await until(end + STOP);
+focus(null);
 cam('wide', { dur: 0.9 });
-await click(page, page.locator('#sheet .sheet-close'), { ms: 650 });
+await click(page, page.locator('#sheet .sheet-close'), { ms: 600 });
 await sleep(600);
 
 const sg = page.locator('[data-pack="sg-nea"]');
 cam(union(await rectOf(page.locator('.area')), await rectOf(L.product)), { pad: 1.1, dur: 1.0 });
+await sleep(300);
+focus({ rect: await rectOf(sg), label: 'Area' });
 end = say('w1');
-await click(page, sg, { ms: 900 });
-caption('Same parts, re-sorted under Singapore (NEA) rules');
+await pointAt(page, sg, 900);
+await until(end);
+await press(page);
+focus(null);
 await sleep(80);
-cam(union(await rectOf(L.product), await rectOf(L.bins)), { pad: 1.04, dur: 1.0, at: 0.1 });
-await sleep(1900);
-cam(await rectOf(page.locator('.bin[data-bin="general"]')), { pad: 1.3, dur: 1.0 });
-await until(end + 0.6);
+cam(union(await rectOf(L.product), await rectOf(L.bins)), { pad: 1.04, dur: 1.0 });
+await sleep(300);
+focus({ rect: await rectOf(L.bins) });
+end = say('w2');
+await until(end + STOP);
+cam(await rectOf(L.bin('general')), { pad: 1.4, dur: 1.0 });
+focus({ rect: await rectOf(L.bin('general')) });
+end = say('w3');
+await until(end + STOP);
+focus(null);
 mark('noodles', 'out');
 
 // ===== Clip: no packaging data, two taps. =====
 cam('wide', { dur: 0 });
 await sleep(150);
 mark('twotap', 'in');
-cam(await rectOf(page.locator('.searchbar')), { pad: 1.5, dur: 0.8, at: 0 });
+cam(await rectOf(page.locator('.searchbar')), { pad: 1.5, dur: 0.8 });
+focus({ rect: await rectOf(L.search), label: 'Barcode' });
 end = say('t1');
-caption('No packaging data? Describe a part in two taps');
 await typeInto(page, L.search, '9556231110045');
-await sleep(200);
+await until(end);
 await page.keyboard.press('Enter');
 const describe = page.getByRole('button', { name: 'Describe a part' });
 await describe.waitFor();
 await sleep(150);
 cam(union(await rectOf(L.product), await rectOf(page.locator('#stage-body .panel'))), { pad: 1.1, dur: 1.0 });
-await sleep(700);
-await click(page, describe, { ms: 700 });
+focus({ rect: await rectOf(page.locator('#stage-body .panel h3')) });
+end = say('t2');
+await until(end + STOP);
+focus({ rect: await rectOf(describe) });
+end = say('t3');
+await pointAt(page, describe, 700);
+await until(end);
+await press(page);
+focus(null);
 await sleep(900); // the shape tiles scroll into view
 cam(await rectOf(page.locator('#ask')), { pad: 1.08, dur: 0.9 });
-await sleep(500);
-await click(page, page.locator('[data-ask-shape="bag"]'), { ms: 750 });
-await sleep(550);
+await sleep(300);
+const bag = page.locator('[data-ask-shape="bag"]');
+focus({ rect: await rectOf(bag), label: 'Shape' });
+end = say('t4');
+await pointAt(page, bag, 700);
+await until(end);
+await press(page);
+await sleep(450);
 cam(await rectOf(page.locator('#ask')), { pad: 1.08, dur: 0.7 });
-await click(page, page.locator('[data-ask-material="plastic"]'), { ms: 750 });
+const plastic = page.locator('[data-ask-material="plastic"]');
+focus({ rect: await rectOf(plastic), label: 'Material' });
+end = say('t5');
+await pointAt(page, plastic, 700);
+await until(end);
+await press(page);
+focus(null);
 await sleep(1300); // the new part lands and scrolls into view
 {
   const part = page.locator('[data-part^="u"]').first();
   const bin = part.locator('xpath=ancestor::div[contains(@class,"bin ")]');
-  cam(union(await rectOf(bin), await rectOf(part)), { pad: 1.35, dur: 1.0 });
+  const r = union(await rectOf(bin), await rectOf(part));
+  cam(r, { pad: 1.35, dur: 1.0 });
+  focus({ rect: await rectOf(bin) });
 }
-await until(end + 0.8);
+end = say('t6');
+await until(end + STOP);
+focus(null);
 mark('twotap', 'out');
 
 // ===== Clip: measured coverage (About). =====
@@ -451,19 +680,31 @@ cam('wide', { dur: 0 });
 await page.evaluate(() => window.scrollTo(0, 0));
 await sleep(300);
 mark('about', 'in');
+const about = page.getByRole('button', { name: 'About' });
+cam(union(await rectOf(about), await rectOf(page.locator('.area'))), { pad: 1.6, dur: 0.9 });
+focus({ rect: await rectOf(about), label: 'About' });
 end = say('a1');
-await click(page, page.getByRole('button', { name: 'About' }), { ms: 900 });
+await pointAt(page, about, 900);
+await until(end);
+await press(page);
+focus(null);
 await page.locator('.big-figure').waitFor();
+await sleep(400);
+cam(union(await rectOf(page.locator('.big-figure')), await rectOf(page.locator('.figure-label'))), { pad: 1.12, dur: 1.0 });
 await sleep(300);
-caption('Coverage, measured on 240 real barcodes');
-cam(union(await rectOf(page.locator('#sheet-title')), await rectOf(page.locator('.figure-label'))), { pad: 1.12, maxZ: 2.0, dur: 1.1 });
-await until(end + 0.2);
+focus({ rect: await textRect(page, '.figure-label', '240 barcodes'), label: '240 barcodes', underline: true });
 end = say('a2');
-await pointAt(page, page.locator('.big-figure'), 900, 0.7, 0.6);
-await until(end - 2.2);
-caption(null); // the table needs the space the caption bar would cover
-cam(union(await rectOf(page.locator('.big-figure')), await rectOf(page.locator('.cov-table'))), { pad: 1.12, maxZ: 2.0, dur: 1.2 });
-await until(end + 0.7);
+await until(end + STOP);
+focus({ rect: await textRect(page, '.figure-label', '95 real products'), label: '95 with packaging data', underline: true, below: true });
+end = say('a3');
+await until(end + STOP);
+focus({ rect: await textRect(page, '.big-figure', '76%'), label: '72 of 95', pulse: true });
+end = say('a4');
+await until(end + GAP);
+focus({ rect: await textRect(page, '.figure-label', '52%'), label: '49 of 95', underline: true });
+end = say('a5');
+await until(end + STOP);
+focus(null);
 mark('about', 'out');
 
 // ===== Clip: saved on this device, offline. =====
@@ -474,21 +715,27 @@ await page.locator('[data-home]').click();
 await page.getByRole('heading', { name: /Every part/ }).waitFor();
 await sleep(900);
 mark('offline', 'in');
-end = say('o1');
 await ctx.setOffline(true);
 caption('Network off');
 const startInput = page.locator('[data-lookup] input');
 cam(union(await rectOf(startInput), await rectOf(page.locator('.start h1'))), { pad: 1.2, dur: 1.0 });
+focus({ rect: await rectOf(startInput) });
+end = say('o1');
 await typeInto(page, startInput, '3017620422003');
-await sleep(250);
+await until(end);
 await page.keyboard.press('Enter');
 await L.product.waitFor();
 await sleep(60);
 cam(await rectOf(L.product), { pad: 1.06, dur: 1.0 });
-caption('Saved on this device: it works offline');
-await sleep(2300);
-cam(union(await rectOf(page.locator('.product-img')), await rectOf(page.locator('.product-sub'))), { pad: 1.2, maxZ: 2.0, dur: 1.0 });
+focus({ rect: await rectOf(L.product) });
+end = say('o2');
+await until(end + GAP);
+const saved = await textRect(page, '.product-sub', 'Saved on this device');
+cam(union(await rectOf(page.locator('.product-img')), saved), { pad: 1.25, dur: 1.0 });
+focus({ rect: saved, label: 'No network needed' });
+end = say('o3');
 await until(end + 0.9);
+focus(null);
 mark('offline', 'out');
 await ctx.setOffline(false);
 
@@ -499,23 +746,52 @@ await browser.close();
 
 // ---------- Hand-off to the renderer ----------
 
-// The edit: clips in order, with the title-style cards between them.
+// The edit: clips in order, with the cards between them. Card phrases name parts of the
+// card (CSS selector, optionally a piece of its text), read from the card page when rendering.
 const edit = [
   { kind: 'clip', id: 'hook' },
-  { kind: 'card', card: 'problem', vo: 'p1' },
+  {
+    kind: 'card',
+    card: 'problem',
+    beats: [
+      { vo: 'p1', sel: '.statement h2' },
+      { vo: 'p2', sel: '.statement .src' },
+      { vo: 'p3', sel: '.statement h2', text: '40%', underline: true, gap: STOP },
+      { vo: 'p4', sel: '.split .board:nth-child(1)' },
+      { vo: 'p5', sel: '.split .board:nth-child(2)' },
+    ],
+  },
   { kind: 'clip', id: 'conflict' },
   { kind: 'clip', id: 'noodles' },
   { kind: 'clip', id: 'twotap' },
-  { kind: 'card', card: 'how', vo: 'k1' },
+  {
+    kind: 'card',
+    card: 'how',
+    beats: [
+      { vo: 'k1', sel: 'h2', text: 'How it works' },
+      { vo: 'k2', sel: '.flow .step:nth-child(1)' },
+      { vo: 'k3', sel: '.flow .step:nth-child(2)' },
+      { vo: 'k4', sel: '.flow .step:nth-child(3)' },
+      { vo: 'k5', sel: '.flow .step:nth-child(4)' },
+    ],
+  },
   { kind: 'clip', id: 'about' },
-  { kind: 'card', card: 'measure', vo: 'm1' },
+  {
+    kind: 'card',
+    card: 'measure',
+    beats: [
+      { vo: 'm1', sel: '.measure:nth-child(1)', gap: STOP },
+      { vo: 'm2', sel: '.measure:nth-child(2)', gap: STOP },
+      { vo: 'm3', sel: '.measure:nth-child(3)' },
+    ],
+  },
   { kind: 'clip', id: 'offline' },
-  { kind: 'card', card: 'end', vo: 'e1' },
+  { kind: 'card', card: 'end', beats: [{ vo: 'e1', sel: '.end h1', text: 'BinSplit' }] },
 ];
 
 writeFileSync(
   join(work, 'rec.json'),
-  JSON.stringify({ viewport: { w: W, h: H, dsf: DSF }, slowMotion: K, base, voices, frames, events, edit }, null, 0),
+  JSON.stringify({ viewport: { w: W, h: H, dsf: DSF }, slowMotion: K, gap: GAP, base, voices, frames, events, edit }, null, 0),
 );
 const span = frames[frames.length - 1].t - frames[0].t;
 console.log(`frames: ${frames.length} (${(frames.length / span).toFixed(0)} per filmed second, ${stored} distinct), events: ${events.length}, live lookups: ${apiCalls}, page errors: ${errors.length ? errors.join(' | ') : 0}`);
