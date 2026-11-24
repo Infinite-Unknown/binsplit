@@ -204,9 +204,21 @@ p {
   text-decoration: underline;
   text-underline-offset: 3px;
 }
+/* Phones: brand and About share the first row; the area switch gets its own full-width row. */
 @media (max-width: 520px) {
+  .top {
+    flex-wrap: wrap;
+    row-gap: var(--s3);
+    padding-block: var(--s3) var(--s4);
+  }
+  .area {
+    order: 3;
+    width: 100%;
+  }
   .area button {
-    padding: var(--s2) var(--s2);
+    flex: 1;
+    min-height: 40px;
+    padding: var(--s2);
   }
   .area .area-long {
     display: none;
@@ -532,20 +544,42 @@ p {
 }
 .skeleton {
   display: block;
+  max-width: 100%;
   height: 1em;
   border-radius: 6px;
   background: var(--board-2);
 }
-
-.split-row {
-  grid-column: 1 / -1;
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--s3);
-  min-height: 0;
+.code-title {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0;
 }
-.split-row:empty {
+.product-summary:empty {
   display: none;
+}
+.product-img,
+.product-meta {
+  position: relative;
+}
+
+@media (max-width: 520px) {
+  .searchbar {
+    padding-block: 0 var(--s4);
+  }
+  .product {
+    padding: var(--s4);
+    gap: var(--s3) var(--s4);
+  }
+  .product::before {
+    inset: 6px;
+  }
+  .product-img {
+    width: 64px;
+    height: 64px;
+    border-radius: 10px;
+  }
+  .product-summary {
+    margin-top: var(--s2);
+  }
 }
 
 /* Bins */
@@ -575,16 +609,32 @@ p {
   align-items: center;
   gap: var(--s2);
 }
+/* Bins with parts take twice the width of empty ones, so piece text never wraps word by word. */
 .bins {
   margin-top: var(--s4);
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: var(--s3);
-  align-items: start;
+  align-items: flex-start;
+}
+.bin {
+  flex: 1 1 132px;
+  min-width: 0;
+}
+.bin[data-empty='false'] {
+  flex: 2 1 232px;
 }
 @media (max-width: 520px) {
+  .bins-head {
+    margin-top: var(--s6);
+  }
   .bins {
-    grid-template-columns: 1fr;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .bin,
+  .bin[data-empty='false'] {
+    flex: none;
   }
   /* On phones, bins with parts come first; empty bins shrink to a line. */
   .bin[data-empty='true'] {
@@ -615,6 +665,19 @@ p {
 .bin[data-empty='true'] {
   opacity: 0.55;
   min-height: 0;
+}
+/* During the split, a bin waits (head dimmed) until its first piece lands. */
+.bin > .bin-head,
+.bin > .bin-note {
+  transition: opacity 240ms ease;
+}
+.bin[data-waiting='true'] > .bin-head,
+.bin[data-waiting='true'] > .bin-note {
+  opacity: 0.45;
+}
+.bins--new .bin-head,
+.bins--new .bin-note {
+  animation: fade-in 280ms ease both;
 }
 .bin-label {
   display: grid;
@@ -688,10 +751,40 @@ p {
   background: var(--sheet);
   border: 1.5px dashed var(--signal);
 }
+/* Not covered: an unprinted area of the sheet, hatched, with no bin printed on it. */
 .bin--gap {
-  --tone: var(--ink-3);
-  background: transparent;
+  --tone: var(--ink-2);
+  background: repeating-linear-gradient(-45deg, rgb(23 32 28 / 0.045) 0 1px, transparent 1px 9px);
   border: 1.5px dashed var(--cut);
+}
+.bin--gap .swatch {
+  background: transparent;
+  border: 1.5px dashed var(--ink-2);
+}
+.bin--gap .piece {
+  background: var(--board);
+  box-shadow: none;
+  outline: 1.5px dashed var(--cut);
+  outline-offset: -1.5px;
+}
+.bin--gap .piece-icon {
+  background: transparent;
+  outline: 1.5px dashed var(--cut);
+  outline-offset: -1.5px;
+  color: var(--ink-2);
+}
+.bin--gap .piece-prep {
+  color: var(--ink);
+  font-weight: 500;
+}
+/* Needs your answer: the asked piece is outlined in press red and its question is a tinted band. */
+.bin--needs .piece {
+  box-shadow: 0 0 0 1.5px var(--signal), var(--lift);
+}
+.bin--needs .piece-ask {
+  background: color-mix(in srgb, var(--signal) 7%, var(--sheet));
+  border-top-color: color-mix(in srgb, var(--signal) 35%, transparent);
+  border-radius: 0 0 var(--r-card) var(--r-card);
 }
 .bin--needs .bin-count,
 .bin--gap .bin-count {
@@ -714,21 +807,29 @@ p {
   min-width: 0;
   will-change: transform;
 }
-.split-row .piece {
-  width: min(220px, 100%);
+/* In flight: above the bins, with the stronger lift. */
+.piece.is-flying {
+  z-index: 3;
+  box-shadow: var(--lift-high);
 }
 .piece-main {
+  position: relative;
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: auto 1fr;
   align-items: center;
   gap: var(--s3);
   width: 100%;
   border: 0;
   background: transparent;
   text-align: left;
-  padding: var(--s3);
+  padding: var(--s3) var(--s5) var(--s3) var(--s3);
   border-radius: var(--r-card);
   transition: transform 120ms var(--ease-out);
+}
+.piece-main .conf {
+  position: absolute;
+  top: var(--s3);
+  right: var(--s3);
 }
 .piece-main:active {
   transform: scale(0.98);
@@ -781,10 +882,13 @@ p {
   gap: var(--s2);
 }
 .piece-ask .chip {
+  flex: 1 1 auto;
   border-color: var(--ink-3);
+  background: var(--sheet);
   color: var(--ink);
   font-weight: 600;
-  min-height: 36px;
+  min-height: 44px;
+  padding-inline: var(--s3);
 }
 @media (hover: hover) and (pointer: fine) {
   .piece {
@@ -1021,11 +1125,12 @@ dialog.closing::backdrop {
   color: var(--ink-2);
 }
 .source a {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--s1);
   font-weight: 600;
   color: var(--ink);
+}
+.source a .icon-sm {
+  vertical-align: -2px;
+  margin-left: 2px;
 }
 .muted {
   font-size: var(--t14);

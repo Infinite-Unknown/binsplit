@@ -152,9 +152,15 @@ const heroImg = new URL('./hero-split.webp', import.meta.url).href;
 function productHeader(loading = false) {
   const p = state.product;
   const img = p?.image_front_small_url
-    ? `<img src="${esc(p.image_front_small_url)}" alt="" loading="lazy" />`
+    ? `<img src="${esc(p.image_front_small_url)}" alt="" decoding="async" onerror="this.remove()" />`
     : shapeIcon('box');
-  const name = loading ? '<span class="skeleton" style="width: 14ch; height: 1.4em"></span>' : esc(p?.product_name || 'Unnamed product');
+  // No record: the barcode itself is the title, never an invented product name.
+  const name = loading
+    ? '<span class="skeleton" style="width: 14ch; height: 1.4em"></span>'
+    : p
+      ? esc(p.product_name || 'Unnamed product')
+      : `<span class="code-title">${esc(state.code)}</span>`;
+  const status = !p && !loading ? (state.view === 'not-found' ? 'Not in Open Food Facts' : 'Lookup did not finish') : '';
   return `
     <div class="product ${loading ? 'is-loading' : ''}" id="product">
       <div class="product-img">${loading ? '' : img}</div>
@@ -162,19 +168,18 @@ function productHeader(loading = false) {
         <h2 id="product-name">${name}</h2>
         <div class="product-sub">
           ${p?.brands ? `<span>${esc(p.brands.split(',')[0])}</span>` : ''}
-          <span>${esc(state.code)}</span>
+          ${p || loading ? `<span>${esc(state.code)}</span>` : `<span>${status}</span>`}
           ${p ? `<a href="https://world.openfoodfacts.org/product/${esc(state.code)}" target="_blank" rel="noopener">Product data ${ICON_LINK}</a>` : ''}
-          ${state.fromCache ? '<span>Saved on this device</span>' : ''}
+          ${p && state.fromCache ? '<span>Saved on this device</span>' : ''}
         </div>
         ${loading ? '<p class="product-summary muted">Looking up packaging…</p>' : `<p class="product-summary" id="summary">${summaryLine()}</p>`}
       </div>
-      <div class="split-row" id="split-row"></div>
     </div>`;
 }
 
 function summaryLine(): string {
   const sorted = sortParts(state.parts, pack());
-  if (!sorted.length) return 'No packaging parts recorded yet.';
+  if (!sorted.length) return state.product ? 'No packaging parts recorded yet.' : '';
   const n = sorted.length;
   const asks = sorted.filter((s) => needsAnswer(s)).length;
   const gaps = sorted.filter((s) => s.verdict.kind === 'gap').length;
@@ -230,7 +235,7 @@ function pieceHtml(s: SortedPart): string {
 }
 
 /** Render bins with every sorted piece in its bin. */
-function binsHtml(sorted: SortedPart[], withPieces: boolean): string {
+function binsHtml(sorted: SortedPart[]): string {
   const pk = pack();
   const cols: Array<{ id: string; cls: string; name: string; local?: string; note?: string; items: SortedPart[] }> = [];
   const needs = sorted.filter(needsAnswer);
@@ -256,10 +261,10 @@ function binsHtml(sorted: SortedPart[], withPieces: boolean): string {
       ${cols
         .map(
           (c) => `
-        <div class="bin ${c.cls}" data-bin="${c.id}" data-empty="${withPieces ? c.items.length === 0 : true}">
-          <div class="bin-head"><span class="swatch"></span><span class="bin-label"><span class="bin-name">${esc(c.name)}</span>${c.local ? `<span class="bin-local">${esc(c.local)}</span>` : ''}</span><span class="bin-count">${withPieces ? c.items.length : 0}</span></div>
+        <div class="bin ${c.cls}" data-bin="${c.id}" data-empty="${c.items.length === 0}">
+          <div class="bin-head"><span class="swatch"></span><span class="bin-label"><span class="bin-name">${esc(c.name)}</span>${c.local ? `<span class="bin-local">${esc(c.local)}</span>` : ''}</span><span class="bin-count">${c.items.length}</span></div>
           ${c.note ? `<p class="bin-note">${esc(c.note)}</p>` : ''}
-          <div class="slot">${withPieces ? c.items.map(pieceHtml).join('') : ''}</div>
+          <div class="slot">${c.items.map(pieceHtml).join('')}</div>
         </div>`,
         )
         .join('')}
@@ -324,7 +329,7 @@ function renderResultFrame(loading: boolean) {
 }
 
 /** Re-render the bins and notes, animating every piece from where it was. */
-function renderStageBody(opts: { flip?: boolean } = {}) {
+function renderStageBody(opts: { flip?: boolean; newBins?: boolean } = {}) {
   const body = document.getElementById('stage-body');
   if (!body) return;
   const before = opts.flip ? snapshot(document.getElementById('stage')!) : new Map<string, DOMRect>();
@@ -332,9 +337,11 @@ function renderStageBody(opts: { flip?: boolean } = {}) {
   const empty = state.parts.length === 0;
   body.innerHTML = empty
     ? `${state.ask ? '' : noDataPanel()}${askPanel()}`
-    : `${binsHtml(sorted, true)}${askPanel()}${notesHtml()}`;
+    : `${binsHtml(sorted)}${askPanel()}${notesHtml()}`;
   const summaryEl = document.getElementById('summary');
   if (summaryEl) summaryEl.textContent = summaryLine();
+  // Another area's bins: their names cross-fade in while the pieces travel.
+  if (opts.newBins) document.getElementById('bins')?.classList.add('bins--new');
   if (opts.flip) {
     play(document.getElementById('stage')!, before, { stagger: 70 });
     pulseBins(before);
@@ -356,9 +363,11 @@ function noDataPanel(): string {
   </div>`;
 }
 
-/** Bins that received a piece get a small catch pulse when it lands. */
-function pulseBins(before: Map<string, DOMRect>) {
+/** Bins that received a piece give a small catch on their head when it lands. */
+function pulseBins(before: Map<string, DOMRect>, duration = 520, stagger = 70) {
   if (reduceMotion()) return;
+  const token = splitToken;
+  const all = [...document.querySelectorAll<HTMLElement>('#stage [data-flip]')];
   document.querySelectorAll<HTMLElement>('.bin').forEach((bin) => {
     const pieces = [...bin.querySelectorAll<HTMLElement>('[data-flip]')];
     const arrived = pieces.filter((p) => {
@@ -368,52 +377,174 @@ function pulseBins(before: Map<string, DOMRect>) {
       return Math.abs(prev.top - now.top) > 4 || Math.abs(prev.left - now.left) > 4;
     });
     if (!arrived.length) return;
-    const order = [...document.querySelectorAll<HTMLElement>('#stage [data-flip]')].indexOf(arrived[arrived.length - 1]);
-    bin.animate([{ transform: 'scale(1)' }, { transform: 'scale(1.035)' }, { transform: 'scale(1)' }], {
-      duration: 280,
-      delay: 480 + Math.max(order, 0) * 70,
-      easing: 'cubic-bezier(.23,1,.32,1)',
-    });
+    const order = Math.max(...arrived.map((p) => all.indexOf(p)), 0);
+    setTimeout(() => token === splitToken && catchBin(bin), duration + order * stagger);
   });
 }
 
+/** The bin's swatch and count give a small catch when a piece lands; the count can tick up. */
+function catchBin(bin: HTMLElement, count?: number) {
+  const head = bin.querySelector<HTMLElement>('.bin-head');
+  const countEl = bin.querySelector<HTMLElement>('.bin-count');
+  if (count !== undefined && countEl) countEl.textContent = String(count);
+  bin.dataset.waiting = 'false';
+  if (reduceMotion()) return;
+  head?.animate([{ transform: 'none' }, { transform: 'translateY(2px)' }, { transform: 'none' }], { duration: 260, easing: EASE_OUT });
+  countEl?.animate([{ transform: 'scale(1)' }, { transform: 'scale(1.25)' }, { transform: 'scale(1)' }], { duration: 300, easing: EASE_OUT });
+}
+
+/** Wait until the product image can be shown, so the parts are cut from a real picture. */
+async function productImageReady(maxMs = 600) {
+  const img = document.querySelector<HTMLImageElement>('#product .product-img img');
+  if (!img || img.complete) return;
+  await Promise.race([img.decode().catch(() => undefined), wait(maxMs)]);
+}
+
 /**
- * The signature moment: pieces are cut out of the product board, held in a row,
- * then each arcs into its bin.
+ * Where each piece sits while it is held over the product card: a row when the
+ * pieces fit at a readable size, otherwise a fanned hand (phones).
+ */
+function fanSlots(rects: DOMRect[], heights: number[], card: DOMRect) {
+  const pad = 24;
+  const gap = 12;
+  const avail = card.width - pad * 2;
+  const total = rects.reduce((a, r) => a + r.width, 0) + gap * (rects.length - 1);
+  const cy = card.top + card.height / 2;
+  const rowScale = Math.min(1, avail / total);
+  if (rowScale >= 0.62) {
+    let x = card.left + card.width / 2 - (total * rowScale) / 2;
+    return rects.map((r, i) => {
+      const slot = { cx: x + (r.width * rowScale) / 2, cy: cy + ((r.height - heights[i]) * rowScale) / 2, scale: rowScale, rot: 0 };
+      x += (r.width + gap) * rowScale;
+      return slot;
+    });
+  }
+  // Phones: a spread deck over the card, each piece's title row showing under the next.
+  const scale = Math.min(0.86, (card.width - 32) / Math.max(...rects.map((r) => r.width)));
+  const n = rects.length;
+  const tallest = Math.max(...heights) * scale;
+  // The deck may hang a little below the card, into the gap above the bins.
+  const room = card.height + 56;
+  const step = n === 1 ? 0 : Math.max(12, Math.min(tallest * 0.7, (room - 24 - tallest) / (n - 1)));
+  const top = cy + 28 - (tallest + step * (n - 1)) / 2;
+  return rects.map((r, i) => ({
+    cx: card.left + card.width / 2 + (i % 2 ? 6 : -6),
+    cy: top + i * step + (heights[i] * scale) / 2 + ((r.height - heights[i]) * scale) / 2,
+    scale,
+    rot: i % 2 ? 1.5 : -1.5,
+  }));
+}
+
+const EASE_OUT = 'cubic-bezier(.23,1,.32,1)';
+
+/**
+ * The signature moment, with no layout shift: every piece is rendered straight into
+ * its bin, then moved with transforms. It is cut out of the product image, held in a
+ * fan over the product card, then each arcs into its bin; the bin counts tick as they land.
  */
 async function splitIntoBins() {
   const sorted = sortParts(state.parts, pack());
   const body = document.getElementById('stage-body')!;
+  const token = ++splitToken;
   if (reduceMotion() || sorted.length === 0) {
     renderStageBody();
     body.classList.add('fade');
     return;
   }
-  // 1. Bins appear empty; pieces are cut out of the product board.
-  body.innerHTML = binsHtml(sorted, false);
-  const row = document.getElementById('split-row')!;
-  row.innerHTML = sorted.map(pieceHtml).join('');
-  const pieces = [...row.querySelectorAll<HTMLElement>('.piece')];
-  pieces.forEach((el, i) =>
-    el.animate(
-      [
-        { opacity: 0, transform: 'translateY(-14px) scale(.92)', clipPath: 'inset(0 50% 0 50% round 14px)' },
-        { opacity: 1, transform: 'none', clipPath: 'inset(0 0% 0 0% round 14px)' },
-      ],
-      { duration: 380, delay: i * 60, easing: 'cubic-bezier(.23,1,.32,1)', fill: 'backwards' },
-    ),
-  );
-  const token = ++splitToken;
-  await wait(380 + pieces.length * 60 + 450);
+  await productImageReady();
   if (token !== splitToken) return; // user moved on
-  // 2. Arc into bins.
-  const before = snapshot(document.getElementById('stage')!);
-  row.innerHTML = '';
   renderStageBody();
-  play(document.getElementById('stage')!, before, { stagger: 70, duration: 560 });
-  pulseBins(before);
+  const stage = document.getElementById('stage')!;
+  const product = document.getElementById('product')!;
+  const card = product.getBoundingClientRect();
+  const origin = product.querySelector('.product-img')!.getBoundingClientRect();
+  const pieces = [...stage.querySelectorAll<HTMLElement>('#bins [data-flip]')];
+  const rects = pieces.map((p) => p.getBoundingClientRect());
+  // While held, a piece shows only its main row; a question below it unfolds on landing.
+  const mains = pieces.map((p) => p.querySelector<HTMLElement>('.piece-main')!.offsetHeight);
+  const slots = fanSlots(rects, mains, card);
+
+  const bins = [...stage.querySelectorAll<HTMLElement>('#bins .bin')];
+  const landed = new Map<HTMLElement, number>();
+  bins.forEach((b) => {
+    if (b.querySelector('[data-flip]')) {
+      b.dataset.waiting = 'true';
+      b.querySelector('.bin-count')!.textContent = '0';
+    }
+  });
+
+  const n = pieces.length;
+  const CUT = 420;
+  const CUT_STAGGER = 70;
+  const HOLD = 320;
+  const ARC = 620;
+  const ARC_STAGGER = 90;
+  const holdEnd = CUT + (n - 1) * CUT_STAGGER + HOLD;
+  const end = holdEnd + (n - 1) * ARC_STAGGER + ARC;
+  const ox = origin.left + origin.width / 2;
+  const oy = origin.top + origin.height / 2;
+
+  pieces.forEach((el, i) => {
+    const r = rects[i];
+    const s = slots[i];
+    const fx = r.left + r.width / 2;
+    const fy = r.top + r.height / 2;
+    const hidden = r.height - mains[i];
+    const d = holdEnd + i * ARC_STAGGER + ARC;
+    const at = (ms: number) => Math.min(1, ms / d);
+    const fanT = `translate(${s.cx - fx}px, ${s.cy - fy}px) rotate(${s.rot}deg) scale(${s.scale})`;
+    const midX = (s.cx - fx) / 2;
+    const midY = (s.cy - fy) / 2 - Math.min(64, 24 + Math.hypot(s.cx - fx, s.cy - fy) * 0.08);
+    const cutClip = `inset(${r.height * 0.3}px ${r.width * 0.3}px ${hidden + mains[i] * 0.3}px ${r.width * 0.3}px round 14px)`;
+    const heldClip = `inset(0px 0px ${hidden}px 0px round 14px)`;
+    el.classList.add('is-flying');
+    const anim = el.animate(
+      [
+        { offset: 0, opacity: 0, transform: `translate(${ox - fx}px, ${oy - fy}px) scale(.38)`, clipPath: cutClip },
+        { offset: at(i * CUT_STAGGER), opacity: 0, transform: `translate(${ox - fx}px, ${oy - fy}px) scale(.38)`, clipPath: cutClip, easing: EASE_OUT },
+        { offset: at(i * CUT_STAGGER + CUT), opacity: 1, transform: fanT, clipPath: heldClip },
+        { offset: at(holdEnd + i * ARC_STAGGER), opacity: 1, transform: fanT, clipPath: heldClip, easing: 'cubic-bezier(.25,.6,.35,1)' },
+        { offset: at(holdEnd + i * ARC_STAGGER + ARC * 0.5), opacity: 1, transform: `translate(${midX}px, ${midY}px) rotate(0deg) scale(1.03)`, clipPath: heldClip, easing: 'cubic-bezier(.5,0,.3,1)' },
+        { offset: 1, opacity: 1, transform: 'translate(0px, 0px) rotate(0deg) scale(1)', clipPath: `inset(0px 0px 0px 0px round 14px)` },
+      ],
+      { duration: d, fill: 'backwards' },
+    );
+    anim.finished.then(
+      () => {
+        el.classList.remove('is-flying');
+        if (token !== splitToken) return;
+        const bin = el.closest<HTMLElement>('.bin');
+        if (!bin) return;
+        const c = (landed.get(bin) ?? 0) + 1;
+        landed.set(bin, c);
+        catchBin(bin, c);
+      },
+      () => el.classList.remove('is-flying'),
+    );
+  });
+
+  // The product image presses in as its parts leave; its name steps back while they are held.
+  const meta = product.querySelector<HTMLElement>('.product-meta');
+  const img = product.querySelector<HTMLElement>('.product-img');
+  splitAnims = [
+    meta?.animate(
+      [{ opacity: 1 }, { opacity: 0.18, offset: CUT / end }, { opacity: 0.18, offset: holdEnd / end }, { opacity: 1, offset: (holdEnd + ARC) / end }, { opacity: 1 }],
+      { duration: end, easing: 'ease' },
+    ),
+    img?.animate([{ transform: 'scale(1)' }, { transform: 'scale(.92)', offset: 0.12 }, { transform: 'scale(1)', offset: 0.4 }, { transform: 'scale(1)' }], {
+      duration: end,
+      easing: EASE_OUT,
+    }),
+  ].filter((a): a is Animation => !!a);
 }
 let splitToken = 0;
+let splitAnims: Animation[] = [];
+/** Stop a split in progress (the user moved on); pieces keep their final place. */
+function cancelSplit() {
+  splitToken++;
+  splitAnims.forEach((a) => a.cancel());
+  splitAnims = [];
+}
 const wait = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 // ---------- Part detail sheet ----------
@@ -533,10 +664,8 @@ function setPack(id: string) {
   document.querySelectorAll<HTMLButtonElement>('[data-pack]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.pack === id)));
   if (state.view === 'start') renderStart();
   else {
-    splitToken++;
-    const row = document.getElementById('split-row');
-    if (row?.children.length) row.innerHTML = '';
-    renderStageBody({ flip: true });
+    cancelSplit();
+    renderStageBody({ flip: true, newBins: true });
   }
   const dlg = document.getElementById('sheet') as HTMLDialogElement;
   if (dlg.open) closeDialog(dlg);
@@ -562,11 +691,12 @@ async function lookup(raw: string) {
   }
   state.code = code;
   state.product = undefined;
+  state.fromCache = false;
   state.parts = [];
   state.notes = [];
   state.ask = undefined;
   state.view = 'loading';
-  splitToken++;
+  cancelSplit();
   renderResultFrame(true);
   syncUrl();
   const result = await lookupProduct(code, { cache: productCache });
@@ -731,7 +861,7 @@ function bind() {
       e.preventDefault();
       state.view = 'start';
       state.code = undefined;
-      splitToken++;
+      cancelSplit();
       syncUrl();
       renderStart();
     } else if ('addPart' in d) {

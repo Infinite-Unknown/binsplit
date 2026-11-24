@@ -63,13 +63,13 @@ Easing tokens: `--ease-out: cubic-bezier(.23, 1, .32, 1)`, `--ease-move: cubic-b
 | Hover (pointer devices only) | piece lifts 2 px, shadow deepens | 160 ms |
 | Loading (lookup) | the board's cut line marches (dash offset), product name skeleton | until done |
 | Loading to result | board crossfades in, no layout jump (reserved height) | 240 ms |
-| **Signature: the split** | the product tile is cut along its dashed line: each part piece is revealed out of the product tile (clip-path from the tile's box, scale .92 to 1), the pieces fan out in a row, hold 250 ms, then each arcs into its bin (FLIP, translate with a lifted midpoint), staggered 70 ms. The bin swatch gives a 1.04 "catch" pulse as its piece lands and its count ticks. | 380 ms split + 560 ms per arc |
-| Area switch | the same pieces arc from their old bin to the new one (FLIP); bins that change name cross-fade | 520 ms |
+| **Signature: the split** | No layout shift: every piece is rendered in its final bin first and moved only with transforms. Each piece is cut out of the product image (clip-path from a small centred window, scale .38 to 1), held over the product card in a row (desktop) or a spread deck (phones, title rows showing) with only its main row visible while the product name steps back to 18% opacity and the image presses to .92, then arcs into its bin (lifted midpoint, scale 1.03 at the top), staggered 90 ms; a question below a piece unfolds as it lands. Bins wait with their heads dimmed; on each landing the bin head dips 2 px, the count ticks up and pops 1.25. | 420 ms cut (70 ms stagger) + 320 ms hold + 620 ms per arc |
+| Area switch | the same pieces arc from their old bin to the new one (FLIP, lift grows with distance, max 56 px); the new bins' heads fade in; each receiving bin gives the same catch | 520 ms |
 | Answer a question | the asked piece arcs from "Needs your answer" into its bin | 520 ms |
 | Sheet open / close | rises from the bottom 24 px + fade; close faster | 260 / 180 ms |
 | Errors / not found | message fades in, no shake | 200 ms |
 
-Reduced motion: no movement. Pieces appear in their bins with a 150 ms opacity fade; the cut line does not march; the sheet fades only.
+Reduced motion: no movement; the split never plays and counts are final at once. Pieces appear in their bins with a 150 ms opacity fade; the cut line does not march; the sheet fades only.
 
 ## Icons
 
