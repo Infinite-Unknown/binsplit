@@ -1,0 +1,1407 @@
+{
+ "selected": "2026-11-24T09:03:13.127Z",
+ "rule": "Most-scanned Open Food Facts products (sort_by=unique_scans_n) tagged as sold in Malaysia (top 150) and in Singapore (top 100), duplicates removed. Packaging data was not looked at when selecting.",
+ "count": 240,
+ "items": [
+  {
+   "code": "8901262010016",
+   "product_name": "Amul Pasteurized Butter",
+   "brands": "Amul",
+   "list": "malaysia"
+  },
+  {
+   "code": "8801073113312",
+   "product_name": "Samyang cheese buldak spicy ramen",
+   "brands": "Buldak",
+   "list": "malaysia"
+  },
+  {
+   "code": "8801073115514",
+   "product_name": "Buldak Spicy Ramen",
+   "brands": "Samyang",
+   "list": "malaysia"
+  },
+  {
+   "code": "8000500347508",
+   "product_name": "",
+   "brands": "Kinder",
+   "list": "malaysia"
+  },
+  {
+   "code": "8000500023624",
+   "product_name": "Kinder Happy hippo",
+   "brands": "KinderFerrero",
+   "list": "malaysia"
+  },
+  {
+   "code": "9555030107614",
+   "product_name": "17000135 Mint Candy Lemon Flavour",
+   "brands": "Himalaya Salt",
+   "list": "malaysia"
+  },
+  {
+   "code": "8410076473974",
+   "product_name": "Tortillas",
+   "brands": "Old El Paso",
+   "list": "malaysia"
+  },
+  {
+   "code": "8852756346053",
+   "product_name": "Corn Flakes",
+   "brands": "Kellogg's",
+   "list": "malaysia"
+  },
+  {
+   "code": "5200106871084",
+   "product_name": "Authentic Greek Yoghurt",
+   "brands": "FARMA KOYKAKI AE",
+   "list": "malaysia"
+  },
+  {
+   "code": "0733739016614",
+   "product_name": "Ultra Omega-3 Fish Oil",
+   "brands": "NOW FOODS",
+   "list": "malaysia"
+  },
+  {
+   "code": "4008400351926",
+   "product_name": "Hanuta Minis",
+   "brands": "Ferrero",
+   "list": "malaysia"
+  },
+  {
+   "code": "8594017140573",
+   "product_name": "Emco Musli With Fruit Pieces Crunchy",
+   "brands": "Emco",
+   "list": "malaysia"
+  },
+  {
+   "code": "9556231110045",
+   "product_name": "Roti Putih Original Classic Jumbo",
+   "brands": "Gardenia",
+   "list": "malaysia"
+  },
+  {
+   "code": "9556085302757",
+   "product_name": "Cream Crackers",
+   "brands": "HUP SENG",
+   "list": "malaysia"
+  },
+  {
+   "code": "9556570105139",
+   "product_name": "ORIGINAL CARBONATED ISOTONIC ELECTROLYTE DRINK",
+   "brands": "100 PLUS",
+   "list": "malaysia"
+  },
+  {
+   "code": "8997240600423",
+   "product_name": "Original Oat Milk Drink",
+   "brands": "Oatside",
+   "list": "malaysia"
+  },
+  {
+   "code": "6942836703622",
+   "product_name": "kisses",
+   "brands": "Hans Kissle, Hershey's",
+   "list": "malaysia"
+  },
+  {
+   "code": "0024000163015",
+   "product_name": "Sweet Corn Cream Style",
+   "brands": "Del Monte",
+   "list": "malaysia"
+  },
+  {
+   "code": "9555022301877",
+   "product_name": "Noodle Snack",
+   "brands": "Mamee Monster",
+   "list": "malaysia"
+  },
+  {
+   "code": "8000500220412",
+   "product_name": "NUTTELA 680g",
+   "brands": "Ferrero",
+   "list": "malaysia"
+  },
+  {
+   "code": "9556231111134",
+   "product_name": "Breakthru Roti Gandum Penuh",
+   "brands": "Gardenia",
+   "list": "malaysia"
+  },
+  {
+   "code": "9300652809770",
+   "product_name": "Barista Oat",
+   "brands": "So Good",
+   "list": "malaysia"
+  },
+  {
+   "code": "9555589212142",
+   "product_name": "Coca-Cola Rasa Asli Kurang Gula",
+   "brands": "Coca-Cola",
+   "list": "malaysia"
+  },
+  {
+   "code": "9555555300538",
+   "product_name": "Panko bread crumbs",
+   "brands": "",
+   "list": "malaysia"
+  },
+  {
+   "code": "9555805800320",
+   "product_name": "Super Berry Granola",
+   "brands": "Kellogg's",
+   "list": "malaysia"
+  },
+  {
+   "code": "9556641320027",
+   "product_name": "Quick Bites",
+   "brands": "Qasehani",
+   "list": "malaysia"
+  },
+  {
+   "code": "4335619179790",
+   "product_name": "Salmon Pieces",
+   "brands": "Lidl, Simply",
+   "list": "malaysia"
+  },
+  {
+   "code": "0074410741860",
+   "product_name": "Japanese Green Tea",
+   "brands": "Pokka",
+   "list": "malaysia"
+  },
+  {
+   "code": "8801055706426",
+   "brands": "Nescafé",
+   "list": "malaysia"
+  },
+  {
+   "code": "5900102023646",
+   "product_name": "krówka",
+   "brands": "Krówka",
+   "list": "malaysia"
+  },
+  {
+   "code": "9555805800313",
+   "product_name": "GRANOLA SUPER BERRY",
+   "brands": "Kellogg's",
+   "list": "malaysia"
+  },
+  {
+   "code": "9556042001211",
+   "product_name": "THUMBS KACANG MENGLEMBU",
+   "brands": "thumbs",
+   "list": "malaysia"
+  },
+  {
+   "code": "9556041132411",
+   "product_name": "Sauce yakitori",
+   "brands": "Ayam",
+   "list": "malaysia"
+  },
+  {
+   "code": "9556755510710",
+   "product_name": "Seeded Multigrain With Barley",
+   "brands": "Massimo",
+   "list": "malaysia"
+  },
+  {
+   "code": "9556231111110",
+   "product_name": "ROTI SANDWICH",
+   "brands": "Gardenia",
+   "list": "malaysia"
+  },
+  {
+   "code": "8888196173324",
+   "product_name": "Green Tea Jasmine",
+   "brands": "Pokka",
+   "list": "malaysia"
+  },
+  {
+   "code": "9319133333574",
+   "product_name": "Carman's Super Berry Muesli Bars (Cranberry, Blueberry & Goji)",
+   "brands": "Carman's",
+   "list": "malaysia"
+  },
+  {
+   "code": "9556166058153",
+   "product_name": "12000825 Dutch Lady Pure Farm Full Cream Milk",
+   "brands": "",
+   "list": "malaysia"
+  },
+  {
+   "code": "9555022306698",
+   "product_name": "Ghost Pepper Spicy Chicken (Dry Black Noodles)",
+   "brands": "Mamee",
+   "list": "malaysia"
+  },
+  {
+   "code": "9556001601001",
+   "product_name": "Maggi chilli sauce 500g",
+   "brands": "Maggi",
+   "list": "malaysia"
+  },
+  {
+   "code": "9315090206968",
+   "product_name": "Skim Milk",
+   "brands": "Australia's own",
+   "list": "malaysia"
+  },
+  {
+   "code": "6924743926547",
+   "product_name": "Dorito Nacho Cheese",
+   "brands": "Doritos",
+   "list": "malaysia"
+  },
+  {
+   "code": "7622201402686",
+   "product_name": "Oreo Dutch Cocoa Wafer",
+   "brands": "Oreo",
+   "list": "malaysia"
+  },
+  {
+   "code": "9556755510079",
+   "product_name": "100% Whole Wheat Loaf",
+   "brands": "Massimo",
+   "list": "malaysia"
+  },
+  {
+   "code": "9551001410233",
+   "product_name": "12001187 Vida Salty Lychee",
+   "brands": "vida",
+   "list": "malaysia"
+  },
+  {
+   "code": "9555615900302",
+   "product_name": "Protein Wraps Wholemeal (Mission)",
+   "brands": "Mission",
+   "list": "malaysia"
+  },
+  {
+   "code": "9556135011509",
+   "list": "malaysia"
+  },
+  {
+   "code": "8992760211036",
+   "product_name": "Ritz Crackers Box",
+   "brands": "Ritz",
+   "list": "malaysia"
+  },
+  {
+   "code": "7622210400277",
+   "product_name": "DAIRY MILK HAZELNUT",
+   "brands": "Cadbury",
+   "list": "malaysia"
+  },
+  {
+   "code": "9556121000234",
+   "product_name": "BUTTER CRACKERS",
+   "brands": "Julie's",
+   "list": "malaysia"
+  },
+  {
+   "code": "9555589200668",
+   "product_name": "Sprite",
+   "brands": "Coca-Cola",
+   "list": "malaysia"
+  },
+  {
+   "code": "9557290166660",
+   "product_name": "sea master drinking",
+   "brands": "Sea Master",
+   "list": "malaysia"
+  },
+  {
+   "code": "8888010995644",
+   "product_name": "Buttercup",
+   "brands": "DKSH",
+   "list": "malaysia"
+  },
+  {
+   "code": "9556001183538",
+   "product_name": "Milo Malt Chocolate 200ml Pack",
+   "brands": "Nestlé",
+   "list": "malaysia"
+  },
+  {
+   "code": "8719200752276",
+   "product_name": "Planta",
+   "brands": "English",
+   "list": "malaysia"
+  },
+  {
+   "code": "9555246600107",
+   "product_name": "Minuman Susu Kultur",
+   "brands": "Yakult",
+   "list": "malaysia"
+  },
+  {
+   "code": "9551001410295",
+   "product_name": "Original Citrus",
+   "brands": "Vida",
+   "list": "malaysia"
+  },
+  {
+   "code": "9557378000541",
+   "product_name": "CED Peanut Butter",
+   "brands": "CED",
+   "list": "malaysia"
+  },
+  {
+   "code": "9556434100010",
+   "product_name": "196101000210 (4260-M)",
+   "brands": "CSR",
+   "list": "malaysia"
+  },
+  {
+   "code": "6151100031495",
+   "product_name": "Milo",
+   "brands": "Milo",
+   "list": "malaysia"
+  },
+  {
+   "code": "9555805800757",
+   "product_name": "Granola Dark Chocolate",
+   "brands": "Kellogg's",
+   "list": "malaysia"
+  },
+  {
+   "code": "4800361315340",
+   "product_name": "NESTLE SCHOOL PACK",
+   "list": "malaysia"
+  },
+  {
+   "code": "0089686180626",
+   "product_name": "Indomie Mi Goreng Original",
+   "brands": "indomie",
+   "list": "malaysia"
+  },
+  {
+   "code": "9557062331111",
+   "product_name": "Mister Potato Crips Canister Tomato",
+   "list": "malaysia"
+  },
+  {
+   "code": "9400553457725",
+   "product_name": "Huntley & Palmers Baked Sourdough Himalayan Pink Salt",
+   "brands": "Huntley & Palmers",
+   "list": "malaysia"
+  },
+  {
+   "code": "9717905016050",
+   "product_name": "Yuki & love japanese style Red Bean mochi",
+   "brands": "Yuki & Love",
+   "list": "malaysia"
+  },
+  {
+   "code": "1200108000820",
+   "product_name": "Doritos",
+   "brands": "Doritos",
+   "list": "malaysia"
+  },
+  {
+   "code": "9555469100712",
+   "product_name": "Peanut Butter Crunchy",
+   "brands": "CED",
+   "list": "malaysia"
+  },
+  {
+   "code": "7622201698768",
+   "product_name": "Cream Crackers",
+   "brands": "Jacobs",
+   "list": "malaysia"
+  },
+  {
+   "code": "9555030108581",
+   "product_name": "HIMALAYA Ginger + Lemon Flavour",
+   "list": "malaysia"
+  },
+  {
+   "code": "8683210125057",
+   "list": "malaysia"
+  },
+  {
+   "code": "8851932143677",
+   "product_name": "Vaseline",
+   "brands": "",
+   "list": "malaysia"
+  },
+  {
+   "code": "9556145116058",
+   "product_name": "Spritzer mineral water 550ml",
+   "brands": "Coklat, Spritzer",
+   "list": "malaysia"
+  },
+  {
+   "code": "9555022302515",
+   "product_name": "Monster Noodle Snack",
+   "brands": "Mamee",
+   "list": "malaysia"
+  },
+  {
+   "code": "7622202024375",
+   "product_name": "small selection box",
+   "brands": "cadbury",
+   "list": "malaysia"
+  },
+  {
+   "code": "9556107301300",
+   "product_name": "sunquick",
+   "list": "malaysia"
+  },
+  {
+   "code": "9556570312858",
+   "list": "malaysia"
+  },
+  {
+   "code": "9556570316856",
+   "list": "malaysia"
+  },
+  {
+   "code": "4005900396037",
+   "list": "malaysia"
+  },
+  {
+   "code": "3760128640133",
+   "product_name": "Lait demi-écrémé",
+   "brands": "Promess",
+   "list": "malaysia"
+  },
+  {
+   "code": "4809010272027",
+   "product_name": "Dried Mangoes",
+   "brands": "7D",
+   "list": "malaysia"
+  },
+  {
+   "code": "7613036049368",
+   "product_name": "Crunchy Oat Granola Breakfast Cereal with a Touch of Honey",
+   "brands": "Fitnessse",
+   "list": "malaysia"
+  },
+  {
+   "code": "8595229909224",
+   "product_name": "Granola chocolate & almond",
+   "brands": "Emco",
+   "list": "malaysia"
+  },
+  {
+   "code": "9557062331128",
+   "product_name": "Mister Potato Crips Canister Original",
+   "brands": "Mister Potato",
+   "list": "malaysia"
+  },
+  {
+   "code": "9557062321136",
+   "product_name": "Jbs qtw",
+   "brands": "Mister Potato",
+   "list": "malaysia"
+  },
+  {
+   "code": "9556001054005",
+   "product_name": "",
+   "brands": "Nescafé",
+   "list": "malaysia"
+  },
+  {
+   "code": "9556001207630",
+   "product_name": "BIG curry flavour",
+   "brands": "Maggi",
+   "list": "malaysia"
+  },
+  {
+   "code": "0757675200128",
+   "list": "malaysia"
+  },
+  {
+   "code": "9556007002161",
+   "product_name": "Soyfresh hersey’s  chocolate",
+   "brands": "Hersey’s",
+   "list": "malaysia"
+  },
+  {
+   "code": "9555856600047",
+   "product_name": "Haus boom",
+   "list": "malaysia"
+  },
+  {
+   "code": "6253001004612",
+   "product_name": "Kasih Golden Tahini",
+   "brands": "Kasih",
+   "list": "malaysia"
+  },
+  {
+   "code": "9000159190080",
+   "product_name": "Golden Pop",
+   "brands": "Kelly, Kelly's",
+   "list": "malaysia"
+  },
+  {
+   "code": "8906005451088",
+   "product_name": "KPL SHUDHI COCONUT OIL",
+   "brands": "KPL SHUDHI",
+   "list": "malaysia"
+  },
+  {
+   "code": "6924187823396",
+   "product_name": "chacheer",
+   "list": "malaysia"
+  },
+  {
+   "code": "0064042492230",
+   "product_name": "chocomax",
+   "brands": "Leclerc",
+   "list": "malaysia"
+  },
+  {
+   "code": "9556023096588",
+   "product_name": "Jacker Barbecue 60g",
+   "brands": "oriental",
+   "list": "malaysia"
+  },
+  {
+   "code": "7622210410474",
+   "product_name": "EXTRA CHOCOLATE",
+   "brands": "Cadbury, Dairy Milk",
+   "list": "malaysia"
+  },
+  {
+   "code": "9556121000494",
+   "product_name": "julie's Golden Cracker",
+   "brands": "Julie's",
+   "list": "malaysia"
+  },
+  {
+   "code": "9557378000176",
+   "product_name": "Pure Honey",
+   "brands": "CED",
+   "list": "malaysia"
+  },
+  {
+   "code": "9420063600749",
+   "product_name": "Hokey Pokey Crunch",
+   "brands": "Whittaker's",
+   "list": "malaysia"
+  },
+  {
+   "code": "9556404001033",
+   "product_name": "Pepsi",
+   "brands": "Pepsi",
+   "list": "malaysia"
+  },
+  {
+   "code": "8801045521077",
+   "product_name": "Yeul Ramen",
+   "brands": "ramyon",
+   "list": "malaysia"
+  },
+  {
+   "code": "9556437001413",
+   "product_name": "12001065 COCON MANGO PUDDING",
+   "brands": "Lidl",
+   "list": "malaysia"
+  },
+  {
+   "code": "9310079259089",
+   "product_name": "Golden Churn",
+   "brands": "Golden Churn",
+   "list": "malaysia"
+  },
+  {
+   "code": "9556231131033",
+   "product_name": "Chocolate Twiggies",
+   "brands": "Gardenia",
+   "list": "malaysia"
+  },
+  {
+   "code": "8852756304046",
+   "product_name": "Froot loops",
+   "brands": "Kellogg's",
+   "list": "malaysia"
+  },
+  {
+   "code": "8991001780898",
+   "product_name": "Twister",
+   "brands": "Delfi",
+   "list": "malaysia"
+  },
+  {
+   "code": "50819324",
+   "product_name": "fisherman's friend",
+   "brands": "Fisherman's Friend",
+   "list": "malaysia"
+  },
+  {
+   "code": "50998463",
+   "product_name": "SUGAR FREE ORI LOZENGES",
+   "brands": "FISHERMAN'S FRIEND",
+   "list": "malaysia"
+  },
+  {
+   "code": "5701215035232",
+   "product_name": "EMBORG - Edam",
+   "list": "malaysia"
+  },
+  {
+   "code": "9556191070106",
+   "product_name": "Prego",
+   "brands": "Prego",
+   "list": "malaysia"
+  },
+  {
+   "code": "8885012290494",
+   "product_name": "Ribena 1L",
+   "brands": "Ribena",
+   "list": "malaysia"
+  },
+  {
+   "code": "9556007000105",
+   "product_name": "Chrysanthemum Tea",
+   "brands": "drinho",
+   "list": "malaysia"
+  },
+  {
+   "code": "9556439893191",
+   "product_name": "Crackers Plus",
+   "brands": "Munchys",
+   "list": "malaysia"
+  },
+  {
+   "code": "9556024707889",
+   "product_name": "",
+   "brands": "Lady's Choice",
+   "list": "malaysia"
+  },
+  {
+   "code": "8993175538596",
+   "product_name": "NABATI CHOCO",
+   "brands": "Nabati",
+   "list": "malaysia"
+  },
+  {
+   "code": "9556023210229",
+   "product_name": "JACKER BARBECUE",
+   "brands": "",
+   "list": "malaysia"
+  },
+  {
+   "code": "8934680045971",
+   "product_name": "Socola Pie imp",
+   "brands": "Oreo",
+   "list": "malaysia"
+  },
+  {
+   "code": "9557727930017",
+   "product_name": "Full Cream Milk",
+   "brands": "Goodday",
+   "list": "malaysia"
+  },
+  {
+   "code": "9556755510017",
+   "list": "malaysia"
+  },
+  {
+   "code": "8801043022729",
+   "product_name": "NongShim Soon Veggie Ramyun",
+   "brands": "Nongshim",
+   "list": "malaysia"
+  },
+  {
+   "code": "6917878029252",
+   "product_name": "Maggi seasoning 200ml",
+   "list": "malaysia"
+  },
+  {
+   "code": "0078895131475",
+   "product_name": "Like light soy sauce",
+   "brands": "Lee Kum Kee",
+   "list": "malaysia"
+  },
+  {
+   "code": "8850291103797",
+   "product_name": "Yogi blueberry cream stik",
+   "brands": "Tong Garden",
+   "list": "malaysia"
+  },
+  {
+   "code": "8850291109201",
+   "product_name": "Nutrione macadamia",
+   "brands": "Tong Garden",
+   "list": "malaysia"
+  },
+  {
+   "code": "6931780720885",
+   "list": "malaysia"
+  },
+  {
+   "code": "9551004912024",
+   "product_name": "100% Australian Oat Wholemeal Bread",
+   "brands": "Sunshine",
+   "list": "malaysia"
+  },
+  {
+   "code": "9557378001326",
+   "product_name": "Organic Rolled Oats",
+   "brands": "CED",
+   "list": "malaysia"
+  },
+  {
+   "code": "9556191062378",
+   "product_name": "Cream of Chicken Soup",
+   "brands": "Campbell's",
+   "list": "malaysia"
+  },
+  {
+   "code": "9555287100789",
+   "product_name": "Heinz Yellow Mustard",
+   "brands": "Heinz, Kraft",
+   "list": "malaysia"
+  },
+  {
+   "code": "9556126663748",
+   "product_name": "Mayonnaise",
+   "brands": "Lady's Choice",
+   "list": "malaysia"
+  },
+  {
+   "code": "9556107101504",
+   "product_name": "Hacks Original",
+   "list": "malaysia"
+  },
+  {
+   "code": "9421016151325",
+   "product_name": "Butter",
+   "brands": "Westgold",
+   "list": "malaysia"
+  },
+  {
+   "code": "9555540037135",
+   "product_name": "Alfredo Choc",
+   "list": "malaysia"
+  },
+  {
+   "code": "9556196008623",
+   "product_name": "Roller Coaster Cheese Cannister",
+   "brands": "JACK'nJILL",
+   "list": "malaysia"
+  },
+  {
+   "code": "9555764000021",
+   "product_name": "Eureka Popcorn Classic Caramel",
+   "list": "malaysia"
+  },
+  {
+   "code": "9556121022601",
+   "product_name": "Love Letters Chocolate",
+   "brands": "Julie's",
+   "list": "malaysia"
+  },
+  {
+   "code": "4894532990627",
+   "product_name": "Multi-floral Honey",
+   "brands": "Nutrabliss by Watsons",
+   "list": "malaysia"
+  },
+  {
+   "code": "8858702419369",
+   "product_name": "BIG SHEET CHEESE",
+   "list": "malaysia"
+  },
+  {
+   "code": "9555030108703",
+   "product_name": "Himalaya Vajomba (Honey Lime Mints)",
+   "brands": "Big Foot",
+   "list": "malaysia"
+  },
+  {
+   "code": "9551011820022",
+   "product_name": "Vida Sakura",
+   "list": "malaysia"
+  },
+  {
+   "code": "9555865601417",
+   "product_name": "Wild Strawberry Low Sugar Granola",
+   "brands": "Amazin Graze",
+   "list": "malaysia"
+  },
+  {
+   "code": "9557378002347",
+   "product_name": "Pure Honey",
+   "brands": "CED",
+   "list": "malaysia"
+  },
+  {
+   "code": "6917878026596",
+   "product_name": "",
+   "brands": "Nestlé",
+   "list": "malaysia"
+  },
+  {
+   "code": "9556166058221",
+   "product_name": "Dutch Lady Strawberry milk",
+   "brands": "Dutch Lady",
+   "list": "malaysia"
+  },
+  {
+   "code": "8595229924104",
+   "brands": "Emco",
+   "list": "malaysia"
+  },
+  {
+   "code": "9556121009220",
+   "product_name": "Butter Waffles",
+   "brands": "Julie's",
+   "list": "malaysia"
+  },
+  {
+   "code": "9556196008616",
+   "product_name": "Roller Coaster BBQ Cannister",
+   "brands": "Jack 'n jill",
+   "list": "malaysia"
+  },
+  {
+   "code": "9556755010043",
+   "product_name": "15000582 cap Sauh Wheat Flour",
+   "brands": "Cap Sauh",
+   "list": "malaysia"
+  },
+  {
+   "code": "9556041604192",
+   "product_name": "15000474 Ayam brand tuna chunk in water",
+   "brands": "Ayam Brand",
+   "list": "malaysia"
+  },
+  {
+   "code": "8076802085981",
+   "product_name": "Barilla Fusilli",
+   "brands": "Barilla",
+   "list": "singapore"
+  },
+  {
+   "code": "8997212610412",
+   "product_name": "Organic Coconut Milk",
+   "brands": "Kara",
+   "list": "singapore"
+  },
+  {
+   "code": "5018374285577",
+   "product_name": "Original Breadsticks",
+   "brands": "Tesco",
+   "list": "singapore"
+  },
+  {
+   "code": "0084380957444",
+   "product_name": "Strawberry Fruit Spread",
+   "brands": "ST DALFOUR",
+   "list": "singapore"
+  },
+  {
+   "code": "8004690612804",
+   "product_name": "Fusilli No. 28 Le Integrali",
+   "brands": "La Molisana SpA",
+   "list": "singapore"
+  },
+  {
+   "code": "9300658228537",
+   "product_name": "Greek Style Yoghurt",
+   "brands": "Farmers Union",
+   "list": "singapore"
+  },
+  {
+   "code": "0811594100102",
+   "product_name": "0811594100102",
+   "brands": "",
+   "list": "singapore"
+  },
+  {
+   "code": "8992760221028",
+   "product_name": "17000725 Oreo Original (Vanilla)",
+   "brands": "BABYMONSTER OREO",
+   "list": "singapore"
+  },
+  {
+   "code": "0034000702329",
+   "product_name": "Reese's 2 Peanut Butter Cups",
+   "brands": "Reese's",
+   "list": "singapore"
+  },
+  {
+   "code": "0063667511005",
+   "product_name": "Unsweetened Organic Fortified Soy Beverage",
+   "brands": "Natura",
+   "list": "singapore"
+  },
+  {
+   "code": "9310653102626",
+   "product_name": "Greek Yogurt",
+   "brands": "Chobani",
+   "list": "singapore"
+  },
+  {
+   "code": "8901088047142",
+   "product_name": "parachute oil",
+   "brands": "parachute",
+   "list": "singapore"
+  },
+  {
+   "code": "4006424022372",
+   "product_name": "Blackcurrant Extra Jam with Sweetener",
+   "brands": "Stute",
+   "list": "singapore"
+  },
+  {
+   "code": "8000320010026",
+   "product_name": "Pelati - Geschälte Tomaten",
+   "brands": "Cirio",
+   "list": "singapore"
+  },
+  {
+   "code": "8850025000026",
+   "product_name": "Refresh Eau de Noix de Coco",
+   "brands": "UFC",
+   "list": "singapore"
+  },
+  {
+   "code": "9300617065920",
+   "product_name": "OLD GOLD DARK CHOCOLATE",
+   "brands": "Cadbury",
+   "list": "singapore"
+  },
+  {
+   "code": "40081410",
+   "product_name": "KNAX Gewürzgurken",
+   "brands": "Hengstenberg",
+   "list": "singapore"
+  },
+  {
+   "code": "8410300352280",
+   "product_name": "Yakisoba Pollo",
+   "brands": "Gallina Blanca",
+   "list": "singapore"
+  },
+  {
+   "code": "8904109450112",
+   "list": "singapore"
+  },
+  {
+   "code": "8934680033442",
+   "product_name": "Oreo wafer roll creamy munchy",
+   "brands": "Oreo",
+   "list": "singapore"
+  },
+  {
+   "code": "8426944001071",
+   "product_name": "Black Truffle Premium Potato Chips",
+   "brands": "PATATAS FRITAS TORRES S.L., TORRES",
+   "list": "singapore"
+  },
+  {
+   "code": "8712000900045",
+   "product_name": "Heineken Beer",
+   "brands": "Heineken Bier",
+   "list": "singapore"
+  },
+  {
+   "code": "9421901881009",
+   "product_name": "Peanut Butter Crunchy",
+   "brands": "Pic's",
+   "list": "singapore"
+  },
+  {
+   "code": "8904004400083",
+   "product_name": "Haldiram's Bhujia sev",
+   "brands": "Haldiram's",
+   "list": "singapore"
+  },
+  {
+   "code": "8997240600041",
+   "product_name": "12000992 OATSIDE Oat Milk",
+   "brands": "OATSIDE",
+   "list": "singapore"
+  },
+  {
+   "code": "4037300108293",
+   "product_name": "Linsen-Eintopf mit Würstchen",
+   "brands": "Erasco",
+   "list": "singapore"
+  },
+  {
+   "code": "0640509040147",
+   "product_name": "Lady Bloom Juice",
+   "brands": "Blossoms",
+   "list": "singapore"
+  },
+  {
+   "code": "8801073210363",
+   "product_name": "Original Spicy Ramen",
+   "brands": "Buldak, Samyang",
+   "list": "singapore"
+  },
+  {
+   "code": "4037300108491",
+   "product_name": "Kartoffeltopf mit Würstchen",
+   "brands": "1%, Erasco, Etasco",
+   "list": "singapore"
+  },
+  {
+   "code": "9300462348575",
+   "product_name": "CHUNK STYLE TUNA IN OLIVE OIL BLEND",
+   "brands": "JOHN WEST",
+   "list": "singapore"
+  },
+  {
+   "code": "9300658404146",
+   "product_name": "All Natural Yogurt Light",
+   "brands": "Farmers Union",
+   "list": "singapore"
+  },
+  {
+   "code": "9336243005023",
+   "product_name": "Protein Smoothie Dutch Chocolate",
+   "brands": "Rokeby",
+   "list": "singapore"
+  },
+  {
+   "code": "6223006345584",
+   "list": "singapore"
+  },
+  {
+   "code": "0045300005409",
+   "product_name": "Crunchy Peanut Butter",
+   "brands": "Peter Pan",
+   "list": "singapore"
+  },
+  {
+   "code": "0884912116505",
+   "product_name": "",
+   "brands": "Post great grains",
+   "list": "singapore"
+  },
+  {
+   "code": "42094722",
+   "product_name": "Löwensenf extra scharf",
+   "brands": "EDEKA Löwensenf, Löwen, Löwensenf, Senf, famila Löwensenf",
+   "list": "singapore"
+  },
+  {
+   "code": "5000119120656",
+   "product_name": "Set Honey",
+   "brands": "TESCO",
+   "list": "singapore"
+  },
+  {
+   "code": "5000159461122",
+   "product_name": "Snickers",
+   "brands": "Mars Wrigley Confectionery UK Limited, Snickers",
+   "list": "singapore"
+  },
+  {
+   "code": "8005121000276",
+   "product_name": "Penne Ziti Rigate 27",
+   "brands": "Divella",
+   "list": "singapore"
+  },
+  {
+   "code": "8850161160790",
+   "product_name": "CocoMax 100% Coconut Water",
+   "brands": "Cocomax",
+   "list": "singapore"
+  },
+  {
+   "code": "0876063002806",
+   "product_name": "Protein Shake",
+   "brands": "Muscle Milk",
+   "list": "singapore"
+  },
+  {
+   "code": "4000417013002",
+   "product_name": "Weisse-Voll-Nuss",
+   "brands": "Ritter Sport",
+   "list": "singapore"
+  },
+  {
+   "code": "4005500330318",
+   "product_name": "Ravioli Gemüse",
+   "brands": "Maggi, Nestlé",
+   "list": "singapore"
+  },
+  {
+   "code": "8888002076009",
+   "product_name": "Coca Cola",
+   "brands": "Coca-Cola",
+   "list": "singapore"
+  },
+  {
+   "code": "7300400127363",
+   "product_name": "Sandwich Tomato & Basil",
+   "brands": "wasa",
+   "list": "singapore"
+  },
+  {
+   "code": "4032600004337",
+   "product_name": "Knödel Semmelknödel",
+   "brands": "Pfanni",
+   "list": "singapore"
+  },
+  {
+   "code": "8005121000405",
+   "product_name": "Fusilli 40",
+   "brands": "Divella",
+   "list": "singapore"
+  },
+  {
+   "code": "8690632059150",
+   "product_name": "Kit kat chunky",
+   "brands": "Nestlé",
+   "list": "singapore"
+  },
+  {
+   "code": "5908230521522",
+   "product_name": "Kabanos exclusive chilli",
+   "brands": "Tarczyński",
+   "list": "singapore"
+  },
+  {
+   "code": "8901393024197",
+   "product_name": "Happy dent white",
+   "list": "singapore"
+  },
+  {
+   "code": "3800020456293",
+   "product_name": "Kit kat chunky",
+   "brands": "Nestlé",
+   "list": "singapore"
+  },
+  {
+   "code": "75032715",
+   "product_name": "cerveza",
+   "brands": "Corona",
+   "list": "singapore"
+  },
+  {
+   "code": "8004690107201",
+   "product_name": "Tagliatelle No.103",
+   "brands": "La Molisana",
+   "list": "singapore"
+  },
+  {
+   "code": "8859015700168",
+   "product_name": "Coconut Water",
+   "brands": "If",
+   "list": "singapore"
+  },
+  {
+   "code": "0008295663900",
+   "product_name": "Organic apple cider vinegar",
+   "brands": "Acetificio Marcello Denigris, De Nigris",
+   "list": "singapore"
+  },
+  {
+   "code": "8424842050085",
+   "product_name": "Honey Mustard Potato Crisps imp",
+   "brands": "Rubio",
+   "list": "singapore"
+  },
+  {
+   "code": "9300658407765",
+   "product_name": "Greek Style Yogurt with a hint of Vanilla Bean",
+   "brands": "Farmers Union",
+   "list": "singapore"
+  },
+  {
+   "code": "6111262300006",
+   "list": "singapore"
+  },
+  {
+   "code": "0884912102102",
+   "product_name": "Great Grains Cereal Blueberry Morning imp",
+   "brands": "Great Grains, Post",
+   "list": "singapore"
+  },
+  {
+   "code": "8005121000146",
+   "product_name": "Linguine 14",
+   "brands": "Divella",
+   "list": "singapore"
+  },
+  {
+   "code": "8888077103389",
+   "product_name": "Meiji Plain Crackers",
+   "brands": "Meiji",
+   "list": "singapore"
+  },
+  {
+   "code": "9556001047175",
+   "product_name": "Original Low Fat Milk Coffee Drink",
+   "brands": "Nescafé",
+   "list": "singapore"
+  },
+  {
+   "code": "9300662874973",
+   "product_name": "Natural Greek Style Yoghurt",
+   "brands": "Brownes",
+   "list": "singapore"
+  },
+  {
+   "code": "9556018000064",
+   "product_name": "Chili Sauce",
+   "brands": "Lingham’s",
+   "list": "singapore"
+  },
+  {
+   "code": "4000400130570",
+   "product_name": "Knödel Halb",
+   "brands": "Pfanni",
+   "list": "singapore"
+  },
+  {
+   "code": "7501003105431",
+   "product_name": "Salsa guacamole frasco 240 g",
+   "brands": "HERDEZ S.A. DE C.V., Herdez",
+   "list": "singapore"
+  },
+  {
+   "code": "8003130141133",
+   "product_name": "San Carlo Lime & Pink Pepper Flavour",
+   "brands": "Sal Carlo",
+   "list": "singapore"
+  },
+  {
+   "code": "9317224400402",
+   "product_name": "Tortillas Original",
+   "brands": "Mission",
+   "list": "singapore"
+  },
+  {
+   "code": "5711953006425",
+   "product_name": "Mozzarella",
+   "brands": "Arla",
+   "list": "singapore"
+  },
+  {
+   "code": "9310653105658",
+   "product_name": "12001262 Greek Yogurt Natural Light",
+   "brands": "Chobani",
+   "list": "singapore"
+  },
+  {
+   "code": "0764302290209",
+   "list": "singapore"
+  },
+  {
+   "code": "0802763020888",
+   "product_name": "Prunes",
+   "brands": "Sunsweet",
+   "list": "singapore"
+  },
+  {
+   "code": "3228020490343",
+   "product_name": "President Toast",
+   "brands": "Président",
+   "list": "singapore"
+  },
+  {
+   "code": "3760152700667",
+   "product_name": "Goûtine Noix de Coco",
+   "brands": "Aglina",
+   "list": "singapore"
+  },
+  {
+   "code": "4893049150012",
+   "product_name": "Oreo baby monster original",
+   "brands": "Oreo, Mondelez International",
+   "list": "singapore"
+  },
+  {
+   "code": "7610400014038",
+   "product_name": "Swiss Milk Chocolate Almond",
+   "brands": "Lindt",
+   "list": "singapore"
+  },
+  {
+   "code": "8888440000048",
+   "product_name": "Pure milk",
+   "brands": "Cowhead",
+   "list": "singapore"
+  },
+  {
+   "code": "8850228000151",
+   "product_name": "Red Bull Energy",
+   "brands": "T.C. Pharmaceutical Industries Co. Ltd.",
+   "list": "singapore"
+  },
+  {
+   "code": "8888470010208",
+   "product_name": "Pasteurized Fresh Milk",
+   "brands": "Meiji",
+   "list": "singapore"
+  },
+  {
+   "code": "9317276000032",
+   "product_name": "PURE BEECHWORTH HONEY",
+   "brands": "Beechworth Honey",
+   "list": "singapore"
+  },
+  {
+   "code": "0073390000110",
+   "product_name": "Mentos Mint",
+   "brands": "Mentos",
+   "list": "singapore"
+  },
+  {
+   "code": "7039010149020",
+   "product_name": "Stabburet Stabbur-Makrell",
+   "brands": "Stabburet",
+   "list": "singapore"
+  },
+  {
+   "code": "29386611",
+   "product_name": "Salted Chocolate Trail Mix",
+   "brands": "M&S Food",
+   "list": "singapore"
+  },
+  {
+   "code": "8901786101009",
+   "product_name": "Everest garam Masala",
+   "brands": "Everest",
+   "list": "singapore"
+  },
+  {
+   "code": "3608580141082",
+   "product_name": "Bonne Maman Peanut Butter",
+   "brands": "Bonne Maman",
+   "list": "singapore"
+  },
+  {
+   "code": "8445291046979",
+   "product_name": "Strawberry Sparkling Beverage",
+   "brands": "Maison Perrier",
+   "list": "singapore"
+  },
+  {
+   "code": "0033674108956",
+   "product_name": "Organic MCT Oil 100% MCTS",
+   "brands": "GreenLife, Nature's Way",
+   "list": "singapore"
+  },
+  {
+   "code": "3222473958450",
+   "product_name": "Mention Bien Chocolat au Lait et aux Noisettes",
+   "brands": "Casino",
+   "list": "singapore"
+  },
+  {
+   "code": "4002239640503",
+   "product_name": "Pepperonis /Pfefferonen",
+   "brands": "Dittmann, Feinkost Dittmann",
+   "list": "singapore"
+  },
+  {
+   "code": "5010204914442",
+   "product_name": "Smoked Paprika",
+   "brands": "Tesco",
+   "list": "singapore"
+  }
+ ]
+}

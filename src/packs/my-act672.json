@@ -1,0 +1,404 @@
+{
+  "id": "my-act672",
+  "name": "Malaysia: SWCorp separation at source (Act 672 states)",
+  "shortName": "Malaysia (SWCorp)",
+  "region": "Malaysia",
+  "scope": "Households in the 7 states that adopted Act 672: Johor, Melaka, Negeri Sembilan, Pahang, Perlis, Kedah and the Federal Territories (Kuala Lumpur, Putrajaya). Enforced for landed homes since 1 June 2016 and for strata homes since 1 May 2021.",
+  "notCovered": "Selangor, Penang, Perak, Kelantan, Terengganu, Sabah and Sarawak run their own schemes, which this pack does not cover.",
+  "bins": [
+    {
+      "id": "paper",
+      "name": "Papers",
+      "localName": "Kertas",
+      "tone": "paper",
+      "description": "Recyclable waste, paper type. Bagged or tied, placed beside the rubbish bin on recyclable collection day (landed homes) or in the recycling cage (strata homes)."
+    },
+    {
+      "id": "plastic",
+      "name": "Plastics",
+      "localName": "Plastik",
+      "tone": "plastic",
+      "description": "Recyclable waste, plastic type. Bagged or tied, placed beside the rubbish bin on recyclable collection day (landed homes) or in the recycling cage (strata homes)."
+    },
+    {
+      "id": "others",
+      "name": "Others",
+      "localName": "Lain-lain",
+      "tone": "others",
+      "description": "Recyclable waste, other types: glass, cans, aluminium containers and more. Bagged or tied, placed beside the rubbish bin on recyclable collection day."
+    },
+    {
+      "id": "residual",
+      "name": "Residual waste",
+      "localName": "Sisa baki",
+      "tone": "residual",
+      "residual": true,
+      "description": "Goes into the rubbish bin. Kitchen waste, food waste, dirty items and disposable nappies. Collected 2x a week."
+    }
+  ],
+  "sources": [
+    {
+      "id": "leaflet",
+      "title": "Separate Waste: Separation of Solid Waste at Source (leaflet, English)",
+      "publisher": "SWCorp Malaysia and KPKT",
+      "url": "https://www.swcorp.gov.my/wp-content/uploads/2023/05/RISALAH-SAS_ENGLISH.pdf",
+      "fetched": "2026-11-24",
+      "sha256": "b7fffeb5a15ccca39dbeb15b5efa0eb6fb0d417bbf6d123efa6099e342c50950",
+      "note": "Linked from swcorp.gov.my/asingkan/. The Malay version (RISALAH-SAS_B-MELAYU.pdf) gives the local bin names."
+    },
+    {
+      "id": "sas-page",
+      "title": "Pengasingan Sisa Pepejal di Punca (Separation of solid waste at source)",
+      "publisher": "SWCorp Malaysia",
+      "url": "https://www.swcorp.gov.my/pengasingan-sisa-pepejal-di-punca-2/",
+      "fetched": "2026-11-24",
+      "note": "Scope (7 states), enforcement dates and compound amounts."
+    },
+    {
+      "id": "pua307",
+      "title": "Solid Waste and Public Cleansing Management (Scheme for Household Solid Waste and Solid Waste Similar to Household Solid Waste) Regulations 2011, P.U. (A) 307",
+      "publisher": "Attorney General's Chambers, via SWCorp",
+      "url": "https://www.swcorp.gov.my/wp-content/uploads/2023/10/P.U.-A-307.pdf",
+      "fetched": "2026-11-24",
+      "sha256": "cd71fd4086e7715d0845bf7b9f520268309e076c0eaea60af4ca6bda57c53043",
+      "note": "Regulation 2 defines \"recyclable waste\" (paper, cardboard, glass, plastic, metal, food waste) and \"residual waste\"."
+    },
+    {
+      "id": "pua75",
+      "title": "Amendment Regulations 2016, P.U. (A) 75",
+      "publisher": "Attorney General's Chambers, via SWCorp",
+      "url": "https://www.swcorp.gov.my/wp-content/uploads/2023/10/P.U.-A-75.pdf",
+      "fetched": "2026-11-24",
+      "sha256": "fc516d31a60487eccb5cf077bc720930217452c859d92f2cc0eba274fc0c4293",
+      "note": "New regulation 21(6)(c): wrap and tie recyclables or put them in a bag, and put them out only on the collection day and time."
+    }
+  ],
+  "generalRules": [
+    {
+      "text": "Dirty items are residual waste. A part only goes with the recyclables if it is clean.",
+      "source": "leaflet",
+      "ref": "Collection schedule panel: residual waste includes \"Dirty Items\""
+    },
+    {
+      "text": "Wrap and tie recyclables, or put them in a bag, and put them out only on the recyclable collection day.",
+      "source": "pua75",
+      "ref": "Reg. 21(6)(c) as inserted by P.U. (A) 75/2016"
+    }
+  ],
+  "rules": [
+    {
+      "id": "my-carton",
+      "match": {
+        "materials": [
+          "beverage-carton"
+        ]
+      },
+      "bin": "paper",
+      "prep": [
+        "Keep it clean: dirty items go to residual waste."
+      ],
+      "sourceItem": "Drink Cartons (Kotak Minuman)",
+      "source": "leaflet",
+      "ref": "Papers panel",
+      "specificity": "listed"
+    },
+    {
+      "id": "my-carton-brick",
+      "match": {
+        "materials": [
+          "paper-composite",
+          "paper",
+          "cardboard"
+        ],
+        "shapes": [
+          "brick"
+        ]
+      },
+      "bin": "paper",
+      "prep": [
+        "Keep it clean: dirty items go to residual waste."
+      ],
+      "sourceItem": "Drink Cartons (Kotak Minuman)",
+      "source": "leaflet",
+      "ref": "Papers panel",
+      "specificity": "listed"
+    },
+    {
+      "id": "my-box",
+      "match": {
+        "materials": [
+          "cardboard",
+          "paper"
+        ],
+        "shapes": [
+          "box"
+        ]
+      },
+      "bin": "paper",
+      "prep": [
+        "Keep it clean: dirty items go to residual waste."
+      ],
+      "sourceItem": "Boxes, Cardboards (Kotak, Kadbod)",
+      "source": "leaflet",
+      "ref": "Papers panel",
+      "specificity": "listed"
+    },
+    {
+      "id": "my-paper",
+      "match": {
+        "materials": [
+          "cardboard",
+          "paper"
+        ]
+      },
+      "bin": "paper",
+      "prep": [
+        "Keep it clean: dirty items go to residual waste."
+      ],
+      "sourceItem": "Paper, Cardboards (Kertas, Kadbod)",
+      "source": "leaflet",
+      "ref": "Papers panel",
+      "specificity": "category"
+    },
+    {
+      "id": "my-plastic-bag",
+      "match": {
+        "materials": [
+          "plastic"
+        ],
+        "shapes": [
+          "bag"
+        ]
+      },
+      "bin": "plastic",
+      "prep": [
+        "Keep it clean: dirty items go to residual waste."
+      ],
+      "sourceItem": "Plastic Bags (Beg Plastik)",
+      "source": "leaflet",
+      "ref": "Plastics panel",
+      "specificity": "listed"
+    },
+    {
+      "id": "my-plastic-bottle",
+      "match": {
+        "materials": [
+          "plastic"
+        ],
+        "shapes": [
+          "bottle"
+        ]
+      },
+      "bin": "plastic",
+      "prep": [
+        "Keep it clean: dirty items go to residual waste."
+      ],
+      "sourceItem": "Drink Bottles, Liquid Soap Bottles, Fabric Softener Bottles",
+      "source": "leaflet",
+      "ref": "Plastics panel",
+      "specificity": "listed"
+    },
+    {
+      "id": "my-plastic-container",
+      "match": {
+        "materials": [
+          "plastic"
+        ],
+        "shapes": [
+          "pot",
+          "tray",
+          "box",
+          "jar",
+          "cup"
+        ]
+      },
+      "bin": "plastic",
+      "prep": [
+        "Keep it clean: dirty items go to residual waste."
+      ],
+      "sourceItem": "Food Containers (Bekas Makanan)",
+      "source": "leaflet",
+      "ref": "Plastics panel",
+      "specificity": "listed"
+    },
+    {
+      "id": "my-plastic",
+      "match": {
+        "materials": [
+          "plastic"
+        ]
+      },
+      "bin": "plastic",
+      "prep": [
+        "Keep it clean: dirty items go to residual waste."
+      ],
+      "sourceItem": "Plastics (Plastik)",
+      "source": "leaflet",
+      "ref": "Plastics panel",
+      "specificity": "category"
+    },
+    {
+      "id": "my-glass",
+      "match": {
+        "materials": [
+          "glass"
+        ],
+        "shapes": [
+          "bottle",
+          "jar"
+        ]
+      },
+      "bin": "others",
+      "prep": [
+        "Keep it clean: dirty items go to residual waste."
+      ],
+      "sourceItem": "Sauce Bottles, Drink Bottles, Jam Containers",
+      "source": "leaflet",
+      "ref": "Others panel",
+      "specificity": "listed"
+    },
+    {
+      "id": "my-glass-any",
+      "match": {
+        "materials": [
+          "glass"
+        ]
+      },
+      "bin": "others",
+      "prep": [
+        "Keep it clean: dirty items go to residual waste."
+      ],
+      "sourceItem": "Glass (listed by item: sauce bottles, drink bottles, jam containers)",
+      "source": "leaflet",
+      "ref": "Others panel; P.U. (A) 307 reg. 2 lists glass as recyclable waste",
+      "specificity": "category"
+    },
+    {
+      "id": "my-can",
+      "match": {
+        "materials": [
+          "aluminium",
+          "steel",
+          "metal"
+        ],
+        "shapes": [
+          "can"
+        ]
+      },
+      "bin": "others",
+      "prep": [
+        "Keep it clean: dirty items go to residual waste."
+      ],
+      "sourceItem": "Canned Food/Drinks (Tin Makanan/Minuman)",
+      "source": "leaflet",
+      "ref": "Others panel",
+      "specificity": "listed"
+    },
+    {
+      "id": "my-aerosol",
+      "match": {
+        "materials": [
+          "aluminium",
+          "steel",
+          "metal"
+        ],
+        "shapes": [
+          "aerosol-can"
+        ]
+      },
+      "bin": "others",
+      "prep": [
+        "Keep it clean: dirty items go to residual waste."
+      ],
+      "sourceItem": "Aerosol/Pesticide Sprays (Penyembur Aerosol/Racun)",
+      "source": "leaflet",
+      "ref": "Others panel",
+      "specificity": "listed"
+    },
+    {
+      "id": "my-alu-container",
+      "match": {
+        "materials": [
+          "aluminium"
+        ],
+        "shapes": [
+          "tray",
+          "pot",
+          "box"
+        ]
+      },
+      "bin": "others",
+      "prep": [
+        "Keep it clean: dirty items go to residual waste."
+      ],
+      "sourceItem": "Aluminium Food Containers (Bekas Makanan Aluminium)",
+      "source": "leaflet",
+      "ref": "Others panel",
+      "specificity": "listed"
+    },
+    {
+      "id": "my-metal",
+      "match": {
+        "materials": [
+          "aluminium",
+          "steel",
+          "metal"
+        ]
+      },
+      "bin": "others",
+      "prep": [
+        "Keep it clean: dirty items go to residual waste."
+      ],
+      "sourceItem": "Metal (listed by item: cans, aluminium food containers, paint tins)",
+      "source": "leaflet",
+      "ref": "Others panel; P.U. (A) 307 reg. 2 lists metal as recyclable waste",
+      "specificity": "category"
+    }
+  ],
+  "gaps": [
+    {
+      "materials": [
+        "plastic-foam"
+      ],
+      "reason": "The SWCorp leaflet does not list polystyrene foam in any recyclable category."
+    },
+    {
+      "materials": [
+        "plastic-metal-laminate"
+      ],
+      "reason": "The SWCorp leaflet does not mention plastic packaging with a foil layer (such as crisp packets)."
+    },
+    {
+      "materials": [
+        "paper-composite"
+      ],
+      "reason": "Apart from drink cartons, the SWCorp leaflet does not mention paper with plastic or foil layers."
+    },
+    {
+      "materials": [
+        "biodegradable-plastic"
+      ],
+      "reason": "The SWCorp leaflet does not mention biodegradable plastics."
+    },
+    {
+      "materials": [
+        "plastic"
+      ],
+      "shapes": [
+        "sachet",
+        "blister",
+        "straw",
+        "cutlery",
+        "capsule"
+      ],
+      "reason": "The SWCorp leaflet lists plastic bags, bottles, buckets and food containers, but not this kind of plastic item."
+    },
+    {
+      "materials": [
+        "wood",
+        "other"
+      ],
+      "reason": "The SWCorp leaflet does not give a category for this material."
+    }
+  ]
+}

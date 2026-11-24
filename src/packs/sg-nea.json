@@ -1,0 +1,533 @@
+{
+  "id": "sg-nea",
+  "name": "Singapore: NEA Recycle Right (blue recycling bin)",
+  "shortName": "Singapore (NEA)",
+  "region": "Singapore",
+  "scope": "Households in Singapore using the blue recycling bins and chutes. All recyclables (paper, plastic, glass, metal) go into the same blue bin.",
+  "bins": [
+    {
+      "id": "blue",
+      "name": "Blue recycling bin",
+      "tone": "blue",
+      "description": "One bin for clean paper, plastic, glass and metal. The bins are blue (Recycle Right guide)."
+    },
+    {
+      "id": "general",
+      "name": "General waste",
+      "tone": "residual",
+      "residual": true,
+      "description": "Items that cannot be placed in the blue recycling bins."
+    },
+    {
+      "id": "ewaste",
+      "name": "E-waste collection point",
+      "tone": "ewaste",
+      "description": "Batteries, bulbs and electronics. Never in the blue bin."
+    }
+  ],
+  "sources": [
+    {
+      "id": "guide",
+      "title": "Bloobin's Recycling Guide (Recycling_Guide_v6), Recycle Right",
+      "publisher": "National Environment Agency (NEA), Singapore",
+      "url": "https://isomer-user-content.by.gov.sg/380/30c796b2-88c5-40dd-a241-820df06c4098/Recycling_Guide_v6_compressed.pdf",
+      "fetched": "2026-11-24",
+      "sha256": "ee2354cb8fd6d93bb5316a4cb183f1e8261230892deb8e6b6ea717de47f46c12",
+      "note": "Linked from cgs.gov.sg/recycleright/know-your-contaminants/. The summary table (S/N 1 to 66) is the item-by-item list used here."
+    },
+    {
+      "id": "contaminants",
+      "title": "Know Your Contaminants, Recycle Right",
+      "publisher": "Clean & Green Singapore (NEA)",
+      "url": "https://www.cgs.gov.sg/recycleright/know-your-contaminants/",
+      "fetched": "2026-11-24",
+      "note": "Page last updated 25 June 2026. Source of the 40% contamination figure."
+    }
+  ],
+  "generalRules": [
+    {
+      "text": "Most importantly, is it clean? Rinse and dry before putting it in the blue bin. Dispose of it as waste if it cannot be cleaned. If it does not attract pests, it is clean enough.",
+      "source": "guide",
+      "ref": "Flowchart, page 2"
+    }
+  ],
+  "rules": [
+    {
+      "id": "sg-carton",
+      "match": {
+        "materials": [
+          "beverage-carton"
+        ]
+      },
+      "bin": "blue",
+      "prep": [
+        "Empty, rinse and flatten before recycling."
+      ],
+      "sourceItem": "Beverage carton: milk carton, drink packet, juice packet",
+      "source": "guide",
+      "ref": "Summary table, S/N 20",
+      "specificity": "listed"
+    },
+    {
+      "id": "sg-carton-brick",
+      "match": {
+        "materials": [
+          "paper-composite",
+          "paper",
+          "cardboard"
+        ],
+        "shapes": [
+          "brick"
+        ]
+      },
+      "bin": "blue",
+      "prep": [
+        "Empty, rinse and flatten before recycling."
+      ],
+      "sourceItem": "Beverage carton: milk carton, drink packet, juice packet",
+      "source": "guide",
+      "ref": "Summary table, S/N 20",
+      "specificity": "listed"
+    },
+    {
+      "id": "sg-box",
+      "match": {
+        "materials": [
+          "cardboard",
+          "paper"
+        ],
+        "shapes": [
+          "box"
+        ]
+      },
+      "bin": "blue",
+      "prep": [
+        "Flatten before recycling."
+      ],
+      "sourceItem": "Carton box, cardboard box, paper packaging, printed paper box, paper box",
+      "source": "guide",
+      "ref": "Summary table, S/N 17 and 18",
+      "specificity": "listed"
+    },
+    {
+      "id": "sg-paper-bag",
+      "match": {
+        "materials": [
+          "paper"
+        ],
+        "shapes": [
+          "bag"
+        ]
+      },
+      "bin": "blue",
+      "prep": [
+        "Make sure it is clean before recycling."
+      ],
+      "sourceItem": "Paper bag",
+      "source": "guide",
+      "ref": "Summary table, S/N 23",
+      "specificity": "listed"
+    },
+    {
+      "id": "sg-paper-disposables",
+      "match": {
+        "materials": [
+          "paper",
+          "cardboard",
+          "paper-composite"
+        ],
+        "shapes": [
+          "cup"
+        ]
+      },
+      "bin": "general",
+      "prep": [
+        "Dispose as general waste."
+      ],
+      "sourceItem": "Paper disposables: paper cup",
+      "source": "guide",
+      "ref": "Summary table, S/N 24",
+      "specificity": "listed"
+    },
+    {
+      "id": "sg-paper",
+      "match": {
+        "materials": [
+          "cardboard",
+          "paper"
+        ]
+      },
+      "bin": "blue",
+      "prep": [
+        "Make sure it is clean before recycling."
+      ],
+      "sourceItem": "Paper (printed paper, paper packaging, paper box)",
+      "source": "guide",
+      "ref": "Summary table, S/N 1 to 23",
+      "specificity": "category"
+    },
+    {
+      "id": "sg-plastic-bottle",
+      "match": {
+        "materials": [
+          "plastic"
+        ],
+        "shapes": [
+          "bottle",
+          "jar",
+          "pot",
+          "box"
+        ]
+      },
+      "bin": "blue",
+      "prep": [
+        "Please empty and rinse before recycling."
+      ],
+      "sourceItem": "Plastic bottle, plastic container (F&B and non-food)",
+      "source": "guide",
+      "ref": "Summary table, S/N 32 and 33",
+      "specificity": "listed"
+    },
+    {
+      "id": "sg-plastic-film",
+      "match": {
+        "materials": [
+          "plastic"
+        ],
+        "shapes": [
+          "bag",
+          "film"
+        ]
+      },
+      "bin": "blue",
+      "prep": [
+        "Make sure it is clean before recycling."
+      ],
+      "sourceItem": "Plastic bag, plastic film, plastic packaging, bread bag",
+      "source": "guide",
+      "ref": "Summary table, S/N 35 to 37",
+      "specificity": "listed"
+    },
+    {
+      "id": "sg-plastic-takeaway",
+      "match": {
+        "materials": [
+          "plastic"
+        ],
+        "shapes": [
+          "tray",
+          "cup"
+        ]
+      },
+      "bin": "blue",
+      "prep": [
+        "Please empty and rinse before recycling."
+      ],
+      "sourceItem": "Plastic takeaway food container, plastic cups, fruit box, egg trays",
+      "source": "guide",
+      "ref": "Summary table, S/N 36, 37 and 39",
+      "specificity": "listed"
+    },
+    {
+      "id": "sg-plastic-disposables",
+      "match": {
+        "materials": [
+          "plastic",
+          "biodegradable-plastic"
+        ],
+        "shapes": [
+          "cutlery"
+        ]
+      },
+      "bin": "general",
+      "prep": [
+        "Dispose as general waste."
+      ],
+      "sourceItem": "Plastic disposables: plastic cutlery, plastic crockery",
+      "source": "guide",
+      "ref": "Summary table, S/N 41",
+      "specificity": "listed"
+    },
+    {
+      "id": "sg-straw",
+      "match": {
+        "materials": [
+          "plastic",
+          "biodegradable-plastic"
+        ],
+        "shapes": [
+          "straw"
+        ]
+      },
+      "bin": "general",
+      "prep": [
+        "Dispose as general waste."
+      ],
+      "sourceItem": "Drinking straw",
+      "source": "guide",
+      "ref": "Summary table, S/N 44",
+      "specificity": "listed"
+    },
+    {
+      "id": "sg-blister",
+      "match": {
+        "materials": [
+          "plastic",
+          "plastic-metal-laminate"
+        ],
+        "shapes": [
+          "blister"
+        ]
+      },
+      "bin": "general",
+      "prep": [
+        "Dispose as general waste."
+      ],
+      "sourceItem": "Empty blister pack, blister pack",
+      "source": "guide",
+      "ref": "Summary table, S/N 42",
+      "specificity": "listed"
+    },
+    {
+      "id": "sg-plastic",
+      "match": {
+        "materials": [
+          "plastic"
+        ]
+      },
+      "bin": "blue",
+      "prep": [
+        "Make sure it is clean before recycling."
+      ],
+      "sourceItem": "Plastic (bottles, containers, bags, film)",
+      "source": "guide",
+      "ref": "Summary table, S/N 32 to 39",
+      "specificity": "category"
+    },
+    {
+      "id": "sg-laminate",
+      "match": {
+        "materials": [
+          "plastic-metal-laminate"
+        ]
+      },
+      "bin": "general",
+      "prep": [
+        "Dispose as general waste."
+      ],
+      "sourceItem": "Plastic packaging with foil, potato chip bags",
+      "source": "guide",
+      "ref": "Summary table, S/N 42",
+      "specificity": "listed"
+    },
+    {
+      "id": "sg-foam",
+      "match": {
+        "materials": [
+          "plastic-foam"
+        ]
+      },
+      "bin": "general",
+      "prep": [
+        "Clean or dirty, dispose as general waste."
+      ],
+      "sourceItem": "Polystyrene foam product, styrofoam",
+      "source": "guide",
+      "ref": "Summary table, S/N 40",
+      "specificity": "listed"
+    },
+    {
+      "id": "sg-biodegradable",
+      "match": {
+        "materials": [
+          "biodegradable-plastic"
+        ],
+        "shapes": [
+          "bag",
+          "film"
+        ]
+      },
+      "bin": "general",
+      "prep": [
+        "Dispose as general waste."
+      ],
+      "sourceItem": "Oxo-degradable bag, bio-degradable bag",
+      "source": "guide",
+      "ref": "Summary table, S/N 43",
+      "specificity": "listed"
+    },
+    {
+      "id": "sg-glass",
+      "match": {
+        "materials": [
+          "glass"
+        ],
+        "shapes": [
+          "bottle",
+          "jar"
+        ]
+      },
+      "bin": "blue",
+      "prep": [
+        "Please empty and rinse before recycling."
+      ],
+      "sourceItem": "Beverage glass bottle; food glass bottle: sauce bottle, jam spread bottle, food jars",
+      "source": "guide",
+      "ref": "Summary table, S/N 48 and 49",
+      "specificity": "listed"
+    },
+    {
+      "id": "sg-glass-any",
+      "match": {
+        "materials": [
+          "glass"
+        ]
+      },
+      "bin": "blue",
+      "prep": [
+        "Make sure it is clean before recycling."
+      ],
+      "sourceItem": "Glass bottles, jars and glassware",
+      "source": "guide",
+      "ref": "Summary table, S/N 48 to 52",
+      "specificity": "category"
+    },
+    {
+      "id": "sg-can",
+      "match": {
+        "materials": [
+          "aluminium",
+          "steel",
+          "metal"
+        ],
+        "shapes": [
+          "can"
+        ]
+      },
+      "bin": "blue",
+      "prep": [
+        "Please empty and rinse when necessary.",
+        "Rusted metals should be disposed of as general waste."
+      ],
+      "sourceItem": "Beverage metal can; food metal can, food tin, biscuit tin",
+      "source": "guide",
+      "ref": "Summary table, S/N 58 and 59",
+      "specificity": "listed"
+    },
+    {
+      "id": "sg-cap",
+      "match": {
+        "materials": [
+          "aluminium",
+          "steel",
+          "metal"
+        ],
+        "shapes": [
+          "cap"
+        ]
+      },
+      "bin": "blue",
+      "prep": [
+        "Make sure it is clean before recycling.",
+        "Rusted metals should be disposed of as general waste."
+      ],
+      "sourceItem": "Metal bottle cap",
+      "source": "guide",
+      "ref": "Summary table, S/N 61",
+      "specificity": "listed"
+    },
+    {
+      "id": "sg-aerosol",
+      "match": {
+        "materials": [
+          "aluminium",
+          "steel",
+          "metal"
+        ],
+        "shapes": [
+          "aerosol-can"
+        ]
+      },
+      "bin": "blue",
+      "prep": [
+        "Please empty contents before recycling: no product should come out when sprayed."
+      ],
+      "sourceItem": "Aerosol can",
+      "source": "guide",
+      "ref": "Summary table, S/N 62",
+      "specificity": "listed"
+    },
+    {
+      "id": "sg-alu-tray",
+      "match": {
+        "materials": [
+          "aluminium"
+        ],
+        "shapes": [
+          "tray",
+          "film",
+          "seal"
+        ]
+      },
+      "bin": "blue",
+      "prep": [
+        "Please empty and rinse before recycling.",
+        "Dirty aluminium foil and trays go to general waste."
+      ],
+      "sourceItem": "Clean aluminium tray, clean aluminium foil",
+      "source": "guide",
+      "ref": "Summary table, S/N 63 and 65",
+      "specificity": "listed"
+    },
+    {
+      "id": "sg-metal",
+      "match": {
+        "materials": [
+          "aluminium",
+          "steel",
+          "metal"
+        ]
+      },
+      "bin": "blue",
+      "prep": [
+        "Make sure it is clean before recycling.",
+        "It must be completely metal."
+      ],
+      "sourceItem": "Metal containers and items that are completely metal",
+      "source": "guide",
+      "ref": "Summary table, S/N 58 to 66",
+      "specificity": "category"
+    }
+  ],
+  "gaps": [
+    {
+      "materials": [
+        "paper-composite"
+      ],
+      "reason": "Apart from drink cartons and paper cups, the guide does not cover paper with plastic or foil layers."
+    },
+    {
+      "materials": [
+        "plastic"
+      ],
+      "shapes": [
+        "sachet",
+        "capsule"
+      ],
+      "reason": "The guide does not say whether sachets, pouches or capsules can go in the blue bin."
+    },
+    {
+      "materials": [
+        "biodegradable-plastic"
+      ],
+      "reason": "The guide only covers biodegradable bags (S/N 43), not other biodegradable plastic items."
+    },
+    {
+      "materials": [
+        "wood",
+        "other"
+      ],
+      "reason": "The guide does not cover this material as packaging."
+    }
+  ]
+}

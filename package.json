@@ -1,0 +1,32 @@
+{
+  "name": "binsplit",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Scan a barcode, split the product into its packaging parts, and sort each part into the right bin under official local rules.",
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "taxonomy": "node scripts/build-taxonomy.ts",
+    "eval:select": "node scripts/select-barcodes.ts",
+    "eval": "node scripts/coverage.ts"
+  },
+  "engines": {
+    "node": ">=22.18"
+  },
+  "dependencies": {
+    "@fontsource-variable/bricolage-grotesque": "^5.3.0",
+    "@fontsource-variable/instrument-sans": "^5.3.0",
+    "@zxing/library": "^0.23.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "playwright": "^1.65.0",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.8",
+    "vitest": "^5.1.1"
+  }
+}
