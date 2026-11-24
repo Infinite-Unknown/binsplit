@@ -37,6 +37,8 @@ interface Candidate {
   evidence: Evidence;
   /** Other container names the text used for this same part (e.g. "pot" and "jar"). */
   aliases?: ShapeClass[];
+  /** Built by joining a shape-only and a material-only structured component. */
+  joined?: boolean;
 }
 
 /** Shapes that describe the main container. Sources often name it differently. */
@@ -63,8 +65,10 @@ function sameMaterial(a: MaterialClass, b: MaterialClass): boolean {
 function fromPackagings(p: OffProduct): Candidate[] {
   return (p.packagings ?? [])
     .map((c): Candidate | undefined => {
-      const s = resolveShape(c.shape);
-      const m = resolveMaterial(c.material);
+      // Contributors sometimes type free text into these fields ("Juice Carton (& Cap)",
+      // "Tetra Prisma Aseptic: FSC Mix board"), so fall back to scanning the words.
+      const s = resolveShape(c.shape) ?? (c.shape ? scanSegment(c.shape).shape : undefined);
+      const m = resolveMaterial(c.material) ?? (c.material ? scanSegment(c.material).material : undefined);
       if (!s && !m) return undefined;
       const raw = [c.shape, c.material].filter(Boolean).join(' / ');
       return {
@@ -238,7 +242,7 @@ function label(c: Candidate): string {
 export function reconcile(product: OffProduct): Reconciled {
   counter = 0;
   const notes: string[] = [];
-  const structured = mergeDuplicates(fromPackagings(product));
+  const structured = joinSplitComponents(mergeDuplicates(fromPackagings(product)));
   const text = fromText(product);
   const parts: Part[] = [];
   const usedText = new Set<number>();
@@ -268,8 +272,10 @@ export function reconcile(product: OffProduct): Reconciled {
       const complete = isKnownShape(s.shape) && isKnownMaterial(s.material);
       const part = makePart(
         s,
-        complete && !textIsFull ? 'medium' : 'low',
-        complete
+        complete && !textIsFull && !s.joined ? 'medium' : 'low',
+        s.joined
+          ? ['The structured list gives this shape and this material as two separate entries; they were joined because each was the only one of its kind. Please check.']
+          : complete
           ? textIsFull
             ? [`The structured packaging list has a ${label(s)}, but the packaging text, which lists the other parts, does not mention it.`]
             : ['Only the structured packaging list describes this part.']
@@ -395,6 +401,28 @@ function applyCartonRule(p: Part) {
 /** If an unknown-shape part has the same material as a known-shape part, it is the same part. */
 function dropContainedDuplicates(parts: Part[]): Part[] {
   return parts.filter(
-    (p) => !(p.shape === 'unknown' && parts.some((o) => o !== p && o.shape !== 'unknown' && o.material === p.material)),
+    (p) =>
+      !(p.shape === 'unknown' && parts.some((o) => o !== p && o.shape !== 'unknown' && o.material !== 'unknown' && sameMaterial(o.material, p.material))),
   );
+}
+
+/**
+ * The structured list sometimes splits one part in two: a shape with no material
+ * and a material with no shape. When exactly one of each is left, they are the same part.
+ */
+function joinSplitComponents(cands: Candidate[]): Candidate[] {
+  const shapeOnly = cands.filter((c) => c.shape && isKnownShape(c.shape) && !isKnownMaterial(c.material));
+  const materialOnly = cands.filter((c) => !c.shape && isKnownMaterial(c.material));
+  if (shapeOnly.length !== 1 || materialOnly.length !== 1) return cands;
+  const [s] = shapeOnly;
+  const [m] = materialOnly;
+  const joined: Candidate = {
+    ...s,
+    material: m.material,
+    materialTag: m.materialTag,
+    resin: m.resin,
+    joined: true,
+    evidence: { source: 'packagings', raw: `${s.evidence.raw} + ${m.evidence.raw}`, shape: s.shape, material: m.material },
+  };
+  return cands.filter((c) => c !== s && c !== m).concat(joined);
 }

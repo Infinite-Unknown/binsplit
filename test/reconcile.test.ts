@@ -27,10 +27,13 @@ describe('reconcile real products', () => {
     expect(bottle.reasons[0]).toMatch(/does not mention it/);
   });
 
-  it('Amul butter: structured and text agree on box and film', () => {
-    const parts = summary('8901262010016');
-    expect(parts).toContain('box/cardboard/high');
-    expect(parts).toContain('film/plastic/high');
+  it('Amul butter: structured and text agree on box and film; the loose "paper" entry is the same box', () => {
+    expect(summary('8901262010016')).toEqual(['box/cardboard/high', 'film/plastic/high']);
+  });
+
+  it('Coconut water: free text typed into the structured fields still resolves', () => {
+    // packagings: "Juice Carton ( & Cap)" / "Tetra Prisma Aseptic: FSC Mix board"
+    expect(summary('8850025000026')).toEqual(['box/beverage-carton/medium', 'cap/plastic/medium']);
   });
 
   it('Green tea bottle: bottle and cap from the structured list', () => {

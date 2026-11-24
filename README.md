@@ -40,7 +40,19 @@ The bin colours in the app are for telling bins apart on screen; they are not of
 
 `npm run eval` runs a fixed list of real barcodes through lookup, reconciliation and both rule packs. The list is the most-scanned Open Food Facts products sold in Malaysia (top 150) and Singapore (top 100), duplicates removed: 240 barcodes, chosen without looking at their packaging data. Results are in [`data/eval/results.json`](data/eval/results.json); the fetched data is in [`data/eval/snapshot.json`](data/eval/snapshot.json) so the numbers can be re-checked offline (`npm run eval -- --offline`).
 
-COVERAGE_TABLE
+Measured 2026-11-24 (barcodes fetched live from the Open Food Facts API):
+
+| | Malaysia (SWCorp) | Singapore (NEA) |
+|---|---|---|
+| Barcodes tested | 240 | 240 |
+| Found in Open Food Facts | 237 | 237 |
+| With any packaging data | 95 (39.6%) | 95 (39.6%) |
+| **Every part** sorted | 49 (20.4%) | 51 (21.3%) |
+| **Some parts** sorted | 23 (9.6%) | 20 (8.3%) |
+| **None** | 168 (70%) | 169 (70.4%) |
+| At least one part sorted, among products with packaging data | 72 of 95 (76%) | 71 of 95 (75%) |
+
+Across all products, 139 packaging parts were reconstructed: 6 where the records agree, 84 from one record, 49 marked "check it".
 
 *Every part*: every part got a bin from a sourced rule and none is low confidence. *Some parts*: at least one part got a bin. *None*: no packaging data, or nothing that the rules cover.
 

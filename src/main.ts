@@ -501,8 +501,8 @@ function openAbout() {
       <button type="button" class="sheet-close" data-close aria-label="Close">${ICON_CLOSE}</button>
       <h2 id="sheet-title" style="font-size: var(--t28)">How well it covers real products</h2>
       <section>
-        <p class="big-figure">${my.fullPct + my.partialPct}%</p>
-        <p class="figure-label">of ${summary.total} real barcodes got a bin for at least one packaging part under the Malaysia rules; ${my.fullPct}% got every part sorted with medium or high confidence. Measured ${esc(summary.evaluated.slice(0, 10))} against the live Open Food Facts API.</p>
+        <p class="big-figure">${Math.round(((my.full + my.partial) / summary.withPackagingData) * 100)}%</p>
+        <p class="figure-label">of the ${summary.withPackagingData} real products that have packaging data got a bin for at least one part under the Malaysia rules, and ${Math.round((my.full / summary.withPackagingData) * 100)}% got every part sorted with medium or high confidence. The other ${summary.total - summary.withPackagingData} of the ${summary.total} barcodes tested have no packaging data in Open Food Facts yet. Fetched live ${esc(summary.fetchedTo.slice(0, 10))}.</p>
       </section>
       <section>
         <table class="cov-table">
@@ -659,6 +659,7 @@ function addUserPart(shape: ShapeClass, material: MaterialClass) {
     needsInput: false,
   };
   state.parts.push(part);
+  state.notes = state.notes.filter((n) => !n.startsWith('This product has no packaging information'));
   state.ask = undefined;
   renderStageBody({ flip: true });
   document.querySelector(`[data-part="${part.id}"]`)?.scrollIntoView({ behavior: reduceMotion() ? 'auto' : 'smooth', block: 'center' });

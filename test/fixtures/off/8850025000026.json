@@ -1,0 +1,54 @@
+{
+ "brands": "UFC",
+ "categories_tags": [
+  "en:beverages-and-beverages-preparations",
+  "en:plant-based-foods-and-beverages",
+  "en:beverages",
+  "en:plant-based-foods",
+  "en:fruits-and-vegetables-based-foods",
+  "en:fruits-based-foods",
+  "en:plant-based-beverages",
+  "en:fruit-based-beverages",
+  "en:coconuts-and-their-products",
+  "en:non-alcoholic-beverages",
+  "en:coconut-waters"
+ ],
+ "code": "8850025000026",
+ "image_front_small_url": "https://images.openfoodfacts.org/images/products/885/002/500/0026/front_en.95.200.jpg",
+ "packaging_materials_tags": [
+  "en:Tetra Prisma Aseptic: FSC Mix board",
+  "en:recyclable-plastic"
+ ],
+ "packaging_recycling_tags": [
+  "en:Recycleable: Return for Refund where applicable.",
+  "en:recycle-with-plastics"
+ ],
+ "packaging_shapes_tags": [
+  "en:Juice Carton ( & Cap)",
+  "en:Weigh) Bottle cap"
+ ],
+ "packaging_tags": [
+  "en:composite-carton"
+ ],
+ "packaging_text": "Return for Refund where applicable. Recyclable.",
+ "packagings": [
+  {
+   "material": "en:Tetra Prisma Aseptic: FSC Mix board",
+   "number_of_units": 1,
+   "quantity_per_unit": "1 L",
+   "quantity_per_unit_unit": "l",
+   "quantity_per_unit_value": 1,
+   "recycling": "en:Recycleable: Return for Refund where applicable.",
+   "shape": "en:Juice Carton ( & Cap)",
+   "weight_measured": 41
+  },
+  {
+   "material": "en:recyclable-plastic",
+   "number_of_units": 1,
+   "recycling": "en:recycle-with-plastics",
+   "shape": "en:Weigh) Bottle cap"
+  }
+ ],
+ "packagings_complete": 0,
+ "product_name": "Refresh Eau de Noix de Coco"
+}

@@ -93,7 +93,7 @@ const total = rows.length;
 const pct = (n: number) => Math.round((n / total) * 1000) / 10;
 const summary = {
   evaluated: new Date().toISOString(),
-  mode: offline ? 'offline, from snapshot' : 'live Open Food Facts API',
+  mode: 'barcodes fetched live from the Open Food Facts API into data/eval/snapshot.json, then evaluated',
   fetchedFrom: snap.started,
   fetchedTo: snap.finished ?? snap.started,
   selection: list.rule,

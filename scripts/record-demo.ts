@@ -147,11 +147,11 @@ const scenes: Scene[] = [
       await page.locator('#stage-body .bin .piece').first().waitFor({ timeout: 30000 });
       await wait(page, 4000);
       await caption(page, 'No data for this barcode? Describe the part in two taps');
-      await lookup(page, '2000000000008');
+      await lookup(page, '9556231110045');
       await wait(page, 1200);
       await page.getByRole('button', { name: 'Describe a part' }).click();
       await wait(page, 1000);
-      await page.locator('[data-ask-shape="bottle"]').click();
+      await page.locator('[data-ask-shape="bag"]').click();
       await wait(page, 1000);
       await page.locator('[data-ask-material="plastic"]').click();
       await wait(page, 2500);

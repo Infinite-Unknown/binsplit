@@ -1,0 +1,37 @@
+{
+ "evaluated": "2026-11-24T09:48:44.528Z",
+ "mode": "barcodes fetched live from the Open Food Facts API into data/eval/snapshot.json, then evaluated",
+ "fetchedFrom": "2026-11-24T09:18:18.320Z",
+ "fetchedTo": "2026-11-24T09:48:44.522Z",
+ "selection": "Most-scanned Open Food Facts products (sort_by=unique_scans_n) tagged as sold in Malaysia (top 150) and in Singapore (top 100), duplicates removed. Packaging data was not looked at when selecting.",
+ "total": 240,
+ "lookupErrors": 0,
+ "found": 237,
+ "withPackagingData": 95,
+ "parts": 139,
+ "partConfidence": {
+  "high": 6,
+  "medium": 84,
+  "low": 49
+ },
+ "packs": {
+  "my-act672": {
+   "name": "Malaysia (SWCorp)",
+   "full": 49,
+   "partial": 23,
+   "none": 168,
+   "fullPct": 20.4,
+   "partialPct": 9.6,
+   "nonePct": 70
+  },
+  "sg-nea": {
+   "name": "Singapore (NEA)",
+   "full": 51,
+   "partial": 20,
+   "none": 169,
+   "fullPct": 21.3,
+   "partialPct": 8.3,
+   "nonePct": 70.4
+  }
+ }
+}

@@ -1,0 +1,3866 @@
+{
+ "summary": {
+  "evaluated": "2026-11-24T09:48:44.528Z",
+  "mode": "barcodes fetched live from the Open Food Facts API into data/eval/snapshot.json, then evaluated",
+  "fetchedFrom": "2026-11-24T09:18:18.320Z",
+  "fetchedTo": "2026-11-24T09:48:44.522Z",
+  "selection": "Most-scanned Open Food Facts products (sort_by=unique_scans_n) tagged as sold in Malaysia (top 150) and in Singapore (top 100), duplicates removed. Packaging data was not looked at when selecting.",
+  "total": 240,
+  "lookupErrors": 0,
+  "found": 237,
+  "withPackagingData": 95,
+  "parts": 139,
+  "partConfidence": {
+   "high": 6,
+   "medium": 84,
+   "low": 49
+  },
+  "packs": {
+   "my-act672": {
+    "name": "Malaysia (SWCorp)",
+    "full": 49,
+    "partial": 23,
+    "none": 168,
+    "fullPct": 20.4,
+    "partialPct": 9.6,
+    "nonePct": 70
+   },
+   "sg-nea": {
+    "name": "Singapore (NEA)",
+    "full": 51,
+    "partial": 20,
+    "none": 169,
+    "fullPct": 21.3,
+    "partialPct": 8.3,
+    "nonePct": 70.4
+   }
+  }
+ },
+ "rows": [
+  {
+   "code": "8901262010016",
+   "list": "malaysia",
+   "name": "Amul Pasteurized Butter",
+   "found": true,
+   "parts": 2,
+   "confidence": {
+    "high": 2,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "full",
+    "sg-nea": "full"
+   }
+  },
+  {
+   "code": "8801073113312",
+   "list": "malaysia",
+   "name": "Samyang cheese buldak spicy ramen",
+   "found": true,
+   "parts": 2,
+   "confidence": {
+    "high": 0,
+    "medium": 2,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "partial",
+    "sg-nea": "full"
+   }
+  },
+  {
+   "code": "8801073115514",
+   "list": "malaysia",
+   "name": "Buldak Spicy Ramen",
+   "found": true,
+   "parts": 2,
+   "confidence": {
+    "high": 0,
+    "medium": 2,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "partial",
+    "sg-nea": "full"
+   }
+  },
+  {
+   "code": "8000500347508",
+   "list": "malaysia",
+   "name": "",
+   "found": true,
+   "parts": 1,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+   },
+   "coverage": {
+    "my-act672": "partial",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "8000500023624",
+   "list": "malaysia",
+   "name": "Kinder Happy hippo",
+   "found": true,
+   "parts": 1,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9555030107614",
+   "list": "malaysia",
+   "name": "17000135 Mint Candy Lemon Flavour",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "8410076473974",
+   "list": "malaysia",
+   "name": "Tortillas",
+   "found": true,
+   "parts": 1,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "8852756346053",
+   "list": "malaysia",
+   "name": "Corn Flakes",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "5200106871084",
+   "list": "malaysia",
+   "name": "Authentic Greek Yoghurt",
+   "found": true,
+   "parts": 1,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "0733739016614",
+   "list": "malaysia",
+   "name": "Ultra Omega-3 Fish Oil",
+   "found": true,
+   "parts": 1,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "4008400351926",
+   "list": "malaysia",
+   "name": "Hanuta Minis",
+   "found": true,
+   "parts": 1,
+   "confidence": {
+    "high": 0,
+    "medium": 1,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "full",
+    "sg-nea": "full"
+   }
+  },
+  {
+   "code": "8594017140573",
+   "list": "malaysia",
+   "name": "Emco Musli With Fruit Pieces Crunchy",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9556231110045",
+   "list": "malaysia",
+   "name": "Roti Putih Original Classic Jumbo",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9556085302757",
+   "list": "malaysia",
+   "name": "Cream Crackers",
+   "found": true,
+   "parts": 1,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9556570105139",
+   "list": "malaysia",
+   "name": "ORIGINAL CARBONATED ISOTONIC ELECTROLYTE DRINK",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "8997240600423",
+   "list": "malaysia",
+   "name": "Original Oat Milk Drink",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "6942836703622",
+   "list": "malaysia",
+   "name": "kisses",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "0024000163015",
+   "list": "malaysia",
+   "name": "Sweet Corn Cream Style",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9555022301877",
+   "list": "malaysia",
+   "name": "Noodle Snack",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "8000500220412",
+   "list": "malaysia",
+   "name": "NUTTELA 680g",
+   "found": true,
+   "parts": 1,
+   "confidence": {
+    "high": 0,
+    "medium": 1,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "full",
+    "sg-nea": "full"
+   }
+  },
+  {
+   "code": "9556231111134",
+   "list": "malaysia",
+   "name": "Breakthru Roti Gandum Penuh",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9300652809770",
+   "list": "malaysia",
+   "name": "Barista Oat",
+   "found": true,
+   "parts": 1,
+   "confidence": {
+    "high": 0,
+    "medium": 1,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "full",
+    "sg-nea": "full"
+   }
+  },
+  {
+   "code": "9555589212142",
+   "list": "malaysia",
+   "name": "Coca-Cola Rasa Asli Kurang Gula",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9555555300538",
+   "list": "malaysia",
+   "name": "Panko bread crumbs",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9555805800320",
+   "list": "malaysia",
+   "name": "Super Berry Granola",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9556641320027",
+   "list": "malaysia",
+   "name": "Quick Bites",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "4335619179790",
+   "list": "malaysia",
+   "name": "Salmon Pieces",
+   "found": true,
+   "parts": 1,
+   "confidence": {
+    "high": 0,
+    "medium": 1,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "full",
+    "sg-nea": "full"
+   }
+  },
+  {
+   "code": "0074410741860",
+   "list": "malaysia",
+   "name": "Japanese Green Tea",
+   "found": true,
+   "parts": 1,
+   "confidence": {
+    "high": 0,
+    "medium": 1,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "full",
+    "sg-nea": "full"
+   }
+  },
+  {
+   "code": "8801055706426",
+   "list": "malaysia",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "5900102023646",
+   "list": "malaysia",
+   "name": "krówka",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9555805800313",
+   "list": "malaysia",
+   "name": "GRANOLA SUPER BERRY",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9556042001211",
+   "list": "malaysia",
+   "name": "THUMBS KACANG MENGLEMBU",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9556041132411",
+   "list": "malaysia",
+   "name": "Sauce yakitori",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9556755510710",
+   "list": "malaysia",
+   "name": "Seeded Multigrain With Barley",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9556231111110",
+   "list": "malaysia",
+   "name": "ROTI SANDWICH",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "8888196173324",
+   "list": "malaysia",
+   "name": "Green Tea Jasmine",
+   "found": true,
+   "parts": 2,
+   "confidence": {
+    "high": 0,
+    "medium": 2,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "full",
+    "sg-nea": "full"
+   }
+  },
+  {
+   "code": "9319133333574",
+   "list": "malaysia",
+   "name": "Carman's Super Berry Muesli Bars (Cranberry, Blueberry & Goji)",
+   "found": true,
+   "parts": 2,
+   "confidence": {
+    "high": 0,
+    "medium": 2,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "full",
+    "sg-nea": "full"
+   }
+  },
+  {
+   "code": "9556166058153",
+   "list": "malaysia",
+   "name": "12000825 Dutch Lady Pure Farm Full Cream Milk",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9555022306698",
+   "list": "malaysia",
+   "name": "Ghost Pepper Spicy Chicken (Dry Black Noodles)",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9556001601001",
+   "list": "malaysia",
+   "name": "Maggi chilli sauce 500g",
+   "found": true,
+   "parts": 1,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+   },
+   "coverage": {
+    "my-act672": "partial",
+    "sg-nea": "partial"
+   }
+  },
+  {
+   "code": "9315090206968",
+   "list": "malaysia",
+   "name": "Skim Milk",
+   "found": true,
+   "parts": 2,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 2
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "6924743926547",
+   "list": "malaysia",
+   "name": "Dorito Nacho Cheese",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "7622201402686",
+   "list": "malaysia",
+   "name": "Oreo Dutch Cocoa Wafer",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9556755510079",
+   "list": "malaysia",
+   "name": "100% Whole Wheat Loaf",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9551001410233",
+   "list": "malaysia",
+   "name": "12001187 Vida Salty Lychee",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9555615900302",
+   "list": "malaysia",
+   "name": "Protein Wraps Wholemeal (Mission)",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9556135011509",
+   "list": "malaysia",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "8992760211036",
+   "list": "malaysia",
+   "name": "Ritz Crackers Box",
+   "found": true,
+   "parts": 2,
+   "confidence": {
+    "high": 0,
+    "medium": 1,
+    "low": 1
+   },
+   "coverage": {
+    "my-act672": "partial",
+    "sg-nea": "partial"
+   }
+  },
+  {
+   "code": "7622210400277",
+   "list": "malaysia",
+   "name": "DAIRY MILK HAZELNUT",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9556121000234",
+   "list": "malaysia",
+   "name": "BUTTER CRACKERS",
+   "found": true,
+   "parts": 1,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9555589200668",
+   "list": "malaysia",
+   "name": "Sprite",
+   "found": true,
+   "parts": 1,
+   "confidence": {
+    "high": 0,
+    "medium": 1,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "full",
+    "sg-nea": "full"
+   }
+  },
+  {
+   "code": "9557290166660",
+   "list": "malaysia",
+   "name": "sea master drinking",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "8888010995644",
+   "list": "malaysia",
+   "name": "Buttercup",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9556001183538",
+   "list": "malaysia",
+   "name": "Milo Malt Chocolate 200ml Pack",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "8719200752276",
+   "list": "malaysia",
+   "name": "Planta",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9555246600107",
+   "list": "malaysia",
+   "name": "Minuman Susu Kultur",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9551001410295",
+   "list": "malaysia",
+   "name": "Original Citrus",
+   "found": true,
+   "parts": 1,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9557378000541",
+   "list": "malaysia",
+   "name": "CED Peanut Butter",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9556434100010",
+   "list": "malaysia",
+   "name": "196101000210 (4260-M)",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "6151100031495",
+   "list": "malaysia",
+   "name": "Milo",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9555805800757",
+   "list": "malaysia",
+   "name": "Granola Dark Chocolate",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "4800361315340",
+   "list": "malaysia",
+   "name": "NESTLE SCHOOL PACK",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "0089686180626",
+   "list": "malaysia",
+   "name": "Indomie Mi Goreng Original",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9557062331111",
+   "list": "malaysia",
+   "name": "Mister Potato Crips Canister Tomato",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9400553457725",
+   "list": "malaysia",
+   "name": "Huntley & Palmers Baked Sourdough Himalayan Pink Salt",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9717905016050",
+   "list": "malaysia",
+   "name": "Yuki & love japanese style Red Bean mochi",
+   "found": true,
+   "parts": 4,
+   "confidence": {
+    "high": 0,
+    "medium": 4,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "full",
+    "sg-nea": "full"
+   }
+  },
+  {
+   "code": "1200108000820",
+   "list": "malaysia",
+   "name": "Doritos",
+   "found": true,
+   "parts": 1,
+   "confidence": {
+    "high": 0,
+    "medium": 1,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "full",
+    "sg-nea": "full"
+   }
+  },
+  {
+   "code": "9555469100712",
+   "list": "malaysia",
+   "name": "Peanut Butter Crunchy",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "7622201698768",
+   "list": "malaysia",
+   "name": "Cream Crackers",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9555030108581",
+   "list": "malaysia",
+   "name": "HIMALAYA Ginger + Lemon Flavour",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "8683210125057",
+   "list": "malaysia",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "8851932143677",
+   "list": "malaysia",
+   "name": "Vaseline",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9556145116058",
+   "list": "malaysia",
+   "name": "Spritzer mineral water 550ml",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9555022302515",
+   "list": "malaysia",
+   "name": "Monster Noodle Snack",
+   "found": true,
+   "parts": 1,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "7622202024375",
+   "list": "malaysia",
+   "name": "small selection box",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9556107301300",
+   "list": "malaysia",
+   "name": "sunquick",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9556570312858",
+   "list": "malaysia",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9556570316856",
+   "list": "malaysia",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "4005900396037",
+   "list": "malaysia",
+   "found": false,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "3760128640133",
+   "list": "malaysia",
+   "name": "Lait demi-écrémé",
+   "found": true,
+   "parts": 1,
+   "confidence": {
+    "high": 0,
+    "medium": 1,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "full",
+    "sg-nea": "full"
+   }
+  },
+  {
+   "code": "4809010272027",
+   "list": "malaysia",
+   "name": "Dried Mangoes",
+   "found": true,
+   "parts": 1,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "7613036049368",
+   "list": "malaysia",
+   "name": "Crunchy Oat Granola Breakfast Cereal with a Touch of Honey",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "8595229909224",
+   "list": "malaysia",
+   "name": "Granola chocolate & almond",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9557062331128",
+   "list": "malaysia",
+   "name": "Mister Potato Crips Canister Original",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9557062321136",
+   "list": "malaysia",
+   "name": "Jbs qtw",
+   "found": true,
+   "parts": 2,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 2
+   },
+   "coverage": {
+    "my-act672": "partial",
+    "sg-nea": "partial"
+   }
+  },
+  {
+   "code": "9556001054005",
+   "list": "malaysia",
+   "name": "",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9556001207630",
+   "list": "malaysia",
+   "name": "BIG curry flavour",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "0757675200128",
+   "list": "malaysia",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9556007002161",
+   "list": "malaysia",
+   "name": "Soyfresh hersey’s  chocolate",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9555856600047",
+   "list": "malaysia",
+   "name": "Haus boom",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "6253001004612",
+   "list": "malaysia",
+   "name": "Kasih Golden Tahini",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9000159190080",
+   "list": "malaysia",
+   "name": "Golden Pop",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "8906005451088",
+   "list": "malaysia",
+   "name": "KPL SHUDHI COCONUT OIL",
+   "found": true,
+   "parts": 1,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "6924187823396",
+   "list": "malaysia",
+   "name": "chacheer",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "0064042492230",
+   "list": "malaysia",
+   "name": "chocomax",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9556023096588",
+   "list": "malaysia",
+   "name": "Jacker Barbecue 60g",
+   "found": true,
+   "parts": 1,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "7622210410474",
+   "list": "malaysia",
+   "name": "EXTRA CHOCOLATE",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9556121000494",
+   "list": "malaysia",
+   "name": "julie's Golden Cracker",
+   "found": true,
+   "parts": 1,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9557378000176",
+   "list": "malaysia",
+   "name": "Pure Honey",
+   "found": true,
+   "parts": 1,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9420063600749",
+   "list": "malaysia",
+   "name": "Hokey Pokey Crunch",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9556404001033",
+   "list": "malaysia",
+   "name": "Pepsi",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "8801045521077",
+   "list": "malaysia",
+   "name": "Yeul Ramen",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9556437001413",
+   "list": "malaysia",
+   "name": "12001065 COCON MANGO PUDDING",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9310079259089",
+   "list": "malaysia",
+   "name": "Golden Churn",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9556231131033",
+   "list": "malaysia",
+   "name": "Chocolate Twiggies",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "8852756304046",
+   "list": "malaysia",
+   "name": "Froot loops",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "8991001780898",
+   "list": "malaysia",
+   "name": "Twister",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "50819324",
+   "list": "malaysia",
+   "name": "fisherman's friend",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "50998463",
+   "list": "malaysia",
+   "name": "SUGAR FREE ORI LOZENGES",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "5701215035232",
+   "list": "malaysia",
+   "name": "EMBORG - Edam",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9556191070106",
+   "list": "malaysia",
+   "name": "Prego",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "8885012290494",
+   "list": "malaysia",
+   "name": "Ribena 1L",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9556007000105",
+   "list": "malaysia",
+   "name": "Chrysanthemum Tea",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9556439893191",
+   "list": "malaysia",
+   "name": "Crackers Plus",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9556024707889",
+   "list": "malaysia",
+   "name": "",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "8993175538596",
+   "list": "malaysia",
+   "name": "NABATI CHOCO",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9556023210229",
+   "list": "malaysia",
+   "name": "JACKER BARBECUE",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "8934680045971",
+   "list": "malaysia",
+   "name": "Socola Pie imp",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9557727930017",
+   "list": "malaysia",
+   "name": "Full Cream Milk",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9556755510017",
+   "list": "malaysia",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "8801043022729",
+   "list": "malaysia",
+   "name": "NongShim Soon Veggie Ramyun",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "6917878029252",
+   "list": "malaysia",
+   "name": "Maggi seasoning 200ml",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "0078895131475",
+   "list": "malaysia",
+   "name": "Like light soy sauce",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "8850291103797",
+   "list": "malaysia",
+   "name": "Yogi blueberry cream stik",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "8850291109201",
+   "list": "malaysia",
+   "name": "Nutrione macadamia",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "6931780720885",
+   "list": "malaysia",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9551004912024",
+   "list": "malaysia",
+   "name": "100% Australian Oat Wholemeal Bread",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9557378001326",
+   "list": "malaysia",
+   "name": "Organic Rolled Oats",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9556191062378",
+   "list": "malaysia",
+   "name": "Cream of Chicken Soup",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9555287100789",
+   "list": "malaysia",
+   "name": "Heinz Yellow Mustard",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9556126663748",
+   "list": "malaysia",
+   "name": "Mayonnaise",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9556107101504",
+   "list": "malaysia",
+   "name": "Hacks Original",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9421016151325",
+   "list": "malaysia",
+   "name": "Butter",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9555540037135",
+   "list": "malaysia",
+   "name": "Alfredo Choc",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9556196008623",
+   "list": "malaysia",
+   "name": "Roller Coaster Cheese Cannister",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9555764000021",
+   "list": "malaysia",
+   "name": "Eureka Popcorn Classic Caramel",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9556121022601",
+   "list": "malaysia",
+   "name": "Love Letters Chocolate",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "4894532990627",
+   "list": "malaysia",
+   "name": "Multi-floral Honey",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "8858702419369",
+   "list": "malaysia",
+   "name": "BIG SHEET CHEESE",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9555030108703",
+   "list": "malaysia",
+   "name": "Himalaya Vajomba (Honey Lime Mints)",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9551011820022",
+   "list": "malaysia",
+   "name": "Vida Sakura",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9555865601417",
+   "list": "malaysia",
+   "name": "Wild Strawberry Low Sugar Granola",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9557378002347",
+   "list": "malaysia",
+   "name": "Pure Honey",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "6917878026596",
+   "list": "malaysia",
+   "name": "",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9556166058221",
+   "list": "malaysia",
+   "name": "Dutch Lady Strawberry milk",
+   "found": true,
+   "parts": 1,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "8595229924104",
+   "list": "malaysia",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9556121009220",
+   "list": "malaysia",
+   "name": "Butter Waffles",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9556196008616",
+   "list": "malaysia",
+   "name": "Roller Coaster BBQ Cannister",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9556755010043",
+   "list": "malaysia",
+   "name": "15000582 cap Sauh Wheat Flour",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9556041604192",
+   "list": "malaysia",
+   "name": "15000474 Ayam brand tuna chunk in water",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "8076802085981",
+   "list": "singapore",
+   "name": "Barilla Fusilli",
+   "found": true,
+   "parts": 2,
+   "confidence": {
+    "high": 0,
+    "medium": 1,
+    "low": 1
+   },
+   "coverage": {
+    "my-act672": "partial",
+    "sg-nea": "partial"
+   }
+  },
+  {
+   "code": "8997212610412",
+   "list": "singapore",
+   "name": "Organic Coconut Milk",
+   "found": true,
+   "parts": 1,
+   "confidence": {
+    "high": 0,
+    "medium": 1,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "full",
+    "sg-nea": "full"
+   }
+  },
+  {
+   "code": "5018374285577",
+   "list": "singapore",
+   "name": "Original Breadsticks",
+   "found": true,
+   "parts": 2,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 2
+   },
+   "coverage": {
+    "my-act672": "partial",
+    "sg-nea": "partial"
+   }
+  },
+  {
+   "code": "0084380957444",
+   "list": "singapore",
+   "name": "Strawberry Fruit Spread",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "8004690612804",
+   "list": "singapore",
+   "name": "Fusilli No. 28 Le Integrali",
+   "found": true,
+   "parts": 2,
+   "confidence": {
+    "high": 0,
+    "medium": 2,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "partial",
+    "sg-nea": "partial"
+   }
+  },
+  {
+   "code": "9300658228537",
+   "list": "singapore",
+   "name": "Greek Style Yoghurt",
+   "found": true,
+   "parts": 3,
+   "confidence": {
+    "high": 0,
+    "medium": 3,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "full",
+    "sg-nea": "full"
+   }
+  },
+  {
+   "code": "0811594100102",
+   "list": "singapore",
+   "name": "0811594100102",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "8992760221028",
+   "list": "singapore",
+   "name": "17000725 Oreo Original (Vanilla)",
+   "found": true,
+   "parts": 1,
+   "confidence": {
+    "high": 0,
+    "medium": 1,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "full",
+    "sg-nea": "full"
+   }
+  },
+  {
+   "code": "0034000702329",
+   "list": "singapore",
+   "name": "Reese's 2 Peanut Butter Cups",
+   "found": true,
+   "parts": 2,
+   "confidence": {
+    "high": 0,
+    "medium": 1,
+    "low": 1
+   },
+   "coverage": {
+    "my-act672": "partial",
+    "sg-nea": "partial"
+   }
+  },
+  {
+   "code": "0063667511005",
+   "list": "singapore",
+   "name": "Unsweetened Organic Fortified Soy Beverage",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9310653102626",
+   "list": "singapore",
+   "name": "Greek Yogurt",
+   "found": true,
+   "parts": 1,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "8901088047142",
+   "list": "singapore",
+   "name": "parachute oil",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "4006424022372",
+   "list": "singapore",
+   "name": "Blackcurrant Extra Jam with Sweetener",
+   "found": true,
+   "parts": 2,
+   "confidence": {
+    "high": 0,
+    "medium": 2,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "full",
+    "sg-nea": "full"
+   }
+  },
+  {
+   "code": "8000320010026",
+   "list": "singapore",
+   "name": "Pelati - Geschälte Tomaten",
+   "found": true,
+   "parts": 2,
+   "confidence": {
+    "high": 0,
+    "medium": 2,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "full",
+    "sg-nea": "full"
+   }
+  },
+  {
+   "code": "8850025000026",
+   "list": "singapore",
+   "name": "Refresh Eau de Noix de Coco",
+   "found": true,
+   "parts": 2,
+   "confidence": {
+    "high": 0,
+    "medium": 2,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "full",
+    "sg-nea": "full"
+   }
+  },
+  {
+   "code": "9300617065920",
+   "list": "singapore",
+   "name": "OLD GOLD DARK CHOCOLATE",
+   "found": true,
+   "parts": 1,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "40081410",
+   "list": "singapore",
+   "name": "KNAX Gewürzgurken",
+   "found": true,
+   "parts": 1,
+   "confidence": {
+    "high": 0,
+    "medium": 1,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "full",
+    "sg-nea": "full"
+   }
+  },
+  {
+   "code": "8410300352280",
+   "list": "singapore",
+   "name": "Yakisoba Pollo",
+   "found": true,
+   "parts": 2,
+   "confidence": {
+    "high": 0,
+    "medium": 1,
+    "low": 1
+   },
+   "coverage": {
+    "my-act672": "partial",
+    "sg-nea": "partial"
+   }
+  },
+  {
+   "code": "8904109450112",
+   "list": "singapore",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "8934680033442",
+   "list": "singapore",
+   "name": "Oreo wafer roll creamy munchy",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "8426944001071",
+   "list": "singapore",
+   "name": "Black Truffle Premium Potato Chips",
+   "found": true,
+   "parts": 1,
+   "confidence": {
+    "high": 0,
+    "medium": 1,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "full",
+    "sg-nea": "full"
+   }
+  },
+  {
+   "code": "8712000900045",
+   "list": "singapore",
+   "name": "Heineken Beer",
+   "found": true,
+   "parts": 1,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+   },
+   "coverage": {
+    "my-act672": "partial",
+    "sg-nea": "partial"
+   }
+  },
+  {
+   "code": "9421901881009",
+   "list": "singapore",
+   "name": "Peanut Butter Crunchy",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "8904004400083",
+   "list": "singapore",
+   "name": "Haldiram's Bhujia sev",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "8997240600041",
+   "list": "singapore",
+   "name": "12000992 OATSIDE Oat Milk",
+   "found": true,
+   "parts": 2,
+   "confidence": {
+    "high": 0,
+    "medium": 2,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "full",
+    "sg-nea": "full"
+   }
+  },
+  {
+   "code": "4037300108293",
+   "list": "singapore",
+   "name": "Linsen-Eintopf mit Würstchen",
+   "found": true,
+   "parts": 2,
+   "confidence": {
+    "high": 0,
+    "medium": 2,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "full",
+    "sg-nea": "full"
+   }
+  },
+  {
+   "code": "0640509040147",
+   "list": "singapore",
+   "found": false,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "8801073210363",
+   "list": "singapore",
+   "name": "Original Spicy Ramen",
+   "found": true,
+   "parts": 1,
+   "confidence": {
+    "high": 0,
+    "medium": 1,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "full",
+    "sg-nea": "full"
+   }
+  },
+  {
+   "code": "4037300108491",
+   "list": "singapore",
+   "name": "Kartoffeltopf mit Würstchen",
+   "found": true,
+   "parts": 1,
+   "confidence": {
+    "high": 0,
+    "medium": 1,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "full",
+    "sg-nea": "full"
+   }
+  },
+  {
+   "code": "9300462348575",
+   "list": "singapore",
+   "name": "CHUNK STYLE TUNA IN OLIVE OIL BLEND",
+   "found": true,
+   "parts": 1,
+   "confidence": {
+    "high": 0,
+    "medium": 1,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "full",
+    "sg-nea": "full"
+   }
+  },
+  {
+   "code": "9300658404146",
+   "list": "singapore",
+   "name": "All Natural Yogurt Light",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9336243005023",
+   "list": "singapore",
+   "name": "Protein Smoothie Dutch Chocolate",
+   "found": true,
+   "parts": 3,
+   "confidence": {
+    "high": 0,
+    "medium": 3,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "full",
+    "sg-nea": "full"
+   }
+  },
+  {
+   "code": "6223006345584",
+   "list": "singapore",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "0045300005409",
+   "list": "singapore",
+   "name": "Crunchy Peanut Butter",
+   "found": true,
+   "parts": 1,
+   "confidence": {
+    "high": 0,
+    "medium": 1,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "full",
+    "sg-nea": "full"
+   }
+  },
+  {
+   "code": "0884912116505",
+   "list": "singapore",
+   "name": "",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "42094722",
+   "list": "singapore",
+   "name": "Löwensenf extra scharf",
+   "found": true,
+   "parts": 1,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+   },
+   "coverage": {
+    "my-act672": "partial",
+    "sg-nea": "partial"
+   }
+  },
+  {
+   "code": "5000119120656",
+   "list": "singapore",
+   "name": "Set Honey",
+   "found": true,
+   "parts": 2,
+   "confidence": {
+    "high": 1,
+    "medium": 1,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "full",
+    "sg-nea": "full"
+   }
+  },
+  {
+   "code": "5000159461122",
+   "list": "singapore",
+   "name": "Snickers",
+   "found": true,
+   "parts": 1,
+   "confidence": {
+    "high": 1,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "full",
+    "sg-nea": "full"
+   }
+  },
+  {
+   "code": "8005121000276",
+   "list": "singapore",
+   "name": "Penne Ziti Rigate 27",
+   "found": true,
+   "parts": 1,
+   "confidence": {
+    "high": 0,
+    "medium": 1,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "full",
+    "sg-nea": "full"
+   }
+  },
+  {
+   "code": "8850161160790",
+   "list": "singapore",
+   "name": "CocoMax 100% Coconut Water",
+   "found": true,
+   "parts": 1,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "0876063002806",
+   "list": "singapore",
+   "name": "Protein Shake",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "4000417013002",
+   "list": "singapore",
+   "name": "Weisse-Voll-Nuss",
+   "found": true,
+   "parts": 1,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "4005500330318",
+   "list": "singapore",
+   "name": "Ravioli Gemüse",
+   "found": true,
+   "parts": 1,
+   "confidence": {
+    "high": 0,
+    "medium": 1,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "full",
+    "sg-nea": "full"
+   }
+  },
+  {
+   "code": "8888002076009",
+   "list": "singapore",
+   "name": "Coca Cola",
+   "found": true,
+   "parts": 1,
+   "confidence": {
+    "high": 0,
+    "medium": 1,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "full",
+    "sg-nea": "full"
+   }
+  },
+  {
+   "code": "7300400127363",
+   "list": "singapore",
+   "name": "Sandwich Tomato & Basil",
+   "found": true,
+   "parts": 1,
+   "confidence": {
+    "high": 0,
+    "medium": 1,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "full",
+    "sg-nea": "full"
+   }
+  },
+  {
+   "code": "4032600004337",
+   "list": "singapore",
+   "name": "Knödel Semmelknödel",
+   "found": true,
+   "parts": 2,
+   "confidence": {
+    "high": 0,
+    "medium": 2,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "full",
+    "sg-nea": "full"
+   }
+  },
+  {
+   "code": "8005121000405",
+   "list": "singapore",
+   "name": "Fusilli 40",
+   "found": true,
+   "parts": 1,
+   "confidence": {
+    "high": 0,
+    "medium": 1,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "full",
+    "sg-nea": "full"
+   }
+  },
+  {
+   "code": "8690632059150",
+   "list": "singapore",
+   "name": "Kit kat chunky",
+   "found": true,
+   "parts": 1,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "5908230521522",
+   "list": "singapore",
+   "name": "Kabanos exclusive chilli",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "8901393024197",
+   "list": "singapore",
+   "name": "Happy dent white",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "3800020456293",
+   "list": "singapore",
+   "name": "Kit kat chunky",
+   "found": true,
+   "parts": 1,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "75032715",
+   "list": "singapore",
+   "name": "cerveza",
+   "found": true,
+   "parts": 2,
+   "confidence": {
+    "high": 0,
+    "medium": 2,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "full",
+    "sg-nea": "full"
+   }
+  },
+  {
+   "code": "8004690107201",
+   "list": "singapore",
+   "name": "Tagliatelle No.103",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "8859015700168",
+   "list": "singapore",
+   "name": "Coconut Water",
+   "found": true,
+   "parts": 2,
+   "confidence": {
+    "high": 0,
+    "medium": 2,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "full",
+    "sg-nea": "full"
+   }
+  },
+  {
+   "code": "0008295663900",
+   "list": "singapore",
+   "name": "Organic apple cider vinegar",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "8424842050085",
+   "list": "singapore",
+   "name": "Honey Mustard Potato Crisps imp",
+   "found": true,
+   "parts": 1,
+   "confidence": {
+    "high": 0,
+    "medium": 1,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "full",
+    "sg-nea": "full"
+   }
+  },
+  {
+   "code": "9300658407765",
+   "list": "singapore",
+   "name": "Greek Style Yogurt with a hint of Vanilla Bean",
+   "found": true,
+   "parts": 3,
+   "confidence": {
+    "high": 0,
+    "medium": 3,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "full",
+    "sg-nea": "full"
+   }
+  },
+  {
+   "code": "6111262300006",
+   "list": "singapore",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "0884912102102",
+   "list": "singapore",
+   "name": "Great Grains Cereal Blueberry Morning imp",
+   "found": true,
+   "parts": 1,
+   "confidence": {
+    "high": 0,
+    "medium": 1,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "full",
+    "sg-nea": "full"
+   }
+  },
+  {
+   "code": "8005121000146",
+   "list": "singapore",
+   "name": "Linguine 14",
+   "found": true,
+   "parts": 1,
+   "confidence": {
+    "high": 0,
+    "medium": 1,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "full",
+    "sg-nea": "full"
+   }
+  },
+  {
+   "code": "8888077103389",
+   "list": "singapore",
+   "name": "Meiji Plain Crackers",
+   "found": true,
+   "parts": 2,
+   "confidence": {
+    "high": 0,
+    "medium": 1,
+    "low": 1
+   },
+   "coverage": {
+    "my-act672": "partial",
+    "sg-nea": "partial"
+   }
+  },
+  {
+   "code": "9556001047175",
+   "list": "singapore",
+   "name": "Original Low Fat Milk Coffee Drink",
+   "found": true,
+   "parts": 1,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+   },
+   "coverage": {
+    "my-act672": "partial",
+    "sg-nea": "partial"
+   }
+  },
+  {
+   "code": "9300662874973",
+   "list": "singapore",
+   "name": "Natural Greek Style Yoghurt",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9556018000064",
+   "list": "singapore",
+   "name": "Chili Sauce",
+   "found": true,
+   "parts": 1,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+   },
+   "coverage": {
+    "my-act672": "partial",
+    "sg-nea": "partial"
+   }
+  },
+  {
+   "code": "4000400130570",
+   "list": "singapore",
+   "name": "Knödel Halb",
+   "found": true,
+   "parts": 3,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 3
+   },
+   "coverage": {
+    "my-act672": "partial",
+    "sg-nea": "partial"
+   }
+  },
+  {
+   "code": "7501003105431",
+   "list": "singapore",
+   "name": "Salsa guacamole frasco 240 g",
+   "found": true,
+   "parts": 2,
+   "confidence": {
+    "high": 0,
+    "medium": 1,
+    "low": 1
+   },
+   "coverage": {
+    "my-act672": "partial",
+    "sg-nea": "partial"
+   }
+  },
+  {
+   "code": "8003130141133",
+   "list": "singapore",
+   "name": "San Carlo Lime & Pink Pepper Flavour",
+   "found": true,
+   "parts": 1,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9317224400402",
+   "list": "singapore",
+   "name": "Tortillas Original",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "5711953006425",
+   "list": "singapore",
+   "name": "Mozzarella",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "9310653105658",
+   "list": "singapore",
+   "name": "12001262 Greek Yogurt Natural Light",
+   "found": true,
+   "parts": 1,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "0764302290209",
+   "list": "singapore",
+   "found": false,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "0802763020888",
+   "list": "singapore",
+   "name": "Prunes",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "3228020490343",
+   "list": "singapore",
+   "name": "President Toast",
+   "found": true,
+   "parts": 1,
+   "confidence": {
+    "high": 0,
+    "medium": 1,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "full",
+    "sg-nea": "full"
+   }
+  },
+  {
+   "code": "3760152700667",
+   "list": "singapore",
+   "name": "Goûtine Noix de Coco",
+   "found": true,
+   "parts": 4,
+   "confidence": {
+    "high": 2,
+    "medium": 0,
+    "low": 2
+   },
+   "coverage": {
+    "my-act672": "partial",
+    "sg-nea": "partial"
+   }
+  },
+  {
+   "code": "4893049150012",
+   "list": "singapore",
+   "name": "Oreo baby monster original",
+   "found": true,
+   "parts": 1,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+   },
+   "coverage": {
+    "my-act672": "partial",
+    "sg-nea": "partial"
+   }
+  },
+  {
+   "code": "7610400014038",
+   "list": "singapore",
+   "name": "Swiss Milk Chocolate Almond",
+   "found": true,
+   "parts": 2,
+   "confidence": {
+    "high": 0,
+    "medium": 2,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "full",
+    "sg-nea": "full"
+   }
+  },
+  {
+   "code": "8888440000048",
+   "list": "singapore",
+   "name": "Pure milk",
+   "found": true,
+   "parts": 1,
+   "confidence": {
+    "high": 0,
+    "medium": 1,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "full",
+    "sg-nea": "full"
+   }
+  },
+  {
+   "code": "8850228000151",
+   "list": "singapore",
+   "name": "Red Bull Energy",
+   "found": true,
+   "parts": 1,
+   "confidence": {
+    "high": 0,
+    "medium": 1,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "full",
+    "sg-nea": "full"
+   }
+  },
+  {
+   "code": "8888470010208",
+   "list": "singapore",
+   "name": "Pasteurized Fresh Milk",
+   "found": true,
+   "parts": 2,
+   "confidence": {
+    "high": 0,
+    "medium": 2,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "full",
+    "sg-nea": "full"
+   }
+  },
+  {
+   "code": "9317276000032",
+   "list": "singapore",
+   "name": "PURE BEECHWORTH HONEY",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "0073390000110",
+   "list": "singapore",
+   "name": "Mentos Mint",
+   "found": true,
+   "parts": 1,
+   "confidence": {
+    "high": 0,
+    "medium": 1,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "full",
+    "sg-nea": "full"
+   }
+  },
+  {
+   "code": "7039010149020",
+   "list": "singapore",
+   "name": "Stabburet Stabbur-Makrell",
+   "found": true,
+   "parts": 1,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+   },
+   "coverage": {
+    "my-act672": "partial",
+    "sg-nea": "partial"
+   }
+  },
+  {
+   "code": "29386611",
+   "list": "singapore",
+   "name": "Salted Chocolate Trail Mix",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "8901786101009",
+   "list": "singapore",
+   "name": "Everest garam Masala",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "3608580141082",
+   "list": "singapore",
+   "name": "Bonne Maman Peanut Butter",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "8445291046979",
+   "list": "singapore",
+   "name": "Strawberry Sparkling Beverage",
+   "found": true,
+   "parts": 0,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "none",
+    "sg-nea": "none"
+   }
+  },
+  {
+   "code": "0033674108956",
+   "list": "singapore",
+   "name": "Organic MCT Oil 100% MCTS",
+   "found": true,
+   "parts": 4,
+   "confidence": {
+    "high": 0,
+    "medium": 3,
+    "low": 1
+   },
+   "coverage": {
+    "my-act672": "partial",
+    "sg-nea": "partial"
+   }
+  },
+  {
+   "code": "3222473958450",
+   "list": "singapore",
+   "name": "Mention Bien Chocolat au Lait et aux Noisettes",
+   "found": true,
+   "parts": 1,
+   "confidence": {
+    "high": 0,
+    "medium": 1,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "full",
+    "sg-nea": "full"
+   }
+  },
+  {
+   "code": "4002239640503",
+   "list": "singapore",
+   "name": "Pepperonis /Pfefferonen",
+   "found": true,
+   "parts": 1,
+   "confidence": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+   },
+   "coverage": {
+    "my-act672": "partial",
+    "sg-nea": "partial"
+   }
+  },
+  {
+   "code": "5010204914442",
+   "list": "singapore",
+   "name": "Smoked Paprika",
+   "found": true,
+   "parts": 2,
+   "confidence": {
+    "high": 0,
+    "medium": 2,
+    "low": 0
+   },
+   "coverage": {
+    "my-act672": "full",
+    "sg-nea": "full"
+   }
+  }
+ ]
+}

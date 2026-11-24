@@ -81,16 +81,16 @@ await run('desktop', { width: 1280, height: 860 }, async (page) => {
   // Unknown barcode -> two-tap path still gives an answer
   await page.getByRole('button', { name: /Malaysia/ }).click();
   const input = page.locator('[data-lookup] input');
-  await input.fill('2000000000008');
+  await input.fill('9556231110045');
   await input.press('Enter');
   await page.getByRole('button', { name: 'Describe a part' }).waitFor({ timeout: 20000 });
   check(true, 'unknown barcode offers the two-tap path');
   await page.getByRole('button', { name: 'Describe a part' }).click();
-  await page.locator('[data-ask-shape="bottle"]').click();
+  await page.locator('[data-ask-shape="bag"]').click();
   await page.locator('[data-ask-material="plastic"]').click();
   await page.waitForTimeout(900);
   const plastic = await page.locator('.bin[data-bin="plastic"] .piece').count();
-  check(plastic === 1, 'two taps (bottle, plastic) put a part in Plastics');
+  check(plastic === 1, 'two taps (bag, plastic) put a part in Plastics');
   await page.screenshot({ path: join(out, 'two-tap-path.png'), fullPage: true });
 
   // About: measured coverage
