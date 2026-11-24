@@ -84,7 +84,7 @@ await run('desktop', { width: 1280, height: 860 }, async (page) => {
   await input.fill('9556231110045');
   await input.press('Enter');
   await page.getByRole('button', { name: 'Describe a part' }).waitFor({ timeout: 20000 });
-  check(true, 'unknown barcode offers the two-tap path');
+  check(true, 'product without packaging data offers the two-tap path');
   await page.getByRole('button', { name: 'Describe a part' }).click();
   await page.locator('[data-ask-shape="bag"]').click();
   await page.locator('[data-ask-material="plastic"]').click();

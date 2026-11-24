@@ -1,0 +1,18 @@
+import { chromium } from 'playwright';
+import { readFileSync } from 'node:fs';
+const b = await chromium.launch({ args: ['--use-mock-keychain', '--password-store=basic'] });
+const ctx = await b.newContext({ viewport: { width: 390, height: 844 } });
+const page = await ctx.newPage();
+await page.goto('' + (process.argv[2] ?? 'http://127.0.0.1:4173/') + '');
+await page.waitForFunction(() => navigator.serviceWorker.controller !== null || navigator.serviceWorker.ready, null, { timeout: 10000 });
+await page.waitForTimeout(3000);
+await page.reload();
+await page.waitForTimeout(1500);
+await ctx.setOffline(true);
+await page.reload();
+const h = await page.getByRole('heading', { name: /Every part/ }).waitFor({ timeout: 8000 }).then(() => true, (e) => String(e).slice(0, 200));
+await page.waitForTimeout(800);
+console.log('offline reload shows app:', h);
+const img = await page.locator('.hero-img').evaluate((el) => el.complete && el.naturalWidth > 0).catch(() => false);
+console.log('hero image offline:', img);
+await b.close();

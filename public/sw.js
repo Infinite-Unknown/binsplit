@@ -2,7 +2,7 @@
 // Open Food Facts lookups: network first, cached copy when offline.
 // (The app also keeps every lookup in localStorage.)
 
-const VERSION = 'binsplit-v1';
+const VERSION = 'binsplit-v2';
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
@@ -45,14 +45,14 @@ self.addEventListener('fetch', (event) => {
           }
           return res;
         })
-        .catch(() => caches.match(req).then((hit) => hit || Response.error())),
+        .catch(() => caches.match(req, { ignoreVary: true }).then((hit) => hit || Response.error())),
     );
     return;
   }
 
   if (url.origin !== self.location.origin) return;
   event.respondWith(
-    caches.match(req, { ignoreSearch: req.mode === 'navigate' }).then((hit) => {
+    caches.match(req, { ignoreSearch: req.mode === 'navigate', ignoreVary: true }).then((hit) => {
       const network = fetch(req)
         .then((res) => {
           if (res.ok) {
