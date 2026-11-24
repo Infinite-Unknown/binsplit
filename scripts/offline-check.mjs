@@ -1,9 +1,10 @@
+// Checks the built site works offline: load once, go offline, reload.
+//   npm run build && npm run preview, then: node scripts/offline-check.mjs [url]
 import { chromium } from 'playwright';
-import { readFileSync } from 'node:fs';
 const b = await chromium.launch({ args: ['--use-mock-keychain', '--password-store=basic'] });
 const ctx = await b.newContext({ viewport: { width: 390, height: 844 } });
 const page = await ctx.newPage();
-await page.goto('' + (process.argv[2] ?? 'http://127.0.0.1:4173/') + '');
+await page.goto(process.argv[2] ?? 'http://127.0.0.1:4173/');
 await page.waitForFunction(() => navigator.serviceWorker.controller !== null || navigator.serviceWorker.ready, null, { timeout: 10000 });
 await page.waitForTimeout(3000);
 await page.reload();
