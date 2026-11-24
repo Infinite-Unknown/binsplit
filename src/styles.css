@@ -586,6 +586,19 @@ p {
   .bins {
     grid-template-columns: 1fr;
   }
+  /* On phones, bins with parts come first; empty bins shrink to a line. */
+  .bin[data-empty='true'] {
+    order: 1;
+    padding-block: var(--s2);
+  }
+  .bin[data-empty='true'] .bin-note {
+    display: none;
+  }
+}
+@media (max-width: 899px) {
+  .searchbar .btn--primary {
+    display: none;
+  }
 }
 .bin {
   --tone: var(--ink-3);

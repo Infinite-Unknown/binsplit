@@ -5,6 +5,7 @@
 
 import { chromium, type Page } from 'playwright';
 import { mkdirSync } from 'node:fs';
+import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
@@ -107,13 +108,50 @@ await run('phone', { width: 390, height: 844 }, async (page) => {
   await page.screenshot({ path: join(out, 'start-phone.png') });
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth);
   check(!overflow, 'no horizontal scroll at 390 px');
-  await page.goto(`${base}?code=5449000000996&area=my-act672`);
-  await page.locator('.bin .piece').first().waitFor({ timeout: 20000 });
+  // Photo of a barcode -> decoded in the browser -> result
+  await page.locator('#photo').setInputFiles(join(out, 'test-barcode-5449000000996.png'));
+  await page.locator('.bin .piece').first().waitFor({ timeout: 25000 });
   await settle(page);
+  const shown = await page.locator('.product-sub').textContent();
+  check(!!shown?.includes('5449000000996'), 'barcode photo is decoded and looked up');
   await page.screenshot({ path: join(out, 'result-phone.png'), fullPage: true });
-  check(true, 'deep link ?code= opens a result on a phone');
+
+  // Offline: the same product again, from this device's saved lookups
+  await page.context().setOffline(true);
+  const input = page.locator('[data-lookup] input');
+  await input.fill('5449000000996');
+  await input.press('Enter');
+  await page.locator('.bin .piece').first().waitFor({ timeout: 10000 });
+  const saved = await page.locator('.product-sub').textContent();
+  check(!!saved?.includes('Saved on this device'), 'offline repeat lookup works from saved data');
+  await page.context().setOffline(false);
 });
 
 await browser.close();
+
+// Live camera path, with Chromium's fake camera playing a video of a barcode.
+{
+  const y4m = join(root, '.cache/barcode-cam.y4m');
+  mkdirSync(join(root, '.cache'), { recursive: true });
+  execFileSync('ffmpeg', ['-loglevel', 'error', '-y', '-loop', '1', '-i', join(out, 'test-barcode-5449000000996.png'),
+    '-vf', 'scale=640:-2,pad=1280:720:(ow-iw)/2:(oh-ih)/2:white,format=yuv420p', '-t', '3', '-r', '15', y4m]);
+  const cam = await chromium.launch({
+    args: ['--use-mock-keychain', '--password-store=basic', '--use-fake-ui-for-media-stream', '--use-fake-device-for-media-stream', `--use-file-for-fake-video-capture=${y4m}`],
+  });
+  const ctx = await cam.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, permissions: ['camera'] });
+  const page = await ctx.newPage();
+  try {
+    await page.goto(base);
+    await page.getByRole('button', { name: /Scan barcode/ }).click();
+    await page.locator('#stage-body .bin .piece').first().waitFor({ timeout: 30000 });
+    await page.waitForTimeout(2600);
+    check(!!(await page.locator('.product-sub').textContent())?.includes('5449000000996'), 'camera scan decodes the barcode and shows the product');
+    await page.screenshot({ path: join(out, 'result-from-camera-phone.png') });
+  } catch (e) {
+    check(false, `camera: ${e instanceof Error ? e.message : e}`);
+  }
+  await cam.close();
+}
+
 console.log(failures.length ? `\n${failures.length} check(s) failed` : '\nall checks passed');
 process.exit(failures.length ? 1 : 0);

@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>BinSplit video cards</title>
+    <style>
+      :root {
+        --board: #f3efe6;
+        --sheet: #fbf9f4;
+        --ink: #17201c;
+        --ink-2: #4c5650;
+        --ink-3: #6f7872;
+        --cut: rgb(23 32 28 / 0.35);
+        --signal: #d2462a;
+        --paper: #2a5c9e;
+        --plastic: #d9951e;
+        --others: #2f7a58;
+        --blue: #1e62c8;
+        --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+      }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; height: 100%; }
+      body {
+        background: var(--board);
+        color: var(--ink);
+        font-family: 'Instrument Sans Variable', sans-serif;
+        display: grid;
+        place-items: center;
+        overflow: hidden;
+      }
+      h1, h2, .big { font-family: 'Bricolage Grotesque Variable', sans-serif; letter-spacing: -0.035em; margin: 0; line-height: 1.02; }
+      .card { width: 1120px; position: relative; }
+      .rise { animation: rise 520ms var(--ease-out) both; animation-delay: calc(var(--i, 0) * 90ms); }
+      @keyframes rise { from { opacity: 0; transform: translateY(14px); } }
+      .board {
+        background: var(--sheet);
+        border-radius: 28px;
+        padding: 48px;
+        position: relative;
+        box-shadow: 0 1px 0 rgb(23 32 28 / 0.06), 0 24px 48px -24px rgb(23 32 28 / 0.35);
+      }
+      .board::before { content: ''; position: absolute; inset: 14px; border: 2px dashed var(--cut); border-radius: 20px; pointer-events: none; }
+      .muted { color: var(--ink-2); }
+      .small { font-size: 22px; color: var(--ink-3); }
+
+      /* title */
+      .title { display: grid; grid-template-columns: 1.15fr 1fr; gap: 40px; align-items: center; }
+      .title h1 { font-size: 92px; font-weight: 800; }
+      .title p { font-size: 34px; margin-top: 20px; color: var(--ink-2); line-height: 1.25; }
+      .title img { width: 100%; display: block;
+        -webkit-mask-image: linear-gradient(to right, transparent, #000 9%, #000 91%, transparent), linear-gradient(to bottom, #000 80%, transparent);
+        -webkit-mask-composite: source-in; }
+      .mark { display: flex; align-items: center; gap: 16px; font-family: 'Bricolage Grotesque Variable'; font-weight: 750; font-size: 34px; margin-bottom: 28px; }
+      .mark svg { width: 44px; height: 44px; }
+
+      /* statement */
+      .statement h2 { font-size: 76px; font-weight: 800; max-width: 18ch; }
+      .statement .src { margin-top: 28px; font-size: 22px; color: var(--ink-3); }
+      .split { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 48px; }
+      .split .board { padding: 36px; }
+      .split h3 { font-family: 'Bricolage Grotesque Variable'; font-size: 34px; margin: 0 0 18px; letter-spacing: -0.02em; }
+      .bins { display: flex; gap: 12px; flex-wrap: wrap; }
+      .bin { display: inline-flex; align-items: center; gap: 10px; font-size: 24px; font-weight: 600; padding: 10px 16px; border-radius: 12px; background: color-mix(in srgb, var(--tone) 10%, var(--board)); }
+      .bin i { width: 16px; height: 16px; border-radius: 4px; background: var(--tone); }
+
+      /* how it works */
+      .flow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 36px; }
+      .step { background: var(--sheet); border-radius: 20px; padding: 26px; box-shadow: 0 1px 0 rgb(23 32 28 / 0.06), 0 16px 32px -20px rgb(23 32 28 / 0.35); position: relative; }
+      .step b { display: block; font-family: 'Bricolage Grotesque Variable'; font-size: 28px; letter-spacing: -0.02em; margin-bottom: 8px; }
+      .step span { font-size: 20px; color: var(--ink-2); line-height: 1.35; display: block; }
+      .step:not(:last-child)::after { content: ''; position: absolute; right: -14px; top: 50%; width: 12px; border-top: 2px dashed var(--signal); }
+      .term { margin-top: 28px; background: #17201c; color: #e9e4d8; border-radius: 20px; padding: 26px 30px; font: 20px/1.55 ui-monospace, 'SF Mono', Menlo, monospace; white-space: pre; }
+      .term .p { color: #d2462a; }
+
+      /* measure */
+      .measures { display: grid; gap: 16px; margin-top: 36px; }
+      .measure { display: grid; grid-template-columns: 64px 1fr auto; align-items: center; gap: 20px; background: var(--sheet); border-radius: 20px; padding: 22px 28px; font-size: 26px; }
+      .measure .n { font-family: 'Bricolage Grotesque Variable'; font-size: 44px; font-weight: 800; color: var(--signal); }
+      .tag { font-size: 18px; font-weight: 600; padding: 6px 12px; border-radius: 999px; border: 1.5px solid var(--ink-3); color: var(--ink-2); }
+      .tag.done { border-color: var(--others); color: var(--others); }
+      .end { text-align: center; }
+      .end h1 { font-size: 120px; font-weight: 800; }
+      .end p { font-size: 30px; color: var(--ink-2); margin-top: 18px; }
+    </style>
+  </head>
+  <body>
+    <div class="card" id="card"></div>
+    <script type="module">
+      import '@fontsource-variable/bricolage-grotesque';
+      import '@fontsource-variable/instrument-sans';
+      import summary from '../../data/eval/summary.json';
+      const hero = new URL('../../src/hero-split.webp', import.meta.url).href;
+      const MARK = `<svg viewBox="0 0 32 32"><rect x="3" y="3" width="26" height="26" rx="7" fill="none" stroke="#17201c" stroke-width="2"/><path d="M16 3v26" stroke="#d2462a" stroke-width="2" stroke-dasharray="3 3"/><path d="M8 12h4M8 17h4M20 12h4M20 17h4" stroke="#17201c" stroke-width="2" stroke-linecap="round"/></svg>`;
+      const my = summary.packs['my-act672'];
+      const sg = summary.packs['sg-nea'];
+      const cards = {
+        title: `<div class="title">
+          <div><div class="mark rise">${MARK}BinSplit</div>
+          <h1 class="rise" style="--i:1">Every part.<br>The right bin.</h1>
+          <p class="rise" style="--i:2">Scan a barcode. See each packaging part and the bin it goes in, under official local rules.</p></div>
+          <img class="rise" style="--i:2" src="${hero}" alt="" /></div>`,
+        problem: `<div class="statement">
+          <h2 class="rise">40% of the items in recycling bins cannot be recycled due to contamination.</h2>
+          <p class="src rise" style="--i:1">Source: NEA Singapore, Recycle Right, "Know Your Contaminants" (page updated 25 June 2026)</p>
+          <div class="split">
+            <div class="board rise" style="--i:2"><h3>Packaging is mixed</h3><p class="muted" style="font-size:24px;margin:0">One jar is glass, plastic and aluminium. Each part has its own answer.</p></div>
+            <div class="board rise" style="--i:3"><h3>Rules change by place</h3>
+              <div class="bins" style="margin-bottom:14px"><span class="bin" style="--tone:var(--paper)"><i></i>Kertas</span><span class="bin" style="--tone:var(--plastic)"><i></i>Plastik</span><span class="bin" style="--tone:var(--others)"><i></i>Lain-lain</span></div>
+              <div class="bins"><span class="bin" style="--tone:var(--blue)"><i></i>One blue bin (Singapore)</span></div></div>
+          </div></div>`,
+        how: `<div><h2 class="rise" style="font-size:64px;font-weight:800">How it works</h2>
+          <div class="flow">
+            <div class="step rise" style="--i:1"><b>Barcode</b><span>Camera, photo or typed. Decoded in the browser.</span></div>
+            <div class="step rise" style="--i:2"><b>Open data</b><span>Open Food Facts packaging fields, normalised with its taxonomy.</span></div>
+            <div class="step rise" style="--i:3"><b>Reconcile</b><span>Fields merged into parts, with a confidence level.</span></div>
+            <div class="step rise" style="--i:4"><b>Local rules</b><span>Every rule cites a fetched official source.</span></div>
+          </div>
+          <div class="term rise" style="--i:5"><span class="p">$</span> npm run eval
+Barcodes: ${summary.total}  found: ${summary.found}  with packaging data: ${summary.withPackagingData}
+Parts: ${summary.parts}  confidence high/medium/low: ${summary.partConfidence.high}/${summary.partConfidence.medium}/${summary.partConfidence.low}
+${my.name.padEnd(20)} full ${my.full} (${my.fullPct}%)  partial ${my.partial} (${my.partialPct}%)  none ${my.none} (${my.nonePct}%)
+${sg.name.padEnd(20)} full ${sg.full} (${sg.fullPct}%)  partial ${sg.partial} (${sg.partialPct}%)  none ${sg.none} (${sg.nonePct}%)</div></div>`,
+        measure: `<div><h2 class="rise" style="font-size:64px;font-weight:800">How we would measure impact</h2>
+          <div class="measures">
+            <div class="measure rise" style="--i:1"><span class="n">1</span><span>Coverage: share of real barcodes that get part-level instructions</span><span class="tag done">measured</span></div>
+            <div class="measure rise" style="--i:2"><span class="n">2</span><span>Sorting accuracy: a ten-item quiz before and after using the app</span><span class="tag">planned</span></div>
+            <div class="measure rise" style="--i:3"><span class="n">3</span><span>Contamination by weight in one residence block's bins, before and after four weeks</span><span class="tag">planned pilot</span></div>
+          </div></div>`,
+        end: `<div class="end"><div class="mark rise" style="justify-content:center">${MARK}</div><h1 class="rise" style="--i:1">BinSplit</h1>
+          <p class="rise" style="--i:2">Open data. Official rules. Every part, the right bin.</p>
+          <p class="rise small" style="--i:3">Product data: Open Food Facts (ODbL). Rules: SWCorp Malaysia, NEA Singapore.</p></div>`,
+      };
+      const which = new URLSearchParams(location.search).get('card') ?? 'title';
+      document.getElementById('card').innerHTML = cards[which];
+    </script>
+  </body>
+</html>

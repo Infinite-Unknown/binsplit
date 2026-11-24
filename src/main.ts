@@ -40,9 +40,9 @@ const reduceMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matche
 const SAMPLES: Array<{ code: string; label: string }> = [
   { code: '3017620422003', label: 'Nutella jar' },
   { code: '5449000000996', label: 'Coca-Cola can' },
-  { code: '9556001288532', label: 'Milo carton' },
-  { code: '3274080005003', label: 'Water bottle' },
-  { code: '8901491101837', label: 'Lay’s chips' },
+  { code: '8888196173324', label: 'Green tea bottle' },
+  { code: '9300652809770', label: 'Oat milk carton' },
+  { code: '8801073113312', label: 'Spicy noodles' },
 ];
 
 // ---------- Helpers ----------
@@ -99,7 +99,7 @@ function lookupForm(id: string, autofocus = false) {
   return `
     <form class="lookup" data-lookup novalidate>
       <label class="visually-hidden" for="${id}">Barcode number</label>
-      <input id="${id}" name="code" inputmode="numeric" autocomplete="off" placeholder="Type a barcode, e.g. 3017620422003" value="${esc(state.view === 'start' ? '' : state.code)}" ${autofocus ? 'autofocus' : ''} />
+      <input id="${id}" name="code" inputmode="numeric" autocomplete="off" placeholder="Type a barcode number" value="${esc(state.view === 'start' ? '' : state.code)}" ${autofocus ? 'autofocus' : ''} />
       <button class="btn" type="submit">Look up</button>
     </form>`;
 }
@@ -193,7 +193,7 @@ function needsAnswer(s: SortedPart): boolean {
 function pieceLine(pk: RulePack, v: Extract<SortedPart['verdict'], { kind: 'rule' }>): string {
   const firsts = new Set(pk.rules.map((r) => r.prep[0]));
   if (firsts.size > 1) return v.rule.prep[0] ?? '';
-  return v.rule.specificity === 'listed' ? `Named in the ${pk.region === 'Malaysia' ? 'SWCorp' : 'NEA'} list` : 'Matched by material, not named in the list';
+  return v.rule.specificity === 'listed' ? `Named in the ${pk.region === 'Malaysia' ? 'SWCorp' : 'NEA'} list` : 'Matched by material';
 }
 
 function pieceHtml(s: SortedPart): string {
@@ -788,7 +788,16 @@ if (startCode) void lookup(startCode);
 else renderStart();
 
 if ('serviceWorker' in navigator && import.meta.env.PROD) {
-  navigator.serviceWorker.register('./sw.js').catch(() => {
-    /* offline support is a bonus, the app works without it */
-  });
+  navigator.serviceWorker
+    .register('./sw.js')
+    .then(() => navigator.serviceWorker.ready)
+    .then((reg) => {
+      const urls = [location.href.split('?')[0], ...performance.getEntriesByType('resource').map((e) => e.name)];
+      reg.active?.postMessage({ type: 'precache', urls });
+      // The scanner is loaded on demand; fetch it now so the camera and photo work offline too.
+      void import('./ui/scanner.ts');
+    })
+    .catch(() => {
+      /* offline support is a bonus, the app works without it */
+    });
 }

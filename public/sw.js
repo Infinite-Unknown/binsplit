@@ -22,6 +22,14 @@ self.addEventListener('activate', (event) => {
   );
 });
 
+// The page sends the URLs it already loaded (hashed build files), so the
+// first visit is enough to work offline afterwards.
+self.addEventListener('message', (event) => {
+  if (event.data?.type !== 'precache' || !Array.isArray(event.data.urls)) return;
+  const same = event.data.urls.filter((u) => new URL(u).origin === self.location.origin);
+  event.waitUntil(caches.open(VERSION).then((c) => Promise.all(same.map((u) => c.add(u).catch(() => {})))));
+});
+
 self.addEventListener('fetch', (event) => {
   const req = event.request;
   if (req.method !== 'GET') return;
