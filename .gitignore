@@ -16,6 +16,8 @@ playwright-report/
 BRIEF.md
 BUILD_LOG.md
 SUBMIT_CHECKLIST.md
+SUBMISSION.md
+POLISH.md
 
 # local caches
 .cache/
