@@ -7,7 +7,7 @@
 
 import { chromium, type Browser, type BrowserContext, type Page } from 'playwright';
 import { execFileSync } from 'node:child_process';
-import { mkdirSync, rmSync, writeFileSync, readdirSync, renameSync } from 'node:fs';
+import { existsSync, mkdirSync, rmSync, writeFileSync, readdirSync, renameSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
@@ -24,26 +24,54 @@ interface Scene {
   vo: string;
   caption?: string;
   card?: string;
+  /** Filmed in a phone-width frame (scripts/video/phone.html). */
+  phone?: boolean;
   run?: (page: Page) => Promise<void>;
 }
 
 const wait = (page: Page, ms: number) => page.waitForTimeout(ms);
 
+/** A themed caption bar: a registration mark and one line; a new line crossfades in. */
 async function caption(page: Page, text: string) {
-  await page.evaluate((t) => {
+  await page.evaluate(async (t) => {
     let el = document.getElementById('demo-caption');
     if (!el) {
       el = document.createElement('div');
       el.id = 'demo-caption';
       el.style.cssText =
-        'position:fixed;left:50%;bottom:28px;transform:translateX(-50%);z-index:9999;max-width:880px;' +
-        'background:#17201c;color:#f3efe6;font:600 20px/1.35 "Instrument Sans Variable",sans-serif;' +
-        'padding:12px 20px;border-radius:14px;box-shadow:0 18px 40px -18px rgb(23 32 28/.6);text-align:center;' +
-        'transition:opacity 200ms ease';
+        'position:fixed;left:50%;bottom:28px;z-index:9999;max-width:920px;display:flex;align-items:center;gap:14px;' +
+        'background:#17201c;color:#f3efe6;font:600 21px/1.35 "Instrument Sans Variable",sans-serif;letter-spacing:-0.005em;' +
+        'padding:14px 22px 14px 18px;border-radius:16px;box-shadow:0 1px 0 rgb(23 32 28/.2),0 22px 44px -18px rgb(23 32 28/.65);' +
+        'transform:translateX(-50%);opacity:0;transition:opacity 220ms ease,transform 320ms cubic-bezier(.23,1,.32,1)';
+      el.innerHTML =
+        '<svg viewBox="0 0 16 16" width="18" height="18" style="flex:none"><circle cx="8" cy="8" r="4" fill="none" stroke="#d2462a" stroke-width="1.4"/><path d="M8 0v16M0 8h16" stroke="#d2462a" stroke-width="1.4"/></svg><span></span>';
       document.body.appendChild(el);
+      el.querySelector('span')!.textContent = t;
+      el.style.transform = 'translate(-50%, 8px)';
+      el.getBoundingClientRect();
+      el.style.opacity = '1';
+      el.style.transform = 'translate(-50%, 0)';
+      return;
     }
-    el.textContent = t;
+    el.style.opacity = '0';
+    el.style.transform = 'translate(-50%, 6px)';
+    await new Promise((r) => setTimeout(r, 200));
+    el.querySelector('span')!.textContent = t;
+    el.style.opacity = '1';
+    el.style.transform = 'translate(-50%, 0)';
   }, text);
+}
+
+/** Load the product pictures before a scene starts, so the parts are cut from a visible image. */
+async function preloadImages(page: Page) {
+  await page.goto(base + '?area=my-act672');
+  await page.evaluate(async () => {
+    const urls = Object.keys(localStorage)
+      .filter((k) => k.startsWith('binsplit:product:'))
+      .map((k) => JSON.parse(localStorage.getItem(k)!)?.image_front_small_url)
+      .filter(Boolean) as string[];
+    await Promise.all(urls.map((u) => new Promise((r) => { const i = new Image(); i.onload = i.onerror = r; i.src = u; })));
+  });
 }
 
 /** Look a barcode up through the search field, retrying if Open Food Facts is busy. */
@@ -92,15 +120,17 @@ const scenes: Scene[] = [
       'This is a jar of Nutella. BinSplit looks up its packaging, splits it into parts, and sorts each part under the Malaysian rules from S W Corp. ' +
       'Here the records disagree: one lists six plastic bottles, the packaging text does not. So BinSplit asks, instead of guessing.',
     run: async (page) => {
-      await page.goto(base + '?area=my-act672');
       await page.getByRole('heading', { name: /Every part/ }).waitFor();
       await wait(page, 1800);
       await page.getByRole('button', { name: 'Nutella jar' }).click();
+      await caption(page, 'A real jar of Nutella: its packaging, split into parts');
       await page.locator('.bin--needs').waitFor({ timeout: 30000 });
-      await wait(page, 7000);
-      await caption(page, 'The records disagree, so it asks one question');
-      await wait(page, 3500);
+      await wait(page, 4200);
+      await caption(page, 'The records disagree on one part, so it asks instead of guessing');
+      await page.locator('.bin--needs .piece').hover();
+      await wait(page, 4200);
       await page.locator('[data-drop]').first().click();
+      await wait(page, 600);
       await caption(page, 'Glass jar and aluminium seal: Others. Plastic lid: Plastics.');
       await wait(page, 4000);
     },
@@ -127,7 +157,12 @@ const scenes: Scene[] = [
       await wait(page, 5500);
       await lookup(page, '8801073113312');
       await caption(page, 'Noodles: the foil-lined wrapper is not covered by the SWCorp list');
-      await wait(page, 6000);
+      await wait(page, 3800);
+      await page.locator('.bin--gap .piece-main').first().click();
+      await caption(page, 'Not covered here: no official rule, so no bin is guessed');
+      await wait(page, 4800);
+      await page.keyboard.press('Escape');
+      await wait(page, 600);
     },
   },
   {
@@ -144,6 +179,30 @@ const scenes: Scene[] = [
       await page.locator('.bin[data-bin="general"] .piece-main').first().click();
       await caption(page, 'Every answer cites its official source');
       await wait(page, 6000);
+    },
+  },
+  {
+    id: '04b-phone',
+    phone: true,
+    vo:
+      'On a phone, the parts come out of the product as a fanned deck, then each one drops into its bin. ' +
+      'One tap answers the question. One tap switches the area.',
+    run: async (page) => {
+      const app = page.frameLocator('#phone-app');
+      await app.getByRole('heading', { name: /Every part/ }).waitFor();
+      await caption(page, 'Phone width, the way it is used at the bin');
+      await wait(page, 1600);
+      await app.getByRole('button', { name: 'Nutella jar' }).click();
+      await app.locator('.bin--needs').waitFor({ timeout: 30000 });
+      await wait(page, 3600);
+      await app.locator('.bin--needs [data-drop]').first().click();
+      await caption(page, 'One tap answers the question');
+      await wait(page, 1600);
+      await app.locator('#bins').evaluate((el) => el.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+      await wait(page, 1800);
+      await app.getByRole('button', { name: 'Singapore' }).click();
+      await caption(page, 'One tap switches the area: the parts re-sort under NEA rules');
+      await wait(page, 3600);
     },
   },
   {
@@ -235,8 +294,9 @@ let storage: Awaited<ReturnType<BrowserContext['storageState']>> | undefined;
 // Warm-up (not recorded): look every demo product up once through the app, so a busy
 // Open Food Facts API (HTTP 429) cannot stall the recording. The app keeps each
 // lookup on the device, exactly as it does for a user; the recorded scenes then read it.
+const savedCache = join(root, '.cache/demo-storage.json');
 {
-  const ctx = await browser.newContext();
+  const ctx = await browser.newContext(existsSync(savedCache) ? { storageState: savedCache } : {});
   const page = await ctx.newPage();
   for (const code of ['3017620422003', '8888196173324', '8901262010016', '8801073113312', '5449000000996', '9556231110045']) {
     for (let attempt = 0; ; attempt++) {
@@ -253,7 +313,7 @@ let storage: Awaited<ReturnType<BrowserContext['storageState']>> | undefined;
       await wait(page, 30000);
     }
   }
-  storage = await ctx.storageState();
+  storage = await ctx.storageState({ path: savedCache });
   await ctx.close();
   console.log('warm-up done');
 }
@@ -276,6 +336,9 @@ for (const scene of scenes) {
     start = (Date.now() - t0) / 1000;
     await wait(page, Math.ceil(voLen * 1000) + 1500);
   } else {
+    // Not filmed: fetch the product pictures, and leave the page on the start screen.
+    await preloadImages(page);
+    if (scene.phone) await page.goto(`${base}scripts/video/phone.html?src=${encodeURIComponent(base + '?area=my-act672')}`);
     start = (Date.now() - t0) / 1000;
     const sceneStart = Date.now();
     await scene.run!(page);
