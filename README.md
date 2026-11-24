@@ -79,7 +79,8 @@ npm run taxonomy                 # rebuild src/data/taxonomy.json from data/off-
 npm run eval                     # coverage evaluation (live, resumable; --offline to reuse the snapshot)
 node scripts/smoke.ts URL        # browser smoke test with screenshots (needs Playwright's Chromium and ffmpeg)
 node scripts/offline-check.mjs URL   # the built site reloads offline (run against npm run preview)
-node scripts/record-demo.ts URL  # records assets/demo.mp4 from the running app (macOS `say` + ffmpeg)
+node scripts/record-demo.ts URL  # films the running app at 2x and makes the voice-over (local text-to-speech)
+node scripts/video/render.ts URL # camera moves, cursor, captions, cards, -16 LUFS mix -> assets/demo.mp4
 ```
 
 ### Deploy to GitHub Pages

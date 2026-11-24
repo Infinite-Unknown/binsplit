@@ -32,6 +32,7 @@
       h1, h2, .big { font-family: 'Bricolage Grotesque Variable', sans-serif; letter-spacing: -0.035em; margin: 0; line-height: 1.02; }
       .card { width: 1120px; position: relative; }
       @media (min-width: 1500px) { .card { zoom: 1.3; } }
+      @media (min-width: 1900px) { .card { zoom: 1.34; } }
       .rise { animation: rise 520ms var(--ease-out) both; animation-delay: calc(var(--i, 0) * 90ms); }
       @keyframes rise { from { opacity: 0; transform: translateY(14px); } }
       .board {
@@ -103,7 +104,7 @@
           <img class="rise" style="--i:2" src="${hero}" alt="" /></div>`,
         problem: `<div class="statement">
           <h2 class="rise">40% of the items in recycling bins cannot be recycled due to contamination.</h2>
-          <p class="src rise" style="--i:1">Source: NEA Singapore, Recycle Right, "Know Your Contaminants" (page updated 25 June 2026)</p>
+          <p class="src rise" style="--i:1">Source: Clean &amp; Green Singapore (NEA), Recycle Right, "Know Your Contaminants" (page updated 25 June 2026)</p>
           <div class="split">
             <div class="board rise" style="--i:2"><h3>Packaging is mixed</h3><p class="muted" style="font-size:24px;margin:0">One jar is glass, plastic and aluminium. Each part has its own answer.</p></div>
             <div class="board rise" style="--i:3"><h3>Rules change by place</h3>
@@ -130,7 +131,7 @@ ${sg.name.padEnd(20)} full ${sg.full} (${sg.fullPct}%)  partial ${sg.partial} ($
           </div></div>`,
         end: `<div class="end"><div class="mark rise" style="justify-content:center">${MARK}</div><h1 class="rise" style="--i:1">BinSplit</h1>
           <p class="rise" style="--i:2">Open data. Official rules. Every part, the right bin.</p>
-          <p class="rise small" style="--i:3">Product data: Open Food Facts (ODbL). Rules: SWCorp Malaysia, NEA Singapore.</p></div>`,
+          <p class="rise small" style="--i:3">Product data: Open Food Facts contributors (ODbL). Rules: SWCorp Malaysia, NEA Singapore. Contamination figure: Clean &amp; Green Singapore.</p></div>`,
       };
       const which = new URLSearchParams(location.search).get('card') ?? 'title';
       document.getElementById('card').innerHTML = cards[which];

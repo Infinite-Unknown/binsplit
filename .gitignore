@@ -23,3 +23,6 @@ POLISH.md
 .cache/
 PROJECT_STORY.md
 PITCH_NOTES.md
+
+# upload copy of the demo video (made by scripts/video/render.ts)
+assets/demo-upload.mp4
